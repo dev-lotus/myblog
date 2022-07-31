@@ -10,7 +10,7 @@ function Navbar() {
   return (
     <section>
 
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
           <a class="navbar-brand fs-2" href="#">SHare&CAre</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,14 +38,16 @@ function Navbar() {
             <form class="d-flex">
               <div class="dropdown text-end">
 
-                <a class="d-block link-dark text-decoration-none dropdown-toggle" href="#" role="" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                  <img src="https://i.ibb.co/wwygB6P/lotus-as.png" alt="mdo" width="62"  class="rounded-circle" />
+                <a class="d-block link-dark text-decoration-none dropdown-toggle text-white" href="#" role="" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img src="https://i.ibb.co/wwygB6P/lotus-as.png" alt="mdo" width="40"  class="rounded-circle" />
                 </a>
 
                 <ul class="dropdown-menu text-small" aria-labelledby="dropdownMenuLink">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                  
+                <li><a class="dropdown-item" href="#">My Profile</a></li>
+                  <li><a class="dropdown-item" href="#">Location</a></li>
+                  <li><a class="dropdown-item" href="#">Sign Out </a></li>
+                  
                 </ul>
               </div>
             </form>
