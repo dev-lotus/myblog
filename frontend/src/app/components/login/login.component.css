@@ -1,0 +1,15 @@
+
+.google-logo img {
+    width: 30px;
+    padding: 0 5px 0 0;
+}
+.btn-google {
+    color: #545454;
+    background-color: #ffffff;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    width: 100%;
+}
+.btn-google:hover{
+    box-shadow: rgba(0, 0, 0, 0.108) 0px 3px 8px;
+    
+}
