@@ -1,18 +1,48 @@
 const mongoose = require('mongoose')
 
 const userSchema = new mongoose.Schema({
-    username:{
+    profilePicture:{
+        type:String,
+        required:false,
+        default:"http://www.mountainheavensella.com/wp-content/uploads/2018/12/default-user.png"
+    },
+    firstName:{
         type: String,
         required:true
     },
-    password:{
-        type: String,
+    lastName:{
+        type:String,
         required:true
     },
-    description:{
-        type: String,
+    emailAddress:{
+        type:String,
         required:true
+    },
+    mobileNumber:{
+        type:Number,
+        required:false,
+        default:0
+    },
+    aboutYou:{
+        type: String,
+        required:false,
+        default:""
+    },
+    likes:{
+        type:Array,
+        required:false,
+        default:[]
+    },
+    dislikes:{
+        type:Array,
+        required:false,
+        default:[]
+    },
+    mylocation:{
+        type:Object,
+        required:false,
+        default:{"lat":0, "long":0}
     }
-})
+}, { versionKey: false })
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('Users', userSchema);

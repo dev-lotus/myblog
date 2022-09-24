@@ -13,19 +13,29 @@ router.get('/', async (req, res) => {
 })
 
 // ADD A USER
-router.post('/', async (req, res) => {
-    const user = new User({
-        username: req.body.username,
-        password: req.body.password,
-        description: req.body.description
-    })
+router.post('/addUser', async (req, res) => {
 
-    try {
-        const u1 = await user.save();
-        res.json(u1);
-    } catch (err) {
-        res.send('Error ' + err);
+    // Pre User if already exist or not
+    const userExist = await User.findOne({emailAddress:req.body.emailAddress});
+    
+    if(userExist)
+    {
+        return res.status(200).json(userExist);
+    }else{
+        const user = new User({
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            emailAddress: req.body.emailAddress
+        })
+    
+        try {
+            const u1 = await user.save();
+            res.status(200).json(u1);
+        } catch (err) {
+            res.status(502).send('Error ' + err);
+        }
     }
+   
 })
 
 // GET USER BY ID
@@ -43,7 +53,7 @@ router.get('/:id', async (req, res) => {
 router.patch('/:id', async(req,res)=>{
 try{
     const user = await User.findById(req.params.id);
-    user.description = req.body.description;
+    user.aboutYou = req.body.aboutYou;
     const u1 = await user.save();
     
     res.json(u1);
