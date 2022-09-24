@@ -11,16 +11,17 @@ export class LoginComponent implements OnInit {
   
   title = 'angular-google';
   user:any;
-  loggedIn:any;
+  loggedIn!:boolean;
 
 
-  constructor(private authService: SocialAuthService) { }
+  constructor(private authService: SocialAuthService ) { }
 
   ngOnInit() {
     this.authService.authState.subscribe((user) => {
       this.user = user;
       this.loggedIn = (user != null);
-      console.log(this.user)
+      console.log(this.user);
+      console.log(this.loggedIn);
     });
   }
   
