@@ -15,6 +15,7 @@ import { ListingComponent } from './components/listing/listing.component';
 import { RequestItemComponent } from './components/request-item/request-item.component';
 import { MessageComponent } from './components/message/message.component';
 import { SettingsComponent } from './components/settings/settings.component';
+import { MapComponent } from './components/map/map.component';
 
 const CLIENT_ID = "39639459278-dgjd1pif6o14m1c1le0hsi3244ml1bjr.apps.googleusercontent.com";
 @NgModule({
@@ -26,7 +27,8 @@ const CLIENT_ID = "39639459278-dgjd1pif6o14m1c1le0hsi3244ml1bjr.apps.googleuserc
     ListingComponent,
     RequestItemComponent,
     MessageComponent,
-    SettingsComponent
+    SettingsComponent,
+    MapComponent
   ],
   imports: [
     BrowserModule,
