@@ -1,0 +1,121 @@
+<app-navbar></app-navbar>
+
+
+<div class="container bg-light">
+    <div class="row p-2 p-md-3 mt-2 text-light rounded bg-blueClr">
+        <div class="col-md-12">
+            <h1 class="fw-bold">Profile</h1>
+        </div>
+    </div>
+    <div class="row p-2 p-md-3">
+        <div class="col-md-12">
+            <p class="lead fst-italic">Edit your profile information, which shows on your scheduling link and as well as
+                manage your subscription.</p>
+        </div>
+
+        <div class="col-md-12">
+
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home"
+                        type="button" role="tab" aria-controls="home" aria-selected="true">Profile
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile"
+                        type="button" role="tab" aria-controls="profile" aria-selected="false">Billing </button>
+                </li>
+
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div>
+                        <div class="mt-4 py-2">
+                            <h4>Edit Your information</h4>
+
+                            <div class="col-sm-6 upload-img py-2 mb-3">
+                                <div>
+                                    <img src="https://i.ibb.co/cNfndd0/crypto-cat1.png"
+                                        class="img-thumbnail rounded-circle" alt="" class="pb-2">
+                                </div>
+                                <br />
+                                <input type="file" accept=".png, .jpg, .jpeg" />
+
+                            </div>
+                            <form class="needs-validation" novalidate="">
+                                <div class="row g-3">
+                                  
+                                    <div class="col-sm-6">
+                                        <label for="fullName" class="form-label">First Name</label>
+                                        <input type="text" class="form-control" name="fullName">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="lastName" class="form-label">Last Name</label>
+                                        <input type="text" class="form-control" name="lastName">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="emailAddress" class="form-label">Email Address</label>
+                                        <input type="email" class="form-control" name="emailAddress">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="phoneNumber" class="form-label">Phone Number</label>
+                                        <input type="mobile" class="form-control" name="phoneNumber">
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="aboutYou" class="form-label">About You</label>
+                                        <textarea class="form-control" name="aboutYou" placeholder="Tell something about yourself"
+                                      rows="3"></textarea>
+                                      </div>
+                                      
+                                      <div class="likes-input col-sm-6">
+                                        <div class="">
+                                            <label for="likes" class="form-label">Likes</label>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="row">
+                                                <div class="col-sm-8 col-8"> 
+                                                      <input type="text" class="form-control" name="likes">
+                                                </div>
+                                                <div class="col-sm-4 col-4">
+                                                    <button class="btn btn-dark"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add</button>
+                                                </div>
+                                            </div>
+                                           
+                                        </div>
+                                       
+                                    </div>
+                                    
+                                    <div class="dislikes-input col-sm-6">
+                                        <div class="">
+                                            <label for="dislikes" class="form-label">Dislikes</label>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="row">
+                                                <div class="col-sm-8 col-8"> 
+                                                      <input type="text" class="form-control" name="dislikes">
+                                                </div>
+                                                <div class="col-sm-4 col-4">
+                                                    <button class="btn btn-dark"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add</button>
+                                                </div>
+                                            </div>
+                                           
+                                        </div>
+                                       
+                                    </div>
+                                </div>
+                                <hr class="my-4">
+
+
+                                <button class="w-100 btn btn-primary btn-lg"   type="submit" >Update</button>
+                            </form>
+                           
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade d-flex justify-content-center pt-4" id="profile" role="tabpanel"
+                    aria-labelledby="profile-tab">
+                    <h4>You are on free subscription.</h4>
+                </div>
+            </div>
+        </div>
+    </div>

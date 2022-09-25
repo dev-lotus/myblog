@@ -1,0 +1,150 @@
+<app-navbar></app-navbar>
+<section class="container  bg-light">
+  <div class="row p-2 p-md-3 mt-2 text-light rounded bg-blueClr">
+    <div class="col-md-12">
+      <h1 class="fw-bold">Message</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12  pt-2">
+      <p class="lead fst-italic">See upcoming and past events booked through your event type links.</p>
+    </div>
+    <div class="col-md-12">
+      <ul class="nav nav-tabs mb-2" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Requested</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Received Request</button>
+        </li>
+      
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+          
+          <div class="row mx-1 my-2">
+            <div class="col-md-12 mb-2 text-dark rounded bg-white border border-1 shadow-sm bg-body rounded" >
+              <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-4  ">
+                <div>
+                  <div class="head d-flex">
+                    <div class="left">
+                        <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80" width="50" className="rounded-circle" />
+                    </div>
+                    <div class="right mx-2 my-auto">
+                      <h6 class="fw-bold">LOTUS BISWAS</h6>
+                      <span class="text-muted"> <i class="fa fa-map-marker" aria-hidden="true"></i> 7.0 KM away </span>
+                    </div>
+                   </div>
+                  <div class="mt-3">
+                    <span class="text-muted mt-2"><i class="fa fa-clock-o" aria-hidden="true"></i> Added at 12:03 PM, Sept 26, 2022 </span>
+                    <br/>
+                      
+                    <span> Requested: Chicken Briyani</span><br/>
+                    <span><i class="fa fa-calendar-o" aria-hidden="true"></i> 12:03 PM | Sept 26, 2022</span>
+                   
+                  </div>
+                </div>
+                <div>
+                  <div class="btn-toolbar mt-2 mb-2 mb-md-0">
+                    <div class="btn-group me-2 ">
+                      <a href="request/:id"  class="btn btn-secondary" style="margin-right: 4px;"><i class="fa fa-eye" aria-hidden="true"></i> View</a>
+                      <button type="button" class="btn btn-success" style="margin-right: 4px;"><i class="fa fa-phone" aria-hidden="true"></i>   </button>
+                      <button type="button" class="btn btn-warning"><i class="fa fa-clock-o" aria-hidden="true"></i> Pending</button>
+                  
+                    </div>
+                  
+                  </div>
+                  
+                </div>
+              </div>
+        </div>
+      </div>
+
+
+        </div>
+        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+          <div class="row mx-1 ">
+            <div class="col-md-12 mb-2 text-dark rounded bg-white border border-1 shadow-sm bg-body rounded" >
+              <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-4  ">
+                <div>
+                  <div class="head d-flex">
+                    <div class="left">
+                        <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80" width="50" className="rounded-circle" />
+                    </div>
+                    <div class="right mx-2 my-auto">
+                      <h6 class="fw-bold">LOTUS BISWAS</h6>
+                      <span class="text-muted"> <i class="fa fa-map-marker" aria-hidden="true"></i> 7.0 KM away </span>
+                    </div>
+                   </div>
+                  <div class="mt-3">
+                    <span class="text-muted mt-2"><i class="fa fa-clock-o" aria-hidden="true"></i> Added at 12:03 PM, Sept 26, 2022 </span>
+                    <br/>
+                      
+                    <span>Received Request: Chicken Briyani</span><br/>
+                    <span><i class="fa fa-calendar-o" aria-hidden="true"></i> 12:03 PM | Sept 26, 2022</span>
+                   
+                  </div>
+                </div>
+                <div>
+                  <div class="btn-toolbar mt-2 mb-2 mb-md-0">
+                    <div class="btn-group me-2 ">
+                      <button type="button" class="btn btn-success" style="margin-right: 4px;"><i class="fa fa-check-circle" aria-hidden="true" ></i></button>
+                      <button type="button" class="btn btn-danger" style="margin-right: 4px;"><i class="fa fa-window-close" aria-hidden="true" ></i></button>
+                      <button type="button" class="btn btn-success" style="margin-right: 4px;"><i class="fa fa-phone" aria-hidden="true"></i>   </button>
+                     
+                      <a href="request/:id"  class="btn btn-secondary"><i class="fa fa-eye" aria-hidden="true"></i> View</a>
+                     
+                    </div>
+                  
+                  </div>
+                  
+                </div>
+              </div>
+        </div>
+      </div>
+      <div class="row mx-1 ">
+        <div class="col-md-12 mb-2 text-dark rounded bg-white border border-1 shadow-sm bg-body rounded" >
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-4  ">
+            <div>
+              <div class="head d-flex">
+                <div class="left">
+                    <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80" width="50" className="rounded-circle" />
+                </div>
+                <div class="right mx-2 my-auto">
+                  <h6 class="fw-bold">LOTUS BISWAS</h6>
+                  <span class="text-muted"> <i class="fa fa-map-marker" aria-hidden="true"></i> 7.0 KM away </span>
+                </div>
+               </div>
+              <div class="mt-3">
+                <span class="text-muted mt-2"><i class="fa fa-clock-o" aria-hidden="true"></i> Added at 12:03 PM, Sept 26, 2022 </span>
+                <br/>
+                  
+                <span>Received Request: Chicken Briyani</span><br/>
+                <span><i class="fa fa-calendar-o" aria-hidden="true"></i> 12:03 PM | Sept 26, 2022</span>
+               
+              </div>
+            </div>
+            <div>
+              <div class="btn-toolbar mt-2 mb-2 mb-md-0">
+                <div class="btn-group me-2 ">
+                  <button type="button" class="btn btn-success" style="margin-right: 4px;"><i class="fa fa-check-circle" aria-hidden="true" ></i></button>
+                  <button type="button" class="btn btn-danger" style="margin-right: 4px;"><i class="fa fa-window-close" aria-hidden="true" ></i></button>
+                  <button type="button" class="btn btn-success" style="margin-right: 4px;"><i class="fa fa-phone" aria-hidden="true"></i>   </button>
+                 
+                  <a href="request/:id"  class="btn btn-secondary"><i class="fa fa-eye" aria-hidden="true"></i> View</a>
+                 
+                </div>
+              
+              </div>
+              
+            </div>
+          </div>
+    </div>
+  </div>
+      
+        </div>
+       
+      </div>
+    </div>
+</div>
+</section>
