@@ -8,3 +8,10 @@
     font-family: 'Spectral', serif;   
   
 }
+.link-direct{
+    text-decoration: none;
+    color: black;
+}
+.link-direct:hover{
+    color: black;
+}

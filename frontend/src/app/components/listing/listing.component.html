@@ -1,0 +1,51 @@
+<app-navbar></app-navbar>
+
+<section class="container bg-light py-4 mb-5 rounded">
+    <div class="">
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Free</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Borrow</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Wanted</button>
+            </li>
+          </ul>
+    </div>
+  
+      <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+            <div>
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <div class="col">
+                        <a href="request/:id" class="link-direct">
+                            <div class="card h-100">
+                                <img src="https://cdn.britannica.com/36/123536-050-95CB0C6E/Variety-fruits-vegetables.jpg" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h4 class="card-title fw-bold">Chicken Briyani</h4>
+                                    <p>This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                    <p class="card-text "><span><img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80" width="40" className="rounded-circle" /></span> Lotus Biswas </p>
+        
+                                </div>
+                                <div class="card-footer d-flex justify-content-around">
+                                    <div class="distance">
+                                     <p><i class="fa fa-map-marker" aria-hidden="true"></i> 5.5 KM</p>
+                                    </div>
+                                    <div class="timeAdded">
+                                     <p>Just Added</p>
+                                 </div>
+                                 </div>
+                              </div>
+                        </a>
+                      
+                    </div>
+              
+                  </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">BORROW</div>
+        <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">WANTED</div>
+      </div>
+</section>

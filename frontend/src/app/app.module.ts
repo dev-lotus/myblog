@@ -10,13 +10,21 @@ import {
   GoogleLoginProvider
 } from '@abacritt/angularx-social-login';
 import { HttpClientModule } from '@angular/common/http';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { ListingComponent } from './components/listing/listing.component';
+import { RequestItemComponent } from './components/request-item/request-item.component';
+import { MessageComponent } from './components/message/message.component';
 
 const CLIENT_ID = "39639459278-dgjd1pif6o14m1c1le0hsi3244ml1bjr.apps.googleusercontent.com";
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    NavbarComponent,
+    ListingComponent,
+    RequestItemComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule,
