@@ -11,5 +11,8 @@ export class ListingComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  loveReact()
+  {
+    alert("Hi");
+  }
 }
