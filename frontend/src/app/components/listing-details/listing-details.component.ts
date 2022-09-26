@@ -3,11 +3,11 @@ import * as mapboxgl from 'mapbox-gl';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-request-item',
-  templateUrl: './request-item.component.html',
-  styleUrls: ['./request-item.component.css']
+  selector: 'app-listing-details',
+  templateUrl: './listing-details.component.html',
+  styleUrls: ['./listing-details.component.css']
 })
-export class RequestItemComponent implements OnInit {
+export class ListingDetailsComponent implements OnInit {
   lat = 23.41248256345665;
   lng = 88.48786130507187;
   map!: mapboxgl.Map;

@@ -12,13 +12,14 @@ import {
 import { HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ListingComponent } from './components/listing/listing.component';
-import { RequestItemComponent } from './components/request-item/request-item.component';
-import { MessageComponent } from './components/message/message.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { MapComponent } from './components/map/map.component';
 import { AddFreeListingComponent } from './components/add-free-listing/add-free-listing.component';
 import { AddWantedListingComponent } from './components/add-wanted-listing/add-wanted-listing.component';
 import { AddBorrowListingComponent } from './components/add-borrow-listing/add-borrow-listing.component';
+import { MyLocationComponent } from './components/my-location/my-location.component';
+import { ListingDetailsComponent } from './components/listing-details/listing-details.component';
+import { RequestComponent } from './components/request/request.component';
 
 const CLIENT_ID = "39639459278-dgjd1pif6o14m1c1le0hsi3244ml1bjr.apps.googleusercontent.com";
 @NgModule({
@@ -28,13 +29,14 @@ const CLIENT_ID = "39639459278-dgjd1pif6o14m1c1le0hsi3244ml1bjr.apps.googleuserc
     HomeComponent,
     NavbarComponent,
     ListingComponent,
-    RequestItemComponent,
-    MessageComponent,
     SettingsComponent,
     MapComponent,
     AddFreeListingComponent,
     AddWantedListingComponent,
-    AddBorrowListingComponent
+    AddBorrowListingComponent,
+    MyLocationComponent,
+    ListingDetailsComponent,
+    RequestComponent
   ],
   imports: [
     BrowserModule,

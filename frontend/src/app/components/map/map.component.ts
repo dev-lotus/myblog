@@ -105,7 +105,7 @@ export class MapComponent implements OnInit {
       // create a HTML element for each feature
       const el = document.createElement('div');
       el.className = 'marker';
-      
+      el.style.backgroundImage = "url(https://img.icons8.com/flat-round/2x/home.png)";
 
       // make a marker for each feature and add it to the map
       new mapboxgl.Marker(el)
