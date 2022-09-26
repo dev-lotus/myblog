@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AddBorrowListingComponent } from './components/add-borrow-listing/add-borrow-listing.component';
+import { AddFreeListingComponent } from './components/add-free-listing/add-free-listing.component';
+import { AddWantedListingComponent } from './components/add-wanted-listing/add-wanted-listing.component';
 import { HomeComponent } from './components/home/home.component';
 import { ListingComponent } from './components/listing/listing.component';
 import { LoginComponent } from './components/login/login.component';
@@ -15,9 +18,13 @@ const routes: Routes = [
   {path:'home', component:HomeComponent, canActivate:[AuthGuardService]},
   {path:'listing', component:ListingComponent, canActivate:[AuthGuardService]},
   {path:'request/:id', component:RequestItemComponent, canActivate:[AuthGuardService]},
-  {path:'message', component:MessageComponent, canActivate:[AuthGuardService]},
+  {path:'request', component:MessageComponent, canActivate:[AuthGuardService]},
   {path:'settings', component:SettingsComponent, canActivate:[AuthGuardService]},
-  {path:'map', component:MapComponent, canActivate:[AuthGuardService]}
+  {path:'map', component:MapComponent, canActivate:[AuthGuardService]},
+  {path:'add-free', component:AddFreeListingComponent, canActivate:[AuthGuardService]},
+  {path:'add-borrow', component:AddBorrowListingComponent, canActivate:[AuthGuardService]},
+  {path:'add-wanted', component:AddWantedListingComponent, canActivate:[AuthGuardService]}
+
 
 ];
 

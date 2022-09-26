@@ -3,11 +3,11 @@ import * as mapboxgl from 'mapbox-gl';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-request-item',
-  templateUrl: './request-item.component.html',
-  styleUrls: ['./request-item.component.css']
+  selector: 'app-add-free-listing',
+  templateUrl: './add-free-listing.component.html',
+  styleUrls: ['./add-free-listing.component.css']
 })
-export class RequestItemComponent implements OnInit {
+export class AddFreeListingComponent implements OnInit {
   lat = 23.41248256345665;
   lng = 88.48786130507187;
   map!: mapboxgl.Map;
@@ -59,7 +59,25 @@ export class RequestItemComponent implements OnInit {
       showUserHeading: true
       });
 
+       /// Add map controls
+   const navControl = new mapboxgl.NavigationControl({
+    visualizePitch:true
+  });
+
+  this.map.addControl(navControl,"bottom-right");
+  this.map.addControl(trackPin,"bottom-right")
+
+  var marker = new mapboxgl.Marker();
+
+  const add_marker =  (event: { lngLat: any; }) => {
+var coordinates = event.lngLat;
+console.log('Lng:', coordinates.lng, 'Lat:', coordinates.lat);
+marker.setLngLat(coordinates).addTo(this.map);
+}
+
+this.map.on('click', add_marker);
    
       }
+
 
 }

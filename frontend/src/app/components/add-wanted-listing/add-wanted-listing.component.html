@@ -1,0 +1,107 @@
+<app-navbar></app-navbar>
+
+<div class="container bg-light">
+    <div class="row p-2 p-md-3 mt-2 text-light rounded bg-blueClr">
+        <div class="col-md-12">
+            <h1 class="fw-bold">Add Free Wanted</h1>
+        </div>
+    </div>
+    <div class="row p-2 p-md-3">
+        <div class="col-md-12">
+            <p class="lead fst-italic">Ask for something</p>
+        </div>
+
+        <div class="col-md-12">
+
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home"
+                        type="button" role="tab" aria-controls="home" aria-selected="true">Free Wanted
+                    </button>
+                </li>
+              
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div>
+                        <div class="mt-4 py-2">
+                            <label for="addFreeListingImg" class="form-label">Add Photos (Upto 2)</label>
+                                     
+                            <div class="col-sm-6 upload-img py-2 mb-3 ">
+                                
+                                <div class="row d-flex">
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-12 mb-lg-0 mb-md-0 mb-4">
+                                        <div>
+                                            <img src="https://cdn.pixabay.com/photo/2017/11/10/05/24/add-2935429_960_720.png"
+                                                class="img-thumbnail rounded-circle" alt="" class="pb-2">
+                                        </div>
+                                        <br />
+                                        <input type="file" accept=".png, .jpg, .jpeg" />
+        
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                        <div>
+                                            <img src="https://cdn.pixabay.com/photo/2017/11/10/05/24/add-2935429_960_720.png"
+                                                class="img-thumbnail rounded-circle" alt="" class="pb-2">
+                                        </div>
+                                        <br />
+                                        <input type="file" accept=".png, .jpg, .jpeg" />
+        
+                                    </div>
+                                </div>
+                               
+                                
+                            </div>
+                            <form class="needs-validation" novalidate="">
+                                <div class="row g-3">
+                                    <div class="col-sm-6">
+                                        <label for="title" class="form-label">Title</label>
+                                        <input type="text" class="form-control" name="title">
+                                    </div>
+                                  
+                                    <div class="col-12">
+                                        <label for="aboutYou" class="form-label">Description</label>
+                                        <textarea class="form-control" name="aboutYou" placeholder="e.g. I'm looking for some plant pots /  a drill I can borrow / a homemade birthday cake."
+                                      rows="3"></textarea>
+                                      </div>
+                                    <div class="col-sm-6">
+                                        <label for="pickUpTiming" class="form-label">Pick Up Time</label>
+                                        <input type="text" class="form-control" placeholder="e.g. Anytime this weekend" name="pickUpTiming">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                          <div >
+                                            <label for="listFor" class="form-label">List For </label>
+                                            <select class="form-select" id="listFor" required="">
+                                              <option value="1">1 Day</option>
+                                              <option value="2">2 Days</option>
+                                              <option value="4">4 Days</option>
+                                              <option value="6">6 Days</option>
+                                              <option value="10">10 Days</option>
+                                              <option value="15">15 Days</option>
+                                              <option value="20">28 Days</option>
+                                              <option value="28">28 Days</option>
+                                            </select>
+                                          </div>
+                                        </div>
+                                      </div>
+                                   
+                                      <div class="col-lg-12 col-md-12 col-sm-12 col-12 mb-4">
+                                        <label for="listFor" class="form-label">Your Location (approx) </label>
+                                        <div id="map" class="map-container"></div>
+                                    </div>
+                                    
+                                </div>
+                                <hr class="my-4">
+
+
+                                <button class="w-100 btn btn-primary btn-lg"   type="submit" >Submit</button>
+                            </form>
+                           
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+    </div>

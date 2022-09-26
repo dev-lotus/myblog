@@ -14,12 +14,12 @@ export class MapComponent implements OnInit {
   lng = 88.48786130507187;
   map!: mapboxgl.Map;
   style = 'mapbox://styles/mapbox/satellite-streets-v11'
-  message = 'sjh';
+
   // data
   source: any;
   markers: any;
   constructor() {
-       (mapboxgl as any).accessToken = 'pk.eyJ1IjoibG90dXNiaXN3YXMiLCJhIjoiY2t5ZTd4ZnFjMDUycjJucG1vamhuMmFxbSJ9.iot_0EeUP_G4rtV33DV_QA';
+       (mapboxgl as any).accessToken = environment.mapbox.accessToken ;
   }
 
   ngOnInit(): void {
@@ -110,12 +110,12 @@ export class MapComponent implements OnInit {
       // make a marker for each feature and add it to the map
       new mapboxgl.Marker(el)
       .setLngLat([88.48786130507187,23.41248256345665])
-      .setPopup(
-      new mapboxgl.Popup({ offset: 25 }) // add popups
-      .setHTML(
-      `<h3>${feature.properties.title}</h3>`
-      )
-      )
+      // .setPopup(
+      // new mapboxgl.Popup({ offset: 25 }) // add popups
+      // .setHTML(
+      // `<h3>${feature.properties.title}</h3>`
+      // )
+      // )
       .addTo(this.map);
       }
       
