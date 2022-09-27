@@ -53,6 +53,42 @@ router.patch('/updateMyLocation/:id', async(req, res)=>{
        
 });
 
+//  UPDATE USER PROFILE PICTURE
+router.patch('/updateMyProfilePicture/:id', async(req, res)=>{
+    try{
+        const user = await User.findById(req.params.id);
+        user.profilePicture =req.body.profilePicture;      
+        const u1 = await user.save();
+        
+        res.status(200).json(true);
+    
+    }catch (err) {
+        res.status(502).send('Error ' + err);
+    }
+       
+});
+
+//  UPDATE USER DATA
+router.patch('/updateUserData/:id', async(req, res)=>{
+    try{
+        const user = await User.findById(req.params.id);
+        user.firstName =req.body.firstName;   
+        user.lastName =req.body.lastName;      
+        user.aboutYou =req.body.aboutYou;   
+        user.emailAddress =req.body.emailAddress;   
+        user.mobileNumber =req.body.mobileNumber;  
+        user.likes =req.body.likes;   
+        user.dislikes =req.body.dislikes;  
+        const u1 = await user.save();
+        
+        res.status(200).json(true);
+    
+    }catch (err) {
+        res.status(502).send('Error ' + err);
+    }
+       
+});
+
 //  GET USER LOCATION
 router.get('/getMyLocation/:id', async(req, res)=>{
     try{
@@ -73,6 +109,19 @@ router.get('/getMyLocation/:id', async(req, res)=>{
     }
        
 });
+
+
+// GET USER BY ID
+router.get('/getUserDataById/:id', async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+        res.json([user]);
+
+    } catch (err) {
+        res.send('Error ' + err);
+    }
+})
+
 
 // GET USER BY ID
 router.get('/:id', async (req, res) => {

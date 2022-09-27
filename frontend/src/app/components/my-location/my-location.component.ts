@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import * as mapboxgl from 'mapbox-gl';
 import { UserServiceService } from 'src/app/services/user-service/user-service.service';
 import { environment } from 'src/environments/environment';
+import { NgToastService } from 'ng-angular-popup';
+import { NgxSpinner, NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-my-location',
@@ -14,6 +16,7 @@ export class MyLocationComponent implements OnInit {
   userToken!: string;
   latitude = 23.4444;
   longitude = 43.2222;
+  myLocationButton: any = "disabled";
 
   status: any;
   errMsg: any;
@@ -29,7 +32,7 @@ export class MyLocationComponent implements OnInit {
   onClickLat !: number;
 
 
-  constructor(private _userService: UserServiceService, private router: Router) {
+  constructor(private spinner: NgxSpinnerService,private _toast: NgToastService, private _userService: UserServiceService, private router: Router) {
     (mapboxgl as any).accessToken = environment.mapbox.accessToken;
     this.userToken = String(localStorage.getItem("userId"));
     this.latitude = Number(localStorage.getItem("myLocationLat"));
@@ -116,6 +119,8 @@ buildMap() {
     this.onClickLng = coordinates.lng;
     this.onClickLat = coordinates.lat;
     marker.setLngLat(coordinates).addTo(this.map);
+   this.myLocationButton = "enabled";
+   console.log("click");
   }
 
   this.map.on('click', add_marker);
@@ -159,26 +164,46 @@ setHomeLocation() {
 }
 
   updateMyLocation() {
+    this.spinner.show();
+       
     this._userService.updateUserLocation(this.userToken, this.onClickLng, this.onClickLat).subscribe(
       res => {
+        setTimeout(() => {
+          /** spinner ends after 5 seconds */
+          this.spinner.hide();
+        }, 1000);
         this.status = res;
   
         if (this.status == true) {
           localStorage.setItem("myLocationLng",String(this.onClickLng));
             localStorage.setItem("myLocationLat",String(this.onClickLat));
-          alert("Updated SUCESS");
+            this._toast.success({ detail: "UPDATE SUCCESS", summary: 'Your home location have been updated',position: 'br'});
+         
           setTimeout(function () {
             window.location.reload();
           }, 2000);
         }
         else {
-          alert(" FAILED");
+          setTimeout(() => {
+            /** spinner ends after 5 seconds */
+            this.spinner.hide();
+          }, 1000);
+          this._toast.warning({ detail: "UPDATE FAILED", summary: 'Unable to update your home location',position: 'br'});
+          setTimeout(function () {
+            window.location.reload();
+          }, 2000);   
         }
       }, err => {
+        setTimeout(() => {
+          /** spinner ends after 5 seconds */
+          this.spinner.hide();
+        }, 1000);
         this.errMsg = err;
-        console.log(this.errMsg)
-      }
-    )
+        this._toast.warning({ detail: "FAILED", summary: 'Please try after sometime',position: 'br'});
+        setTimeout(function () {
+          window.location.reload();
+        }, 2000);
+      }, () => console.log("My Location update method excuted successfully"));
   }
 
 

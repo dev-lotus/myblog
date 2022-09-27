@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule ,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -20,6 +20,15 @@ import { AddBorrowListingComponent } from './components/add-borrow-listing/add-b
 import { MyLocationComponent } from './components/my-location/my-location.component';
 import { ListingDetailsComponent } from './components/listing-details/listing-details.component';
 import { RequestComponent } from './components/request/request.component';
+import { ImgurApiService } from './components/settings/imgur-api.service';
+
+import { NgToastModule } from 'ng-angular-popup';
+
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+// Import library module
+import { NgxSpinnerModule } from "ngx-spinner";
+import { FormsModule } from '@angular/forms';
+
 
 const CLIENT_ID = "39639459278-dgjd1pif6o14m1c1le0hsi3244ml1bjr.apps.googleusercontent.com";
 @NgModule({
@@ -42,8 +51,13 @@ const CLIENT_ID = "39639459278-dgjd1pif6o14m1c1le0hsi3244ml1bjr.apps.googleuserc
     BrowserModule,
     AppRoutingModule,
     SocialLoginModule,
-    HttpClientModule
+    HttpClientModule,
+    NgToastModule ,
+    BrowserAnimationsModule,
+    NgxSpinnerModule,
+    FormsModule,
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     {
       provide: "SocialAuthServiceConfig",
@@ -58,7 +72,8 @@ const CLIENT_ID = "39639459278-dgjd1pif6o14m1c1le0hsi3244ml1bjr.apps.googleuserc
           }
         ]
       } as SocialAuthServiceConfig
-    }
+    },
+    ImgurApiService
   ],
   bootstrap: [AppComponent]
 })

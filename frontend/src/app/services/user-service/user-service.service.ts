@@ -1,6 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, retry, throwError } from 'rxjs';
+import { User } from 'src/app/interface/user';
 
 @Injectable({
   providedIn: 'root'
@@ -18,13 +19,35 @@ export class UserServiceService {
       emailAddress: emailAddress
     }).pipe(catchError(this.errorHandler));
   }
+  getUserDataById(userToken: string): Observable<User[]> {
+    return this.http.get<User[]>(this.user_api_url + "/getUserDataById/" + userToken).pipe(catchError(this.errorHandler));
+  }
   getMyLocation(userToken: string): Observable<any> {
     return this.http.get<any>(this.user_api_url + "/getMyLocation/" + userToken).pipe(catchError(this.errorHandler));
   }
+
   updateUserLocation(userToken: string, lng: number, lat: number): Observable<boolean> {
     return this.http.patch<boolean>(this.user_api_url + "/updateMyLocation/" + userToken, {
       lng: lng,
       lat: lat
+    }).pipe(catchError(this.errorHandler));
+  }
+  
+  updateUserProfilePicture(userToken: string, profilePicture: string): Observable<boolean> {
+    return this.http.patch<boolean>(this.user_api_url + "/updateMyProfilePicture/" + userToken, {
+      profilePicture: profilePicture
+    }).pipe(catchError(this.errorHandler));
+  }
+
+  updateUserData(userToken:string, firstName:string, lastName:string, emailAddress:string, mobileNumber:string, aboutYou:string, likes:any[], dislikes:any[], myLocation:any): Observable<boolean> {
+    return this.http.patch<boolean>(this.user_api_url + "/updateMyProfilePicture/" + userToken, {
+    firstName:firstName,   
+      lastName:lastName ,     
+      aboutYou:aboutYou,   
+      emailAddress:emailAddress,  
+      mobileNumber:mobileNumber,  
+      likes:likes,   
+      dislikes:dislikes  
     }).pipe(catchError(this.errorHandler));
   }
 

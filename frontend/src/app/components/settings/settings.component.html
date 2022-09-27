@@ -34,37 +34,41 @@
                             <h4>Edit Your information</h4>
 
                             <div class="col-sm-6 upload-img py-2 mb-3">
-                                <div>
-                                    <img src="https://i.ibb.co/cNfndd0/crypto-cat1.png"
-                                        class="img-thumbnail rounded-circle" alt="" class="pb-2">
-                                </div>
-                                <br />
-                                <input type="file" accept=".png, .jpg, .jpeg" />
+                                <div *ngIf="user[0].profilePicture !=null; else elseBlock">
+                                    <img src="{{userProfilePicture}}" class="img-thumbnail rounded-circle" alt="" class="pb-2">
+                                  </div>
+                                  <ng-template #elseBlock>
+                                    <img src="http://www.mountainheavensella.com/wp-content/uploads/2018/12/default-user.png" class="img-thumbnail rounded float-start rounded-circle" alt="" class="pb-2">
+                                
+                                  </ng-template>
+                                  <br/>
+                                  <input type="file"  (input)="onInput($event)"  accept=".png, .jpg, .jpeg"/>
+                               
 
                             </div>
-                            <form class="needs-validation" novalidate="">
+                            <form class="needs-validation" #updateForm="ngForm" (ngSubmit)="updateUserData(updateForm)" novalidate="">
                                 <div class="row g-3">
                                   
                                     <div class="col-sm-6">
-                                        <label for="fullName" class="form-label">First Name</label>
-                                        <input type="text" class="form-control" name="fullName">
+                                        <label for="firstName" class="form-label">First Name</label>
+                                        <input type="text" class="form-control" name="firstName"  [(ngModel)]="user[0].firstName">
                                     </div>
                                     <div class="col-sm-6">
                                         <label for="lastName" class="form-label">Last Name</label>
-                                        <input type="text" class="form-control" name="lastName">
+                                        <input type="text" class="form-control" name="lastName" [(ngModel)]="user[0].lastName">
                                     </div>
                                     <div class="col-sm-6">
                                         <label for="emailAddress" class="form-label">Email Address</label>
-                                        <input type="email" class="form-control" name="emailAddress">
+                                        <input type="email" class="form-control" name="emailAddress"  [(ngModel)]="user[0].emailAddress" readonly>
                                     </div>
                                     <div class="col-sm-6">
-                                        <label for="phoneNumber" class="form-label">Phone Number</label>
-                                        <input type="mobile" class="form-control" name="phoneNumber">
+                                        <label for="mobileNumber" class="form-label">Phone Number</label>
+                                        <input type="mobile" class="form-control" name="mobileNumber" [(ngModel)]="user[0].mobileNumber">
                                     </div>
                                     <div class="col-12">
                                         <label for="aboutYou" class="form-label">About You</label>
                                         <textarea class="form-control" name="aboutYou" placeholder="Tell something about yourself"
-                                      rows="3"></textarea>
+                                      rows="3"  [(ngModel)]="user[0].aboutYou"></textarea>
                                       </div>
                                       
                                       <div class="likes-input col-sm-6">
