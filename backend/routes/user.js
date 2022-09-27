@@ -38,6 +38,42 @@ router.post('/addUser', async (req, res) => {
    
 })
 
+//  UPDATE USER MY LOCATION
+router.patch('/updateMyLocation/:id', async(req, res)=>{
+    try{
+        const user = await User.findById(req.params.id);
+        user.myLocation ={"lng":req.body.lng,"lat":req.body.lat};      
+        const u1 = await user.save();
+        
+        res.status(200).json(true);
+    
+    }catch (err) {
+        res.status(502).send('Error ' + err);
+    }
+       
+});
+
+//  GET USER LOCATION
+router.get('/getMyLocation/:id', async(req, res)=>{
+    try{
+        const user = await User.findById(req.params.id);
+        const lng = user.myLocation.lng;
+        const lat =  user.myLocation.lat;  
+         
+         res.status(200).json(
+            {
+            "status": true,
+             "lng":lng, 
+             "lat":lat
+            }
+            );
+    
+    }catch (err) {
+        res.status(502).send('Error ' + err);
+    }
+       
+});
+
 // GET USER BY ID
 router.get('/:id', async (req, res) => {
     try {

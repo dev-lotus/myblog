@@ -40,6 +40,8 @@ export class LoginComponent implements OnInit {
             localStorage.setItem("lastName", String(this.status.lastName));
             localStorage.setItem("emailAddress", String(this.status.emailAddress));
             localStorage.setItem("profilePicture", String(this.status.profilePicture));
+            localStorage.setItem("myLocationLng",String(this.status.myLocation.lng));
+            localStorage.setItem("myLocationLat",String(this.status.myLocation.lat));
             
             console.log("LOGIN SUCCESS")
             console.log(this.status);

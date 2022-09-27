@@ -38,10 +38,10 @@ const userSchema = new mongoose.Schema({
         required:false,
         default:[]
     },
-    mylocation:{
+    myLocation:{
         type:Object,
         required:false,
-        default:{"lat":0, "long":0}
+        default:{"lng":0, "lat":0}
     }
 }, { versionKey: false })
 
