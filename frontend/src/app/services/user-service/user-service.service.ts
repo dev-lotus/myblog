@@ -39,12 +39,11 @@ export class UserServiceService {
     }).pipe(catchError(this.errorHandler));
   }
 
-  updateUserData(userToken:string, firstName:string, lastName:string, emailAddress:string, mobileNumber:string, aboutYou:string, likes:any[], dislikes:any[], myLocation:any): Observable<boolean> {
-    return this.http.patch<boolean>(this.user_api_url + "/updateMyProfilePicture/" + userToken, {
-    firstName:firstName,   
+  updateUserData(userToken:string, firstName:string, lastName:string, mobileNumber:string, aboutYou:string, likes:any[], dislikes:any[]): Observable<boolean> {
+    return this.http.put<boolean>(this.user_api_url + "/updateUserData/" + userToken, {
+      firstName:firstName,   
       lastName:lastName ,     
       aboutYou:aboutYou,   
-      emailAddress:emailAddress,  
       mobileNumber:mobileNumber,  
       likes:likes,   
       dislikes:dislikes  

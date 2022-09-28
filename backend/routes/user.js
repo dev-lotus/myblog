@@ -69,13 +69,12 @@ router.patch('/updateMyProfilePicture/:id', async(req, res)=>{
 });
 
 //  UPDATE USER DATA
-router.patch('/updateUserData/:id', async(req, res)=>{
+router.put('/updateUserData/:id', async(req, res)=>{
     try{
         const user = await User.findById(req.params.id);
         user.firstName =req.body.firstName;   
         user.lastName =req.body.lastName;      
         user.aboutYou =req.body.aboutYou;   
-        user.emailAddress =req.body.emailAddress;   
         user.mobileNumber =req.body.mobileNumber;  
         user.likes =req.body.likes;   
         user.dislikes =req.body.dislikes;  

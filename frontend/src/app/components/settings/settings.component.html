@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 
 
-<div class="container bg-light">
+<div class="container bg-light mb-2">
     <div class="row p-2 p-md-3 mt-2 text-light rounded bg-blueClr">
         <div class="col-md-12">
             <h1 class="fw-bold"><i class="fa fa-cogs" aria-hidden="true"></i> Settings</h1>
@@ -76,12 +76,27 @@
                                             <label for="likes" class="form-label">Likes</label>
                                         </div>
                                         <div class="col-sm-12">
+                                            <div class="row mb-2">
+                                                <div class="col-md-6 col-10 ">
+
+                                                    <ul class="list-group" id="availableTimings">
+                                                      <li class="list-group-item d-flex justify-content-between align-items-center"
+                                                      *ngFor="let likesArr of user[0].likes; let ind = index" id="likes{{ind}}" id="">
+                                                        {{likesArr}} 
+                                                        <button id="data" type="button" class="btn btn-danger btn-sm"
+                                                        (click)="removeLike(ind,likesArr)" ><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                                      </li>
+                                                    </ul>
+                                                  </div>
+                                            </div>
                                             <div class="row">
                                                 <div class="col-sm-8 col-8"> 
-                                                      <input type="text" class="form-control" name="likes">
+                                                      <input type="text" id="likesInp" class="form-control" name="likes">
                                                 </div>
-                                                <div class="col-sm-4 col-4">
-                                                    <button class="btn btn-dark"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add</button>
+                                                <div class="col-sm-4 col-4 my-auto">
+                                                    <button id="data" type="button" class="btn btn-dark btn-sm"
+                                                        (click)="addLike()" ><i class="fa fa-plus-square" aria-hidden="true"></i> Add</button>
+                                                    <!-- <button  id="likeBtn"  class="btn btn-dark" (click)="addLike()"><i class="fa fa-plus-circle" aria-hidden="true" ></i> Add</button> -->
                                                 </div>
                                             </div>
                                            
@@ -91,15 +106,28 @@
                                     
                                     <div class="dislikes-input col-sm-6">
                                         <div class="">
-                                            <label for="dislikes" class="form-label">Dislikes</label>
+                                            <label for="dislikes"  class="form-label">Dislikes</label>
                                         </div>
                                         <div class="col-sm-12">
+                                            <div class="row mb-2">
+                                                <div class="col-md-6 col-10">
+                                                    <ul class="list-group" id="availableTimings">
+                                                      <li class="list-group-item d-flex justify-content-between align-items-center"
+                                                      *ngFor="let dislikesArr of user[0].dislikes; let ind = index" id="dislikesArr{{ind}}" id="">
+                                                        {{dislikesArr}} 
+                                                        <button id="data" type="button" class="btn btn-danger btn-sm"
+                                                        (click)="removeDislike(ind,dislikesArr)" ><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                                      </li>
+                                                    </ul>
+                                                  </div>
+                                            </div>
                                             <div class="row">
                                                 <div class="col-sm-8 col-8"> 
-                                                      <input type="text" class="form-control" name="dislikes">
+                                                      <input type="text"  id="dislikesInp" class="form-control" name="dislikes">
                                                 </div>
-                                                <div class="col-sm-4 col-4">
-                                                    <button class="btn btn-dark"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add</button>
+                                                <div class="col-sm-4 col-4 my-auto">
+                                                    <button id="data" type="button" class="btn btn-dark btn-sm"
+                                                    (click)="addDislike()" ><i class="fa fa-plus-square" aria-hidden="true"></i> Add</button>
                                                 </div>
                                             </div>
                                            
@@ -116,9 +144,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade d-flex justify-content-center pt-4" id="profile" role="tabpanel"
+                <div class="tab-pane fade d-flex justify-content-center " id="profile" role="tabpanel"
                     aria-labelledby="profile-tab">
-                    <h4>You are on free subscription.</h4>
+                    <div class="py-4">
+                        <h4>You are on free subscription.</h4>
+                    </div>
+                    
                 </div>
             </div>
         </div>
