@@ -24,8 +24,11 @@ con.on('open', () => {
 //  });
 
 // Router 
-const userRouter = require('./routes/user')
-app.use('/user', userRouter)
+const userRouter = require('./routes/user');
+const listing = require('./routes/listing');
+app.use('/user', userRouter);
+app.use('/user/listing', listing);
+
 
 
 
