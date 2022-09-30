@@ -3,14 +3,40 @@ const router = express.Router();
 const FreeListing = require('../models/freeListing');
 const User = require('../models/user');
 
+// GET ALL FREE LISTING 
+
+router.get('/get/freeListing/', async(req,res)=>{
+    try{
+        const allList = await FreeListing.find();
+        res.status(200).json(allList);
+    }catch(err){
+        res.status(502).send('Error '+err);
+    }
+});
+
 // GET LISTING BY USER TOKEN
 
-router.get('/get/freeListing/:id', async(req,res)=>{
+router.get('/get/freeListing/userToken/:id', async(req,res)=>{
     try{
         const allList = await FreeListing.find({
             userToken:req.params.id
         });
         res.status(200).json([allList]);
+    }catch(err){
+        res.status(502).send('Error '+err);
+    }
+});
+
+// GET LISTING BY LISTING ID
+
+router.get('/get/freeListing/listingId/:listId/:userToken', async(req,res)=>{
+    try{
+        const list = await FreeListing.find({
+            _id:req.params.listId,
+            userToken:req.params.userToken
+        });
+        
+        res.status(200).json(list);
     }catch(err){
         res.status(502).send('Error '+err);
     }
@@ -41,22 +67,44 @@ router.post('/add/freeListing', async(req,res)=>{
 
 // UPDATE FREE LISTING ITEM
 
-router.put('/update/freeListing/:id', async(req,res)=>{
+router.put('/update/freeListing/:listId/:userToken', async(req,res)=>{
     try{
-        const freeList = await FreeListing.findById(req.params.id);
+        const freeList = await FreeListing.findOne({
+            _id:req.params.listId,
+            userToken:req.params.userToken
+        });
         freeList.picture =  req.body.picture;
         freeList.title = req.body.title;
         freeList.category = req.body.category;
         freeList.description = req.body.description;
         freeList.pickUpTime = req.body.pickUpTime;
         freeList.listFor= req.body.listFor;
-        freeList.location=req.body.location;
-
-        const f1 = await freeList.save();
+        freeList.location ={"lng":req.body.lng,"lat":req.body.lat};
+        
+        const u1 = await freeList.save();
+        console.log(u1);
          res.status(200).json(true);
     }catch(err){
         res.status(502).send('Error ' + err);
     }
+});
+
+//  UPDATE USER PROFILE PICTURE
+router.patch('/update/freeListingPicture/:listId/:userToken', async(req, res)=>{
+    try{
+        const freeList = await FreeListing.find({
+            _id:req.params.listId,
+            userToken:req.params.userToken
+        });
+        freeList.picture =req.body.picture;      
+        const l1 = await freeList.save();
+        
+        res.status(200).json(true);
+    
+    }catch (err) {
+        res.status(502).send('Error ' + err);
+    }
+       
 });
 
 // DELETE FREE LISTING 

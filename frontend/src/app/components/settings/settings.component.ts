@@ -13,7 +13,24 @@ import { NgForm } from '@angular/forms';
 })
 export class SettingsComponent implements OnInit {
  
-  user:User[]= [];
+  user:User[]= [
+    {
+      _id: "",
+      profilePicture: "",
+      firstName: "",
+      lastName: "",
+      emailAddress: "",
+      mobileNumber: "",
+      aboutYou: "",
+      likes: [],
+      dislikes: [],
+      myLocation: {
+        "lng": 88.48699665399437,
+        "lat": 23.412221981538707
+  
+  }
+    }
+  ];
 
   userToken!: string;
   userProfilePicture! : string;

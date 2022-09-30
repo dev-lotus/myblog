@@ -4,7 +4,7 @@ export interface User {
     firstName: string,
     lastName: string,
     emailAddress: string,
-    mobileNumber: number,
+    mobileNumber: string,
     aboutYou: string,
     likes: any[],
     dislikes: any[],

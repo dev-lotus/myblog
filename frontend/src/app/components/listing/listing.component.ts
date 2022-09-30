@@ -1,4 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { FreeListing } from 'src/app/interface/freeListing';
+import { User } from 'src/app/interface/user';
+import { FreeListServiceService } from 'src/app/services/freeList-service/free-list-service.service';
+import { UserServiceService } from 'src/app/services/user-service/user-service.service';
 
 @Component({
   selector: 'app-listing',
@@ -7,12 +14,125 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListingComponent implements OnInit {
 
-  constructor() { }
+  freeListing: FreeListing[] = [
+    {
+      "_id": "",
+      "userToken": "",
+      "picture": [],
+      "title": "",
+      "category": "",
+      "description": "",
+      "pickUpTime": "",
+      "listFor": 1,
+      "location": {
+        "lng": 88.48699665399437,
+        "lat": 23.412221981538707
+
+      }
+    }];
+  user: User[] = [
+    {
+      _id: "",
+      profilePicture: "",
+      firstName: "",
+      lastName: "",
+      emailAddress: "",
+      mobileNumber: "",
+      aboutYou: "",
+      likes: [],
+      dislikes: [],
+      myLocation: {
+        "lng": 88.48699665399437,
+        "lat": 23.412221981538707
+  
+  }
+    }
+  ];
+  userData: any[] = [];
+  userToken!: string;
+  errMsg!: string;
+  status!: any;
+  constructor(private spinner: NgxSpinnerService, private _toast: NgToastService, private _router: Router, private _userService: UserServiceService, private _freeList: FreeListServiceService) {
+    this.userToken = String(localStorage.getItem("userId"));
+  }
 
   ngOnInit(): void {
+    this.getFreeListUserData();
+
+
   }
-  loveReact()
-  {
+  getFreeListUserData() {
+    this.spinner.show();
+    this._freeList.getAllFreeListing().subscribe(
+      res => {
+        setTimeout(() => {
+          /** spinner ends after 5 seconds */
+          this.spinner.hide();
+        }, 1000);
+        this.freeListing = res;
+        console.log(this.freeListing);
+        for (var i = 0; i < this.freeListing.length; i++) {
+          this._userService.getUserDataById(this.freeListing[i].userToken).subscribe(
+            res => {
+              setTimeout(() => {
+                /** spinner ends after 5 seconds */
+                this.spinner.hide();
+              }, 1000);
+             
+                this.user.push(res[0]);
+             
+              console.log(this.userData[0].profilePicture);
+              console.log(this.user);
+            }, err => {
+              setTimeout(() => {
+                /** spinner ends after 5 seconds */
+                this.spinner.hide();
+              }, 1000);
+              this.user = [];
+              this.errMsg = err;
+              console.log(this.errMsg)
+            }, () => console.log("Get User Data method excuted successfully"))
+      
+        }
+      }, err => {
+        setTimeout(() => {
+          /** spinner ends after 5 seconds */
+          this.spinner.hide();
+        }, 1000);
+        this.freeListing = [];
+        this.errMsg = err;
+        console.log(this.errMsg)
+      }, () => console.log("Get ALL FREE LIST Method excuted successfully"));
+
+      console.log("Free List " + this.freeListing[0]);
+      
+      console.log("User " + this.user);
+  }
+  getUserDataByToken(userTokenFreeList: string) {
+    this._userService.getUserDataById(userTokenFreeList).subscribe(
+      res => {
+        setTimeout(() => {
+          /** spinner ends after 5 seconds */
+          this.spinner.hide();
+        }, 1000);
+       
+       
+          this.userData.push(res[0]);
+       
+        console.log(this.userData[0].profilePicture);
+        console.log(this.userData);
+      }, err => {
+        setTimeout(() => {
+          /** spinner ends after 5 seconds */
+          this.spinner.hide();
+        }, 1000);
+        this.user = [];
+        this.errMsg = err;
+        console.log(this.errMsg)
+      }, () => console.log("Get User Data method excuted successfully"))
+
+  }
+  loveReact() {
     alert("Hi");
   }
 }

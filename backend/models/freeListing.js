@@ -33,6 +33,6 @@ location:{
     type:Object,
     required:true,
   }
-},{versionKey:false});
+},{versionKey:false}, { timestamps: {} });
 
 module.exports = mongoose.model('AddListing', addListingSchema);

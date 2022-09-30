@@ -27,19 +27,19 @@
     <div class="tab-content mt-2" id="pills-tabContent">
       <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
         <div class="row row-cols-md-3 row-cols-1  g-4">
-          <div class="col">
+          <div class="col" *ngFor="let list of freeListing; let ind = index">
             <div class="card">
-              <a href="listing-details/:id" class="link-direct">
+              <a href="listing-details/{{list._id}}" class="link-direct">
 
                 <img
-                  src="https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                  src="{{list.picture[0]}}"
                   class="card-img-top" alt="...">
                 <div class="card-body">
-                  <p class="card-text "><span><img
-                        src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80"
-                        width="40" className="rounded-circle" /></span> Lotus Biswas </p>
-                  <h5 class="card-title fw-bold">Chicken Briyani</h5>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum fuga fugit et ipsa? </p>
+                  <p class="card-text "><span >
+                    <img src="{{this.user[ind+1].profilePicture}}"
+                        width="40" className="rounded-circle" /> </span> {{this.user[ind+1].firstName}} {{this.user[ind+1].lastName}}</p>
+                  <h5 class="card-title fw-bold">{{list.title}}</h5>
+                  <p>{{list.description}}</p>
 
                 </div>
               </a>
@@ -53,137 +53,7 @@
 
 
           </div>
-          <div class="col">
-            <div class="card">
-              <a href="listing-details/:id" class="link-direct">
-
-                <img
-                  src="https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                  class="card-img-top" alt="...">
-                <div class="card-body">
-                  <p class="card-text "><span><img
-                        src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80"
-                        width="40" className="rounded-circle" /></span> Lotus Biswas </p>
-                  <h5 class="card-title fw-bold">Chicken Briyani</h5>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum fuga fugit et ipsa? </p>
-
-                </div>
-              </a>
-              <div class="card-footer d-flex justify-content-around">
-                <small class="text-muted"><i class="fa fa-map-marker" aria-hidden="true"></i> 5.5 KM</small>
-
-                <small class="text-muted">Just Added</small>
-                <small (click)="loveReact()"><i class="fa fa-heart-o" aria-hidden="true"></i></small>
-              </div>
-            </div>
-
-
-          </div>
-          <div class="col">
-            <div class="card">
-              <a href="listing-details/:id" class="link-direct">
-
-                <img
-                  src="https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                  class="card-img-top" alt="...">
-                <div class="card-body">
-                  <p class="card-text "><span><img
-                        src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80"
-                        width="40" className="rounded-circle" /></span> Lotus Biswas </p>
-                  <h5 class="card-title fw-bold">Chicken Briyani</h5>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum fuga fugit et ipsa? </p>
-
-                </div>
-              </a>
-              <div class="card-footer d-flex justify-content-around">
-                <small class="text-muted"><i class="fa fa-map-marker" aria-hidden="true"></i> 5.5 KM</small>
-
-                <small class="text-muted">Just Added</small>
-                <small (click)="loveReact()"><i class="fa fa-heart-o" aria-hidden="true"></i></small>
-              </div>
-            </div>
-
-
-          </div>
-          <div class="col">
-            <div class="card">
-              <a href="listing-details/:id" class="link-direct">
-
-                <img
-                  src="https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                  class="card-img-top" alt="...">
-                <div class="card-body">
-                  <p class="card-text "><span><img
-                        src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80"
-                        width="40" className="rounded-circle" /></span> Lotus Biswas </p>
-                  <h5 class="card-title fw-bold">Chicken Briyani</h5>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum fuga fugit et ipsa? </p>
-
-                </div>
-              </a>
-              <div class="card-footer d-flex justify-content-around">
-                <small class="text-muted"><i class="fa fa-map-marker" aria-hidden="true"></i> 5.5 KM</small>
-
-                <small class="text-muted">Just Added</small>
-                <small (click)="loveReact()"><i class="fa fa-heart-o" aria-hidden="true"></i></small>
-              </div>
-            </div>
-
-
-          </div>
-          <div class="col">
-            <div class="card">
-              <a href="listing-details/:id" class="link-direct">
-
-                <img
-                  src="https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                  class="card-img-top" alt="...">
-                <div class="card-body">
-                  <p class="card-text "><span><img
-                        src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80"
-                        width="40" className="rounded-circle" /></span> Lotus Biswas </p>
-                  <h5 class="card-title fw-bold">Chicken Briyani</h5>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum fuga fugit et ipsa? </p>
-
-                </div>
-              </a>
-              <div class="card-footer d-flex justify-content-around">
-                <small class="text-muted"><i class="fa fa-map-marker" aria-hidden="true"></i> 5.5 KM</small>
-
-                <small class="text-muted">Just Added</small>
-                <small (click)="loveReact()"><i class="fa fa-heart-o" aria-hidden="true"></i></small>
-              </div>
-            </div>
-
-
-          </div>
-          <div class="col">
-            <div class="card">
-              <a href="listing-details/:id" class="link-direct">
-
-                <img
-                  src="https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                  class="card-img-top" alt="...">
-                <div class="card-body">
-                  <p class="card-text "><span><img
-                        src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80"
-                        width="40" className="rounded-circle" /></span> Lotus Biswas </p>
-                  <h5 class="card-title fw-bold">Chicken Briyani</h5>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum fuga fugit et ipsa? </p>
-
-                </div>
-              </a>
-              <div class="card-footer d-flex justify-content-around">
-                <small class="text-muted"><i class="fa fa-map-marker" aria-hidden="true"></i> 5.5 KM</small>
-
-                <small class="text-muted">Just Added</small>
-                <small (click)="loveReact()"><i class="fa fa-heart-o" aria-hidden="true"></i></small>
-              </div>
-            </div>
-
-
-          </div>
-
+         
         </div>
       </div>
       <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">BORROW
@@ -196,7 +66,7 @@
 </section>
 
 <div class="icon-bar">
-  <a href="add-free" class="free"><i class="fa fa-gift" aria-hidden="true"></i></a> 
+  <a href="free?type=add" class="free"><i class="fa fa-gift" aria-hidden="true"></i></a> 
   <a href="add-borrow" class="borrow"><i class="fa fa-handshake-o" aria-hidden="true"></i></a> 
   <a href="add-wanted" class="wanted"><i class="fa fa-bullhorn" aria-hidden="true"></i></a> 
 </div>
