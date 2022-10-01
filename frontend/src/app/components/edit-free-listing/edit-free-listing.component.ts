@@ -43,6 +43,8 @@ export class EditFreeListingComponent implements OnInit {
       "lng": 88.48699665399437,
       "lat": 23.412221981538707
 
+      
+
 }
   }];
   listForArr = [
@@ -87,8 +89,9 @@ export class EditFreeListingComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.initializeMap();
     this.getFreeListUserData();
+  
+    this.initializeMap();
   }
 
   getFreeListUserData() {
@@ -157,14 +160,12 @@ export class EditFreeListingComponent implements OnInit {
       });
     }
 
-    this.buildMap()
+    
 
   }
 
-  buildMap() {
-    var lat = this.latitude;
-    var lng = this.longitude;
-
+  buildMap(lat: number, lng: number) {
+    
     this.map = new mapboxgl.Map({
       container: 'map',
       style: this.style,
@@ -212,6 +213,7 @@ export class EditFreeListingComponent implements OnInit {
 
     var lat = this.freeListing[0].location.lat;
     var lng = this.freeListing[0].location.lng;
+    this.buildMap(lat, lng);
     this.onClickLat = lat;
     this.onClickLng = lng;
     console.log(lat, lng);
@@ -237,8 +239,8 @@ export class EditFreeListingComponent implements OnInit {
     for (const feature of homeLocationJson.features) {
       const el = document.createElement('div');
       el.className = 'marker';
-      el.style.backgroundImage = "url(https://img.icons8.com/flat-round/2x/home.png)";
-
+      el.style.backgroundImage = "url(./../../../assets/images/icons/freeListing.png)";
+      
       new mapboxgl.Marker(el)
         .setLngLat([feature.geometry.coordinates.lng, feature.geometry.coordinates.lat])
         .addTo(this.map);

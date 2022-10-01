@@ -54,7 +54,7 @@ router.post('/add/freeListing', async(req,res)=>{
             description: req.body.description,
             pickUpTime:req.body.pickUpTime,
             listFor: req.body.listFor,
-            location: req.body.location
+            location: {"lng":req.body.lng,"lat":req.body.lat}
         })
 
         const f1= await freeList.save();

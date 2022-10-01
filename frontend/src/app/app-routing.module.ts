@@ -24,7 +24,7 @@ const routes: Routes = [
   {path:'request', component:RequestComponent, canActivate:[AuthGuardService]},
   {path:'settings', component:SettingsComponent, canActivate:[AuthGuardService]},
   {path:'map', component:MapComponent, canActivate:[AuthGuardService]},
-  {path:'free/add-listing/:id', component:AddFreeListingComponent, canActivate:[AuthGuardService]},
+  {path:'free/add-listing', component:AddFreeListingComponent, canActivate:[AuthGuardService]},
   {path:'free/edit-listing/:id', component:EditFreeListingComponent, canActivate:[AuthGuardService]},
   {path:'add-borrow', component:AddBorrowListingComponent, canActivate:[AuthGuardService]},
   {path:'add-wanted', component:AddWantedListingComponent, canActivate:[AuthGuardService]},

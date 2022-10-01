@@ -1,1 +1,117 @@
-<p>add-free-listing works!</p>
+
+<app-navbar></app-navbar>
+
+<div class="container bg-light">
+  <div class="row p-2 p-md-3 mt-2 text-light rounded bg-blueClr">
+    <div class="col-md-12">
+      <h1 class="fw-bold"><i class="fa fa-gift" aria-hidden="true"></i>Add Free Listing</h1>
+    </div>
+  </div>
+  <div class="row p-2 p-md-3">
+    <div class="col-md-12">
+      <p class="lead fst-italic">Give away free food / non-food.</p>
+    </div>
+
+    <div class="col-md-12">
+
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button"
+            role="tab" aria-controls="home" aria-selected="true">Free Food
+          </button>
+        </li>
+
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+          <div>
+            <div class="mt-4 py-2">
+              <label for="addFreeListingImg" class="form-label">Add Photos (Upto 2)</label>
+
+              <div class="col-sm-6 upload-img py-2 mb-3 ">
+
+                <div class="row d-flex">
+                  <div class="col-md-6 col-10 ">
+
+                    <ul class="list-group" id="availableTimings">
+                      <li class="list-group-item d-flex justify-content-between align-items-center"
+                        *ngFor="let pictureArr of freeListingPicture; let ind = index" id="pictureArr{{ind}}" id="">
+                        <img src={{pictureArr}} alt="" srcset="">
+                        <button id="data" type="button" class="btn btn-danger btn-sm"   (click)="removePicture(ind,pictureArr)"><i class="fa fa-trash"
+                         aria-hidden="true"></i></button>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-12 col-12 my-auto">
+                    <div>
+                      <img src="https://cdn.pixabay.com/photo/2017/11/10/05/24/add-2935429_960_720.png"
+                        class="img-thumbnail rounded-circle" alt="" class="pb-2">
+                    </div>
+                    <br />
+                    <input type="file"  (input)="onInput($event)"  accept=".png, .jpg, .jpeg"/>
+                               
+                  </div>
+                </div>
+
+
+              </div>
+              <form #freeListingForm="ngForm" (ngSubmit)="addFreeFormListingData(freeListingForm)" class="needs-validation"
+                novalidate="">
+                <div class="row g-3">
+                  <div class="col-sm-6">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" class="form-control" name="title" [(ngModel)]="freeListing[0].title">
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <div>
+                        <label for="category" class="form-label">Choose Category </label>
+                        <select class="form-select" id="category" required="">
+                          <option *ngFor="let opt of this.categoryArr" [value]="opt.value"
+                            [selected]="opt.status == 'true'">
+                            {{opt.label}}</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea class="form-control" name="description" placeholder="Write something about your listing" rows="3"
+                      [(ngModel)]="freeListing[0].description"></textarea>
+                  </div>
+                  <div class="col-sm-6">
+                    <label for="pickUpTime" class="form-label">Pick Up Time</label>
+                    <input type="text" class="form-control" name="pickUpTime" [(ngModel)]="freeListing[0].pickUpTime">
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <div>
+                        <label for="listFor" class="form-label">List For </label>
+                        <select class="form-select" id="listFor" required="">
+                          <option *ngFor="let opt of this.listForArr" [value]="opt.value"
+                            [selected]="opt.status == 'true'">
+                            {{opt.label}}</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-12 mb-4">
+                    <label for="listFor" class="form-label">Your Location (approx) </label>
+                    <div id="map" class="map-container"></div>
+                  </div>
+
+                </div>
+                <hr class="my-4">
+
+
+                <button class="w-100 btn btn-primary btn-lg" type="submit">Submit</button>
+              </form>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>

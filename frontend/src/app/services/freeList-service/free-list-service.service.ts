@@ -24,6 +24,20 @@ export class FreeListServiceService {
     console.log(listId, userToken);
     return this.http.get<FreeListing[]>(this.freeList_api_url + "/get/freeListing/listingId/" + listId + "/"+userToken).pipe(catchError(this.errorHandler));
   }
+  addFreeListingData(userToken:string, listingPicture:any[], title:string, category:string, description:string, pickUpTime:string,listFor:number, lng: number, lat: number): Observable<boolean> {
+    return this.http.post<boolean>(this.freeList_api_url + "/add/freeListing/", {
+      userToken:userToken,
+      picture:listingPicture,   
+      title:title,
+      category:category,
+      description:description,
+      pickUpTime:pickUpTime,
+      listFor:listFor,
+      lng:lng,
+      lat:lat
+    
+    }).pipe(catchError(this.errorHandler));
+  }
 
   updateUserProfilePicture(listId: string, userToken:string, listingPicture:any[]): Observable<boolean> {
     return this.http.patch<boolean>(this.freeList_api_url + "/update/freeListingPicture/" + listId + "/"+userToken, {

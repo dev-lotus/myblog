@@ -94,16 +94,15 @@ export class ListingDetailsComponent implements OnInit {
       });
     }
 
-    this.buildMap()
 
   }
 
-  buildMap() {
+  buildMap(lat: number, lng: number) {
     this.map = new mapboxgl.Map({
       container: 'map',
       style: this.style,
       zoom: 14,
-      center: [this.lng, this.lat]
+      center: [lng, lat]
     });
     
 
@@ -144,8 +143,8 @@ export class ListingDetailsComponent implements OnInit {
                   // console.log(this.user);
     
                   console.log(this.removeDupliactes(this.user) );
-                  this.lng = this.user[1].myLocation.lng;
-                  this.lat =  this.user[1].myLocation.lat;
+                  this.lng = this.freeListing[0].location.lng;
+                  this.lat =  this.freeListing[0].location.lat;
                   console.log(this.lng, this.lat);
                   this.setHomeLocation(this.lng,this.lat);
                 }, err => {
@@ -185,6 +184,8 @@ export class ListingDetailsComponent implements OnInit {
       }
 
       setHomeLocation(longitude:number, latitude: number) {
+
+        this.buildMap(latitude,longitude);
 
         const homeLocationJson = {
           type: 'Listing Location',
