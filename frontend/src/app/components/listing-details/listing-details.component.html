@@ -51,7 +51,12 @@
                 <p class="text-muted"><i class="fa fa-clock-o" aria-hidden="true"></i> Added {{ freeListing[0].updatedAt |  date:'MMM d, y, h:mm a' }} | <i class="fa fa-map-marker" aria-hidden="true"></i> 7.0 KM away </p>
                 <div class="btn-group" role="group" aria-label="Basic outlined example">
                     <button type="button" class="btn btn-outline-primary "><i class="fa fa-share-square-o" aria-hidden="true"></i> Share</button>
-                    <button type="button" class="btn btn-outline-danger" (click)="addLikeFreeListItem(freeListing[0]._id, this.userToken)"><i class="fa fa-heart-o" aria-hidden="true"></i> Like</button>
+                    <button type="button" class="btn btn-outline-danger" (click)="addLikeFreeListItem(freeListing[0]._id, this.userToken)" *ngIf="this.likesListing == false; else elseBlock">
+                      <span><i class="fa fa-heart-o" aria-hidden="true"></i></span> {{this.countLikesListing.length}} Likes</button>
+                      <ng-template #elseBlock>
+                        <button type="button" class="btn btn-danger" (click)="addLikeFreeListItem(freeListing[0]._id, this.userToken)">
+                          <span><i class="fa fa-heart-o" aria-hidden="true"></i></span> {{this.countLikesListing.length}} Likes</button>
+                      </ng-template>
                   </div>
              
             </div>
