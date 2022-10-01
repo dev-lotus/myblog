@@ -9,6 +9,7 @@ import { ListingDetailsComponent } from './components/listing-details/listing-de
 import { ListingComponent } from './components/listing/listing.component';
 import { LoginComponent } from './components/login/login.component';
 import { MapComponent } from './components/map/map.component';
+import { MyListingComponent } from './components/my-listing/my-listing.component';
 import { MyLocationComponent } from './components/my-location/my-location.component';
 import { RequestComponent } from './components/request/request.component';
 import { SettingsComponent } from './components/settings/settings.component';
@@ -27,7 +28,8 @@ const routes: Routes = [
   {path:'free/edit-listing/:id', component:EditFreeListingComponent, canActivate:[AuthGuardService]},
   {path:'add-borrow', component:AddBorrowListingComponent, canActivate:[AuthGuardService]},
   {path:'add-wanted', component:AddWantedListingComponent, canActivate:[AuthGuardService]},
-  {path:'my-location', component:MyLocationComponent, canActivate:[AuthGuardService]}
+  {path:'my-location', component:MyLocationComponent, canActivate:[AuthGuardService]},
+  {path:'my-listing', component:MyListingComponent, canActivate:[AuthGuardService]}
 
 
 ];

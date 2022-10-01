@@ -47,6 +47,7 @@
            </div>
            <div class="body">
             <div class="miscellaneous mt-2">
+              
                 <p class="text-muted"><i class="fa fa-clock-o" aria-hidden="true"></i> Added 1 hour ago | <i class="fa fa-map-marker" aria-hidden="true"></i> 7.0 KM away </p>
                 <div class="btn-group" role="group" aria-label="Basic outlined example">
                     <button type="button" class="btn btn-outline-primary"><i class="fa fa-share-square-o" aria-hidden="true"></i> Share</button>
@@ -54,7 +55,17 @@
                   </div>
              
             </div>
+            
             <div class="desc mt-3">
+              <p *ngIf="this.freeListing[0].category == 'Food'; else elseBlock">
+                <span class="badge bg-success">Food</span>
+              </p>
+              <ng-template #elseBlock>
+                <p>
+                  <span class="badge bg-warning">Non - Food</span>
+                </p>
+              </ng-template>
+              
                 <p>{{this.freeListing[0].description}}</p>
             </div>
             <div class="pickUpTime">

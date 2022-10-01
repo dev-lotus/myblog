@@ -3,4 +3,7 @@
     height: 240px;
     position: relative;
   }
-  
+  img {
+    max-inline-size: 100%;
+    block-size: auto;
+  }

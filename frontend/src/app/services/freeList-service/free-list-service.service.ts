@@ -16,6 +16,10 @@ export class FreeListServiceService {
     return this.http.get<FreeListing[]>(this.freeList_api_url + "/get/freeListing/").pipe(catchError(this.errorHandler));
   }
 
+  getFreeListingDataByUserToken(userToken:string ): Observable<FreeListing[]> {
+    return this.http.get<FreeListing[]>(this.freeList_api_url + "/get/freeListing/userToken/" +userToken).pipe(catchError(this.errorHandler));
+  }
+
   getFreeListingDataById(listId: string, userToken:string ): Observable<FreeListing[]> {
     console.log(listId, userToken);
     return this.http.get<FreeListing[]>(this.freeList_api_url + "/get/freeListing/listingId/" + listId + "/"+userToken).pipe(catchError(this.errorHandler));

@@ -144,7 +144,10 @@ export class ListingDetailsComponent implements OnInit {
                   // console.log(this.user);
     
                   console.log(this.removeDupliactes(this.user) );
-                  
+                  this.lng = this.user[1].myLocation.lng;
+                  this.lat =  this.user[1].myLocation.lat;
+                  console.log(this.lng, this.lat);
+                  this.setHomeLocation(this.lng,this.lat);
                 }, err => {
                   setTimeout(() => {
                     /** spinner ends after 5 seconds */
@@ -179,6 +182,40 @@ export class ListingDetailsComponent implements OnInit {
       
         })
         return filterValues
+      }
+
+      setHomeLocation(longitude:number, latitude: number) {
+
+        const homeLocationJson = {
+          type: 'Listing Location',
+          features: [
+            {
+              type: 'Listing Location',
+              geometry: {
+                type: 'Point',
+                'coordinates': {
+                  'lng': longitude,
+                  'lat': latitude
+                }
+              },
+              properties: {
+                title: 'Home'
+              }
+            }
+          ]
+        };
+      
+        for (const feature of homeLocationJson.features) {
+          const el = document.createElement('div');
+          el.className = 'marker';
+          el.style.backgroundImage = "url(./../../../assets/images/icons/freeListing.png)";
+      
+          new mapboxgl.Marker(el)
+            .setLngLat([feature.geometry.coordinates.lng, feature.geometry.coordinates.lat])
+            .addTo(this.map);
+      
+        }
+        
       }
 
 }

@@ -21,7 +21,7 @@ router.get('/get/freeListing/userToken/:id', async(req,res)=>{
         const allList = await FreeListing.find({
             userToken:req.params.id
         });
-        res.status(200).json([allList]);
+        res.status(200).json(allList);
     }catch(err){
         res.status(502).send('Error '+err);
     }

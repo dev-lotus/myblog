@@ -15,7 +15,7 @@
         </li>
         <li class="nav-item" role="presentation">
           <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile"
-            type="button" role="tab" aria-controls="pills-profile" aria-selected="false"><i class="fa fa-gift" aria-hidden="true"></i> Borrow</button>
+            type="button" role="tab" aria-controls="pills-profile" aria-selected="false"><i class="fa fa-handshake-o" aria-hidden="true"></i> Borrow</button>
         </li>
         <li class="nav-item" role="presentation">
           <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact"
@@ -39,7 +39,7 @@
                     <img src="{{this.user[ind+1].profilePicture}}"
                         width="40" className="rounded-circle" /> </span> {{this.user[ind+1].firstName}} {{this.user[ind+1].lastName}}</p> -->
                   <h5 class="card-title fw-bold">{{list.title}}</h5>
-                  <p>{{list.description}}</p>
+                  <p>{{ (list.description.length>100)? (list.description | slice:0:130)+'..':(list.description) }}</p>
 
                 </div>
               </a>
