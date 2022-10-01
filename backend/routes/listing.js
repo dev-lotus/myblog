@@ -108,9 +108,13 @@ router.patch('/update/freeListingPicture/:listId/:userToken', async(req, res)=>{
 });
 
 // DELETE FREE LISTING 
-router.delete('/delete/freeListing/:id', async(req,res)=>{
+router.delete('/delete/freeListing/:listId/:userToken', async(req,res)=>{
     try{
-        const freeList = await FreeListing.findById(req.params.id);
+        const freeList = await FreeListing.findOne({
+            _id:req.params.listId,
+            userToken:req.params.userToken
+        });
+
         const f1 = await freeList.remove();
 
         res.status(200).json(true);

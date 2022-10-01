@@ -59,6 +59,10 @@ export class FreeListServiceService {
     }).pipe(catchError(this.errorHandler));
   }
 
+  deleteFreeListing(listId:string, userToken:string):Observable<boolean>{
+    return this.http.delete<boolean>(this.freeList_api_url + "/delete/freeListing/" + listId + "/" + userToken).pipe(catchError(this.errorHandler));
+  }
+
   errorHandler(error: HttpErrorResponse) {
     console.error(error);
     return throwError(error.message || "Server Error");
