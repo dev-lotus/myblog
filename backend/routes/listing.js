@@ -107,6 +107,25 @@ router.patch('/update/freeListingPicture/:listId/:userToken', async(req, res)=>{
        
 });
 
+//  UPDATE ADD LIKE TO LISTING
+router.patch('/update/addLikeFreeListing/:listId', async(req, res)=>{
+    try{
+        const freeList = await FreeListing.findByIdAndUpdate(req.params.listId,
+
+            { $push: { likes:{"listId":req.params.listId,"userToken":req.body.userToken} } },
+           
+            { 'upsert': true });
+        
+      const l1 = await freeList.save();
+        
+        res.status(200).json(true);
+    
+    }catch (err) {
+        res.status(502).send('Error ' + err);
+    }
+       
+});
+
 // DELETE FREE LISTING 
 router.delete('/delete/freeListing/:listId/:userToken', async(req,res)=>{
     try{

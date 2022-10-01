@@ -27,8 +27,12 @@ export class ListingComponent implements OnInit {
       "location": {
         "lng": 88.48699665399437,
         "lat": 23.412221981538707
+      },
+      likes: [],
+      disable: false,
+      createdAt: new Date(500000000000),
+      updatedAt: new Date(500000000000)
 
-      }
     }];
   user: User[] = [
     {

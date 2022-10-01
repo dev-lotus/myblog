@@ -35,11 +35,10 @@
                     </div>
                      </div>
                     <div class="mt-3">
-                      <span class="text-muted mt-2"><i class="fa fa-clock-o" aria-hidden="true"></i> Added at 12:03 PM, Sept 26, 2022 </span>
+                      <span class="text-muted mt-2"><i class="fa fa-clock-o" aria-hidden="true"></i> Last Updated {{ list.updatedAt |  date:'MMM d, y, h:mm a' }} </span>
                       <br/>
-                        
                       <p class="mb-2">{{ (list.description.length>100)? (list.description | slice:0:100)+'..':(list.description) }} </p>
-                      <span><i class="fa fa-calendar-o" aria-hidden="true"></i> 12:03 PM | Sept 26, 2022</span>
+                      <span><i class="fa fa-calendar-o" aria-hidden="true"></i> {{ list.createdAt |  date: 'MMM d, y, h:mm a' }}</span>
                      
                     </div>
                   </div>

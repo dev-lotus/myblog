@@ -7,7 +7,11 @@ export interface FreeListing {
     description: string,
     pickUpTime: string,
     listFor: number,
-    location: Location
+    location: Location,
+    likes: any[],
+    disable:boolean,
+    createdAt: Date,
+    updatedAt:Date
   }
   
   export interface Location {

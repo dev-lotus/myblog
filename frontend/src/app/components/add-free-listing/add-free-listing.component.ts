@@ -16,7 +16,7 @@ import { FreeListing } from 'src/app/interface/freeListing';
   styleUrls: ['./add-free-listing.component.css']
 })
 export class AddFreeListingComponent implements OnInit {
-  
+
   latitude = 23.41248256345665;
   longitude = 88.48786130507187;
   map!: mapboxgl.Map;
@@ -27,26 +27,28 @@ export class AddFreeListingComponent implements OnInit {
   markers: any;
 
   freeListType !: string;
-  
+
   userToken!: string;
   freeListing: FreeListing[] = [
     {
-      "_id":"",
-      "userToken":"",
+      "_id": "",
+      "userToken": "",
       "picture": [],
       "title": "",
-      "category":"",
+      "category": "",
       "description": "",
       "pickUpTime": "",
       "listFor": 1,
       "location": {
-      "lng": 88.48699665399437,
-      "lat": 23.412221981538707
+        "lng": 88.48699665399437,
+        "lat": 23.412221981538707
+      },
+      likes: [],
+      disable: false,
+      createdAt: new Date(500000000000),
+      updatedAt: new Date(500000000000)
 
-      
-
-}
-  }];
+    }];
   listForArr = [
     { id: 1, label: "1 Day", value: 1, status: "true" },
     { id: 2, label: "2 Day", value: 2, status: "false" },
@@ -66,17 +68,17 @@ export class AddFreeListingComponent implements OnInit {
     { id: 1, label: "Food", value: "Food", status: "true" },
     { id: 2, label: "Non-Food", value: "Non-Food", status: "false" },
   ];
-  freeListingPicture: any[]=[];
+  freeListingPicture: any[] = [];
   listingPicture!: string;
-  
+
   errMsg!: string;
   status!: any;
   onClickLng !: number;
   onClickLat !: number;
 
-  constructor( private router: Router, private route: ActivatedRoute, private spinner: NgxSpinnerService, private _toast: NgToastService, private readonly ImgbbService: ImgbbUploadService, private _router: Router, private _freeList: FreeListServiceService) {
+  constructor(private router: Router, private route: ActivatedRoute, private spinner: NgxSpinnerService, private _toast: NgToastService, private readonly ImgbbService: ImgbbUploadService, private _router: Router, private _freeList: FreeListServiceService) {
     (mapboxgl as any).accessToken = environment.mapbox.accessToken;
- 
+
     this.userToken = String(localStorage.getItem("userId"));
     this.latitude = Number(localStorage.getItem("myLocationLat"));
     this.longitude = Number(localStorage.getItem("myLocationLng"));
@@ -158,7 +160,7 @@ export class AddFreeListingComponent implements OnInit {
 
       })
   }
-  setFreeListingLocation(latVal:number, lngVal:number) {
+  setFreeListingLocation(latVal: number, lngVal: number) {
 
     var lat = latVal;
     var lng = lngVal;
@@ -189,7 +191,7 @@ export class AddFreeListingComponent implements OnInit {
       const el = document.createElement('div');
       el.className = 'marker';
       el.style.backgroundImage = "url(./../../../assets/images/icons/freeListing.png)";
-      
+
       new mapboxgl.Marker(el)
         .setLngLat([feature.geometry.coordinates.lng, feature.geometry.coordinates.lat])
         .addTo(this.map);
@@ -227,11 +229,10 @@ export class AddFreeListingComponent implements OnInit {
         console.log(this.status);
         if (this.status == true) {
           this._toast.success({ detail: "SUCCESS", summary: 'Listing has been added', position: 'br' });
-          setTimeout( () => {
-            window.location.reload();
-            this.router.navigate(["my-listing"]);
-          }, 2000);
 
+          setTimeout(() => {
+            this.router.navigate(["/my-listing"]);
+          }, 2000);
         }
         else {
           this._toast.warning({ detail: "FAILED", summary: 'Unable to add your listing', position: 'br' });

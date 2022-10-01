@@ -37,8 +37,12 @@ export class ListingDetailsComponent implements OnInit {
       "location": {
         "lng": 88.48699665399437,
         "lat": 23.412221981538707
+      },
+      likes: [],
+      disable: false,
+      createdAt: new Date(500000000000),
+      updatedAt: new Date(500000000000)
 
-      }
     }];
   user: User[] = [
     {
@@ -218,5 +222,40 @@ export class ListingDetailsComponent implements OnInit {
         }
         
       }
+
+      addLikeFreeListItem(listId:string, userTokenVal:string)
+  {
+    console.log(listId, userTokenVal);
+    this._freeList.updateAddLikeFreeListing(listId,userTokenVal).subscribe(
+      res=>{
+        setTimeout(() => {
+          /** spinner ends after 5 seconds */
+          this.spinner.hide();
+        }, 1000);
+        this.status = res;
+        console.log(this.status);
+        if (this.status == true) {
+          this._toast.success({ detail: "SUCCESS", summary: 'You liked this listing', position: 'br' });
+          setTimeout(function () {
+            window.location.reload();
+          }, 2000);
+
+        }
+        else {
+          this._toast.warning({ detail: "FAILED", summary: 'Unable to like this listing', position: 'br' });
+
+        }
+      },err=>{
+        setTimeout(() => {
+          /** spinner ends after 5 seconds */
+          this.spinner.hide();
+        }, 1000);
+        this.errMsg = err;
+        this._toast.warning({ detail: "FAILED", summary: 'Please try after sometime', position: 'br' });
+
+      },
+      () => console.log("LIKE LISTING FREE successfully EXECUTED")
+    )
+  }
 
 }

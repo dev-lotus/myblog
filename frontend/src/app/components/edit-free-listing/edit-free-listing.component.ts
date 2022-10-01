@@ -31,22 +31,24 @@ export class EditFreeListingComponent implements OnInit {
   userToken!: string;
   freeListing: FreeListing[] = [
     {
-      "_id":"",
-      "userToken":"",
+      "_id": "",
+      "userToken": "",
       "picture": [],
       "title": "",
-      "category":"",
+      "category": "",
       "description": "",
       "pickUpTime": "",
       "listFor": 1,
       "location": {
-      "lng": 88.48699665399437,
-      "lat": 23.412221981538707
+        "lng": 88.48699665399437,
+        "lat": 23.412221981538707
+      },
+      likes: [],
+      disable: false,
+      createdAt: new Date(500000000000),
+      updatedAt: new Date(500000000000)
 
-      
-
-}
-  }];
+    }];
   listForArr = [
     { id: 1, label: "1 Day", value: 1, status: "true" },
     { id: 2, label: "2 Day", value: 2, status: "false" },

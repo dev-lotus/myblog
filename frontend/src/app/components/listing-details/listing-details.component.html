@@ -11,10 +11,10 @@
           </ol>
         </nav>
       </div>
-        <div class="col-lg-4 col-md-12 col-sm-12 col-12">
-            <div class="item-image">
-                <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
-                    <div class="carousel-inner">
+        <div class="col-lg-4 col-md-12 col-sm-12 col-12 my-auto">
+            <div class="item-image ">
+                <div id="carouselExampleFade" class="carousel slide carousel-fade " data-bs-ride="carousel">
+                    <div class="carousel-inner ">
                       <div *ngFor="let list of freeListing[0].picture; index as mdx" class="carousel-item" [class.active]="mdx==0?true:false">
                         <img src="{{freeListing[0].picture[mdx]}}" class="d-block w-100" alt="...">
                         <p>{{freeListing[0].picture[list]}}</p>
@@ -48,10 +48,10 @@
            <div class="body">
             <div class="miscellaneous mt-2">
               
-                <p class="text-muted"><i class="fa fa-clock-o" aria-hidden="true"></i> Added 1 hour ago | <i class="fa fa-map-marker" aria-hidden="true"></i> 7.0 KM away </p>
+                <p class="text-muted"><i class="fa fa-clock-o" aria-hidden="true"></i> Added {{ freeListing[0].updatedAt |  date:'MMM d, y, h:mm a' }} | <i class="fa fa-map-marker" aria-hidden="true"></i> 7.0 KM away </p>
                 <div class="btn-group" role="group" aria-label="Basic outlined example">
-                    <button type="button" class="btn btn-outline-primary"><i class="fa fa-share-square-o" aria-hidden="true"></i> Share</button>
-                    <button type="button" class="btn btn-outline-primary"><i class="fa fa-heart-o" aria-hidden="true"></i> Like</button>
+                    <button type="button" class="btn btn-outline-primary "><i class="fa fa-share-square-o" aria-hidden="true"></i> Share</button>
+                    <button type="button" class="btn btn-outline-danger" (click)="addLikeFreeListItem(freeListing[0]._id, this.userToken)"><i class="fa fa-heart-o" aria-hidden="true"></i> Like</button>
                   </div>
              
             </div>

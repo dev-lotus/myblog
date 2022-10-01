@@ -11,3 +11,9 @@
     text-decoration: none;
     color: white;
   }
+  .carousel-control-prev-icon {
+    background-color: turquoise;
+    }
+  .carousel-control-next-icon {
+  background-color: turquoise;
+  }

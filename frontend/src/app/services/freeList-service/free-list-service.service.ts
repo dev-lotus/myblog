@@ -40,8 +40,14 @@ export class FreeListServiceService {
   }
 
   updateUserProfilePicture(listId: string, userToken:string, listingPicture:any[]): Observable<boolean> {
-    return this.http.patch<boolean>(this.freeList_api_url + "/update/freeListingPicture/" + listId + "/"+userToken, {
+    return this.http.patch<boolean>(this.freeList_api_url + "/update/freeListingPicture/" + listId  + "/"+userToken, {
       picture: listingPicture
+    }).pipe(catchError(this.errorHandler));
+  }
+
+  updateAddLikeFreeListing(listId: string, userToken:string): Observable<boolean> {
+    return this.http.patch<boolean>(this.freeList_api_url + "/update/addLikeFreeListing/" + listId ,{
+      userToken:userToken, 
     }).pipe(catchError(this.errorHandler));
   }
 

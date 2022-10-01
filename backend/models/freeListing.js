@@ -1,38 +1,51 @@
 const mongoose = require('mongoose');
 
 const addListingSchema = new mongoose.Schema({
-userToken:{
-    type:String,
-    required :true
-},
-picture:{
-    type:Array,
-    required:false
-},
-title:{
-    type:String,
-    required: true
-},
-category:{
-    type:String,
-    required:true
-},
-description:{
-    type:String,
-    required:false
-},
-pickUpTime:{
-    type:String,
-    required:true
-},
-listFor:{
-    type: Number,
-    required:true
-},
-location:{
-    type:Object,
-    required:true,
-  }
-},{versionKey:false}, { timestamps: {} });
+    userToken: {
+        type: String,
+        required: true
+    },
+    picture: {
+        type: Array,
+        required: false
+    },
+    title: {
+        type: String,
+        required: true
+    },
+    category: {
+        type: String,
+        required: true
+    },
+    description: {
+        type: String,
+        required: false
+    },
+    pickUpTime: {
+        type: String,
+        required: true
+    },
+    listFor: {
+        type: Number,
+        required: true
+    },
+    location: {
+        type: Object,
+        required: true,
+    },
+    likes: {
+        type: Array,
+        required: false
+    },
+    disable: {
+        type: Boolean,
+        required: false,
+        default: false
+    }
+}, {
+    versionKey: false
+});
+
+addListingSchema.set('timestamps', true);
 
 module.exports = mongoose.model('AddListing', addListingSchema);
