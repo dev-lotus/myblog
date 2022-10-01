@@ -15,6 +15,7 @@ export class FreeListServiceService {
   getAllFreeListing(): Observable<FreeListing[]> {
     return this.http.get<FreeListing[]>(this.freeList_api_url + "/get/freeListing/").pipe(catchError(this.errorHandler));
   }
+
   getFreeListingDataById(listId: string, userToken:string ): Observable<FreeListing[]> {
     console.log(listId, userToken);
     return this.http.get<FreeListing[]>(this.freeList_api_url + "/get/freeListing/listingId/" + listId + "/"+userToken).pipe(catchError(this.errorHandler));
@@ -25,6 +26,7 @@ export class FreeListServiceService {
       picture: listingPicture
     }).pipe(catchError(this.errorHandler));
   }
+
   updateFreeListingData(listId:string, userToken:string, listingPicture:any[], title:string, category:string, description:string, pickUpTime:string,listFor:number, lng: number, lat: number): Observable<boolean> {
     return this.http.put<boolean>(this.freeList_api_url + "/update/freeListing/" + listId + "/" + userToken, {
       picture:listingPicture,   
@@ -39,7 +41,6 @@ export class FreeListServiceService {
     }).pipe(catchError(this.errorHandler));
   }
 
-  
   errorHandler(error: HttpErrorResponse) {
     console.error(error);
     return throwError(error.message || "Server Error");

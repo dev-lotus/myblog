@@ -29,15 +29,15 @@
         <div class="row row-cols-md-3 row-cols-1  g-4">
           <div class="col" *ngFor="let list of freeListing; let ind = index">
             <div class="card">
-              <a href="listing-details/{{list._id}}" class="link-direct">
+              <a href="listing-details/{{list._id}}/?token={{list.userToken}}" class="link-direct">
 
                 <img
                   src="{{list.picture[0]}}"
                   class="card-img-top" alt="...">
                 <div class="card-body">
-                  <p class="card-text "><span >
+                  <!-- <p class="card-text " *ngIf="this.user[ind+1]._id == list.userToken"><span>
                     <img src="{{this.user[ind+1].profilePicture}}"
-                        width="40" className="rounded-circle" /> </span> {{this.user[ind+1].firstName}} {{this.user[ind+1].lastName}}</p>
+                        width="40" className="rounded-circle" /> </span> {{this.user[ind+1].firstName}} {{this.user[ind+1].lastName}}</p> -->
                   <h5 class="card-title fw-bold">{{list.title}}</h5>
                   <p>{{list.description}}</p>
 

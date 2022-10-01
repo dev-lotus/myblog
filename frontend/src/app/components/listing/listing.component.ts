@@ -44,8 +44,8 @@ export class ListingComponent implements OnInit {
       myLocation: {
         "lng": 88.48699665399437,
         "lat": 23.412221981538707
-  
-  }
+
+      }
     }
   ];
   userData: any[] = [];
@@ -78,11 +78,14 @@ export class ListingComponent implements OnInit {
                 /** spinner ends after 5 seconds */
                 this.spinner.hide();
               }, 1000);
-             
-                this.user.push(res[0]);
-             
-              console.log(this.userData[0].profilePicture);
-              console.log(this.user);
+
+              this.user.push(res[0]);
+
+              console.log(this.user[1]);
+              // console.log(this.user);
+
+              console.log(this.removeDupliactes(this.user) );
+              
             }, err => {
               setTimeout(() => {
                 /** spinner ends after 5 seconds */
@@ -92,7 +95,7 @@ export class ListingComponent implements OnInit {
               this.errMsg = err;
               console.log(this.errMsg)
             }, () => console.log("Get User Data method excuted successfully"))
-      
+
         }
       }, err => {
         setTimeout(() => {
@@ -104,9 +107,19 @@ export class ListingComponent implements OnInit {
         console.log(this.errMsg)
       }, () => console.log("Get ALL FREE LIST Method excuted successfully"));
 
-      console.log("Free List " + this.freeListing[0]);
-      
-      console.log("User " + this.user);
+    console.log("Free List " + this.freeListing[0]);
+
+    console.log("User " + this.user);
+  }
+   removeDupliactes = (values: any[]) => {
+    let concatArray = values.map(eachValue => {
+      return Object.values(eachValue).join('')
+    })
+    let filterValues = values.filter((value, index) => {
+      return concatArray.indexOf(concatArray[index]) === index
+  
+    })
+    return filterValues
   }
   getUserDataByToken(userTokenFreeList: string) {
     this._userService.getUserDataById(userTokenFreeList).subscribe(
@@ -115,10 +128,10 @@ export class ListingComponent implements OnInit {
           /** spinner ends after 5 seconds */
           this.spinner.hide();
         }, 1000);
-       
-       
-          this.userData.push(res[0]);
-       
+
+
+        this.userData.push(res[0]);
+
         console.log(this.userData[0].profilePicture);
         console.log(this.userData);
       }, err => {
