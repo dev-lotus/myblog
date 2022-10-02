@@ -126,6 +126,23 @@ router.patch('/update/addLikeFreeListing/:listId', async(req, res)=>{
        
 });
 
+// REMOVE LIKE FROM LISTING
+router.patch('/update/removeLikeFreeListing/:listId', async(req, res)=>{
+    try{
+        const freeList = await FreeListing.findByIdAndUpdate(req.params.listId,
+
+            { $pull: { likes:{"listId":req.params.listId,"userToken":req.body.userToken} } });
+        
+      const l1 = await freeList.save();
+        
+        res.status(200).json(true);
+    
+    }catch (err) {
+        res.status(502).send('Error ' + err);
+    }
+       
+});
+
 // DELETE FREE LISTING 
 router.delete('/delete/freeListing/:listId/:userToken', async(req,res)=>{
     try{

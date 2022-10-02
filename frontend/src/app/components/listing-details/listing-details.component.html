@@ -52,10 +52,10 @@
                 <div class="btn-group" role="group" aria-label="Basic outlined example">
                     <button type="button" class="btn btn-outline-primary "><i class="fa fa-share-square-o" aria-hidden="true"></i> Share</button>
                     <button type="button" class="btn btn-outline-danger" (click)="addLikeFreeListItem(freeListing[0]._id, this.userToken)" *ngIf="this.likesListing == false; else elseBlock">
-                      <span><i class="fa fa-heart-o" aria-hidden="true"></i></span> {{this.countLikesListing.length}} Likes</button>
+                      <span><i class="fa fa-heart-o" aria-hidden="true"></i></span> {{this.countLikesListing.length}} Like </button>
                       <ng-template #elseBlock>
-                        <button type="button" class="btn btn-danger" (click)="addLikeFreeListItem(freeListing[0]._id, this.userToken)">
-                          <span><i class="fa fa-heart-o" aria-hidden="true"></i></span> {{this.countLikesListing.length}} Likes</button>
+                        <button type="button" class="btn btn-danger" (click)="removeLikeFreeListing(freeListing[0]._id, this.userToken)">
+                          <span><i class="fa fa-heart-o" aria-hidden="true"></i></span> {{this.countLikesListing.length}} Like</button>
                       </ng-template>
                   </div>
              

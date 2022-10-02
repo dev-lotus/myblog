@@ -69,8 +69,8 @@ export class ListingDetailsComponent implements OnInit {
   status!: any;
   freeListId: string;
   freeListUserToken!: string;
-  likesListing:boolean = false;
-  countLikesListing:any[] =[];
+  likesListing: boolean = false;
+  countLikesListing: any[] = [];
   constructor(private route: ActivatedRoute, private spinner: NgxSpinnerService, private _toast: NgToastService, private _router: Router, private _userService: UserServiceService, private _freeList: FreeListServiceService) {
     (mapboxgl as any).accessToken = environment.mapbox.accessToken;
     this.userToken = String(localStorage.getItem("userId"));
@@ -157,29 +157,41 @@ export class ListingDetailsComponent implements OnInit {
               console.log(this.removeDupliactes(this.freeListing[0].likes));
               this.countLikesListing = this.removeDupliactes(this.freeListing[0].likes);
               console.log(this.countLikesListing);
-              if (this.freeListing[0].likes.length == 1) {
-                if (this.freeListing[0].likes[0].listId == this.freeListId && this.freeListing[0].likes[0].userToken == this.userToken) {
-                  this.likesListing = true;
-                  console.log(this.likesListing);
-                }
-                else {
-                  this.likesListing = false;
 
-                }
-              }
-              else {
-                for (var k = 0; k < this.freeListing[0].likes.length; k++) {
-                  if (this.freeListing[0].likes[i].listId == this.freeListId && this.freeListing[0].likes[i].userToken == this.userToken) {
-                    this.likesListing = true;
-                    console.log(this.likesListing);
-                  }
-                  else {
-                    this.likesListing = false;
 
-                  }
-                }
+              
+              this.likesListing = !!this.countLikesListing.find(like => {  
+                return like.listId === this.freeListId && like.userToken === this.userToken;
+              });
 
-              }
+
+              // if (this.countLikesListing.length <= 1) {
+              //   console.log("1");
+              //   if (this.countLikesListing[0].listId == this.freeListId && this.countLikesListing[0].userToken == this.userToken) {
+              //     this.likesListing = true;
+              //     console.log(this.likesListing);
+              //   }
+              //   else {
+              //     this.likesListing = false;
+
+              //   }
+              // }
+              // if (this.countLikesListing.length >= 2) {
+              //   console.log("2");
+
+
+              //   // for (var k = 0; k < this.countLikesListing.length; k++) {
+              //   //   if (this.countLikesListing[k].listId == this.freeListId && this.countLikesListing[k].userToken == this.userToken) {
+              //   //     this.likesListing = true;
+              //   //     console.log(this.likesListing);
+              //   //   }
+              //   //   else {
+              //   //     this.likesListing = false;
+
+              //   //   }
+              //   // }
+
+              // }
             }, err => {
               setTimeout(() => {
                 /** spinner ends after 5 seconds */
@@ -253,55 +265,101 @@ export class ListingDetailsComponent implements OnInit {
   }
 
   addLikeFreeListItem(listId: string, userTokenVal: string) {
-    var count =0;
+    // var count = 0;
 
-    for(var i=0;i<this.freeListing[0].likes.length;i++)
-    {
-     
-      if(this.freeListing[0].likes[i].listId == listId && this.freeListing[0].likes[i].userToken)
-      {
-        count++;
-      }
-      
-    }
-    if(count==0)
-      {
-        this._freeList.updateAddLikeFreeListing(listId, userTokenVal).subscribe(
-          res => {
-            setTimeout(() => {
-              /** spinner ends after 5 seconds */
-              this.spinner.hide();
-            }, 1000);
-            this.status = res;
-            console.log(this.status);
-            if (this.status == true) {
-              this._toast.success({ detail: "SUCCESS", summary: 'You liked this listing', position: 'br' });
-              setTimeout(function () {
-                window.location.reload();
-              }, 2000);
-    
-            }
-            else {
-              this._toast.warning({ detail: "FAILED", summary: 'Unable to like this listing', position: 'br' });
-    
-            }
-          }, err => {
-            setTimeout(() => {
-              /** spinner ends after 5 seconds */
-              this.spinner.hide();
-            }, 1000);
-            this.errMsg = err;
-            this._toast.warning({ detail: "FAILED", summary: 'Please try after sometime', position: 'br' });
-    
-          },
-          () => console.log("LIKE LISTING FREE successfully EXECUTED")
-        )
-      }
-      else{
-        alert("You already Liked it");
-      }
+    // for (var i = 0; i < this.freeListing[0].likes.length; i++) {
+
+    //   if (this.freeListing[0].likes[i].listId == listId && this.freeListing[0].likes[i].userToken == userTokenVal) {
+    //     count++;
+    //   }
+
+    // }
+    // if (count == 0) {
+      this._freeList.updateAddLikeFreeListing(listId, userTokenVal).subscribe(
+        res => {
+          setTimeout(() => {
+            /** spinner ends after 5 seconds */
+            this.spinner.hide();
+          }, 1000);
+          this.status = res;
+          console.log(this.status);
+          if (this.status == true) {
+            this._toast.success({ detail: "SUCCESS", summary: 'You liked this listing', position: 'br' });
+            setTimeout(function () {
+              window.location.reload();
+            }, 2000);
+
+          }
+          else {
+            this._toast.warning({ detail: "FAILED", summary: 'Unable to like this listing', position: 'br' });
+
+          }
+        }, err => {
+          setTimeout(() => {
+            /** spinner ends after 5 seconds */
+            this.spinner.hide();
+          }, 1000);
+          this.errMsg = err;
+          this._toast.warning({ detail: "FAILED", summary: 'Please try after sometime', position: 'br' });
+
+        },
+        () => console.log("LIKE LISTING FREE successfully EXECUTED")
+      )
+    // }
+    // else {
+    //   alert("You already Liked it");
+    // }
     console.log(listId, userTokenVal);
-    
+
+  }
+
+  removeLikeFreeListing(listId: string, userTokenVal: string) {
+    // var count = 0;
+
+    // for (var i = 0; i < this.freeListing[0].likes.length; i++) {
+
+    //   if (this.freeListing[0].likes[i].listId == listId && this.freeListing[0].likes[i].userToken == userTokenVal) {
+    //     count++;
+    //   }
+
+    // }
+    // if (count == 0) {
+      this._freeList.updateRemoveLikeFreeListing(listId, userTokenVal).subscribe(
+        res => {
+          setTimeout(() => {
+            /** spinner ends after 5 seconds */
+            this.spinner.hide();
+          }, 1000);
+          this.status = res;
+          console.log(this.status);
+          if (this.status == true) {
+            this._toast.success({ detail: "SUCCESS", summary: 'You unliked this listing', position: 'br' });
+            setTimeout(function () {
+              window.location.reload();
+            }, 2000);
+
+          }
+          else {
+            this._toast.warning({ detail: "FAILED", summary: 'Unable to unliked this listing', position: 'br' });
+
+          }
+        }, err => {
+          setTimeout(() => {
+            /** spinner ends after 5 seconds */
+            this.spinner.hide();
+          }, 1000);
+          this.errMsg = err;
+          this._toast.warning({ detail: "FAILED", summary: 'Please try after sometime', position: 'br' });
+
+        },
+        () => console.log("LIKE LISTING FREE successfully EXECUTED")
+      )
+    // }
+    // else {
+    //   alert("You already Liked it");
+    // }
+    console.log(listId, userTokenVal);
+
   }
 
 }

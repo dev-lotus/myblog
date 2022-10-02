@@ -51,6 +51,12 @@ export class FreeListServiceService {
     }).pipe(catchError(this.errorHandler));
   }
 
+  updateRemoveLikeFreeListing(listId: string, userToken:string): Observable<boolean> {
+    return this.http.patch<boolean>(this.freeList_api_url + "/update/removeLikeFreeListing/" + listId ,{
+      userToken:userToken, 
+    }).pipe(catchError(this.errorHandler));
+  }
+
   updateFreeListingData(listId:string, userToken:string, listingPicture:any[], title:string, category:string, description:string, pickUpTime:string,listFor:number, lng: number, lat: number): Observable<boolean> {
     return this.http.put<boolean>(this.freeList_api_url + "/update/freeListing/" + listId + "/" + userToken, {
       picture:listingPicture,   
