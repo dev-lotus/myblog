@@ -48,7 +48,7 @@
            <div class="body">
             <div class="miscellaneous mt-2">
               
-                <p class="text-muted"><i class="fa fa-clock-o" aria-hidden="true"></i> Added {{ freeListing[0].updatedAt |  date:'MMM d, y, h:mm a' }} | <i class="fa fa-map-marker" aria-hidden="true"></i> 7.0 KM away </p>
+                <p class="text-muted"><img src="https://img.icons8.com/ios-glyphs/344/time-machine.png" width="20" alt="" srcset=""> Added {{ freeListing[0].updatedAt |  date:'MMM d, y, h:mm a' }} | <img src="https://img.icons8.com/fluency/344/order-delivered.png" width="20" alt=""> 7.0 KM away </p>
                 <div class="btn-group" role="group" aria-label="Basic outlined example">
                     <button type="button" class="btn btn-outline-primary "><i class="fa fa-share-square-o" aria-hidden="true"></i> Share</button>
                     <button type="button" class="btn btn-outline-danger" (click)="addLikeFreeListItem(freeListing[0]._id, this.userToken)" *ngIf="this.likesListing == false; else elseBlock">

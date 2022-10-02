@@ -56,6 +56,9 @@ export class ListingComponent implements OnInit {
   userToken!: string;
   errMsg!: string;
   status!: any;
+  
+  likesListing: boolean = false;
+  countLikesListing: any[] = [];
   constructor(private spinner: NgxSpinnerService, private _toast: NgToastService, private _router: Router, private _userService: UserServiceService, private _freeList: FreeListServiceService) {
     this.userToken = String(localStorage.getItem("userId"));
   }
@@ -89,6 +92,12 @@ export class ListingComponent implements OnInit {
               // console.log(this.user);
 
               console.log(this.removeDupliactes(this.user) );
+              console.log(this.removeDupliactes(this.freeListing[0].likes));
+              this.countLikesListing = this.removeDupliactes(this.freeListing[0].likes);
+              console.log(this.countLikesListing);
+
+
+              
               
             }, err => {
               setTimeout(() => {
@@ -148,8 +157,5 @@ export class ListingComponent implements OnInit {
         console.log(this.errMsg)
       }, () => console.log("Get User Data method excuted successfully"))
 
-  }
-  loveReact() {
-    alert("Hi");
   }
 }
