@@ -51,6 +51,11 @@ export class FreeListServiceService {
     }).pipe(catchError(this.errorHandler));
   }
 
+  updateDisableStatusFreeListing(listId: string, userToken:string, disableStatus:boolean): Observable<boolean> {
+    return this.http.patch<boolean>(this.freeList_api_url + "/update/disableStatusFreeListing/" + listId + "/"+userToken,{
+      disableStatus:disableStatus, 
+    }).pipe(catchError(this.errorHandler));
+  }
   updateRemoveLikeFreeListing(listId: string, userToken:string): Observable<boolean> {
     return this.http.patch<boolean>(this.freeList_api_url + "/update/removeLikeFreeListing/" + listId ,{
       userToken:userToken, 

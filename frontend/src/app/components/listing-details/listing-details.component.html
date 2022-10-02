@@ -62,10 +62,10 @@
             </div>
             
             <div class="desc mt-3">
-              <p *ngIf="this.freeListing[0].category == 'Food'; else elseBlock">
+              <p *ngIf="this.freeListing[0].category == 'Food'; else elseBlockCategory">
                 <span class="badge bg-success">Food</span>
               </p>
-              <ng-template #elseBlock>
+              <ng-template #elseBlockCategory>
                 <p>
                   <span class="badge bg-warning">Non - Food</span>
                 </p>

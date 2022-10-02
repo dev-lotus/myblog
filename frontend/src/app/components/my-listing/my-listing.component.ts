@@ -120,5 +120,40 @@ export class MyListingComponent implements OnInit {
       () => console.log("DELETE ListiNG METHOD successfully EXECUTED")
     )
   }
+  disableStatusListingOnClick(listId:string, userTokenVal:string, disableStatus:boolean)
+  {
+    console.log(listId, userTokenVal);
+    this._freeList.updateDisableStatusFreeListing(listId,userTokenVal,disableStatus).subscribe(
+      res=>{
+        setTimeout(() => {
+          /** spinner ends after 5 seconds */
+          this.spinner.hide();
+        }, 1000);
+        this.status = res;
+        console.log(this.status);
+        if (this.status == true) {
+          this._toast.success({ detail: "SUCCESS", summary: 'We have updated the listing status', position: 'br' });
+          setTimeout(function () {
+            window.location.reload();
+          }, 2000);
+
+        }
+        else {
+          this._toast.warning({ detail: "FAILED", summary: 'Unable to update the listing status', position: 'br' });
+
+        }
+      },err=>{
+        setTimeout(() => {
+          /** spinner ends after 5 seconds */
+          this.spinner.hide();
+        }, 1000);
+        this.errMsg = err;
+        this._toast.warning({ detail: "FAILED", summary: 'Please try after sometime', position: 'br' });
+
+      },
+      () => console.log("updated the listing status successfully EXECUTED")
+    )
+  }
+
 
 }

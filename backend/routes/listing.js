@@ -107,6 +107,24 @@ router.patch('/update/freeListingPicture/:listId/:userToken', async(req, res)=>{
        
 });
 
+//  DISBALE LISTING VIEW STATUS
+router.patch('/update/disableStatusFreeListing/:listId/:userToken', async(req, res)=>{
+    try{
+        const freeList = await FreeListing.findOne({
+            _id:req.params.listId,
+            userToken:req.params.userToken
+        });
+        freeList.disable =req.body.disableStatus;      
+        const l1 = await freeList.save();
+        
+        res.status(200).json(true);
+    
+    }catch (err) {
+        res.status(502).send('Error ' + err);
+    }
+       
+});
+
 //  UPDATE ADD LIKE TO LISTING
 router.patch('/update/addLikeFreeListing/:listId', async(req, res)=>{
     try{

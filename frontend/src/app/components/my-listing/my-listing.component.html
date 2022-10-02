@@ -45,9 +45,13 @@
                   <div>
                     <div class="btn-toolbar mt-2 mb-2 mb-md-0">
                       <div class="btn-group me-2 ">
-                        <a href="free/edit-listing/{{list._id}}"  class="btn btn-warning" style="margin-right: 4px;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
+                        <button type="button" *ngIf="list.disable == false; else elseBlockDisableStatus" class="btn btn-secondary" style="margin-right: 4px;"  (click)="disableStatusListingOnClick(list._id, list.userToken, true)"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                        <ng-template #elseBlockDisableStatus>
+                          <button type="button" class="btn btn-secondary" style="margin-right: 4px;"  (click)="disableStatusListingOnClick(list._id, list.userToken, false)"><i class="fa fa-eye-slash" aria-hidden="true"></i></button>
+                        </ng-template>
+                         
+                       <a href="free/edit-listing/{{list._id}}"  class="btn btn-warning" style="margin-right: 4px;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
                          <button type="button" class="btn btn-danger" (click)="removeUserFreeListItem(list._id, list.userToken)"><i class="fa fa-trash" aria-hidden="true" ></i> Delete</button>
-                    
                       </div>
                     
                     </div>

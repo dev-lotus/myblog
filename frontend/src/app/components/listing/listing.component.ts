@@ -78,7 +78,18 @@ export class ListingComponent implements OnInit {
         }, 1000);
         this.freeListing = res;
         console.log(this.freeListing);
+        for(var ele= 0;ele< this.freeListing.length;ele++)
+        {
+          if(this.freeListing[ele].disable == true)
+          {
+            this.freeListing.splice(ele,1);
+          }
+        }
         for (var i = 0; i < this.freeListing.length; i++) {
+          console.log(this.removeDupliactes(this.freeListing[i].likes).length);
+          this.countLikesListing.push(this.removeDupliactes(this.freeListing[i].likes).length);
+          console.log(this.countLikesListing);
+
           this._userService.getUserDataById(this.freeListing[i].userToken).subscribe(
             res => {
               setTimeout(() => {
@@ -92,10 +103,7 @@ export class ListingComponent implements OnInit {
               // console.log(this.user);
 
               console.log(this.removeDupliactes(this.user) );
-              console.log(this.removeDupliactes(this.freeListing[0].likes));
-              this.countLikesListing = this.removeDupliactes(this.freeListing[0].likes);
-              console.log(this.countLikesListing);
-
+             
 
               
               

@@ -27,8 +27,8 @@
     <div class="tab-content mt-2" id="pills-tabContent">
       <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
         <div class="row row-cols-md-3 row-cols-1  g-4">
-          <div class="col" *ngFor="let list of freeListing; let ind = index">
-            <div class="card">
+          <div class="col" *ngFor="let list of freeListing; let ind = index" >
+            <div class="card" >
               <a href="listing-details/{{list._id}}/?token={{list.userToken}}" class="link-direct">
 
                 <img
@@ -47,7 +47,7 @@
                 <small class="text-muted"><img src="https://img.icons8.com/fluency/344/order-delivered.png" width="20" alt=""> 5.5 KM</small>
 
                 <small class="text-muted">{{ list.updatedAt | date }}</small>
-                <small> <img src="https://img.icons8.com/color/344/filled-like.png" width="20" alt=""> {{this.countLikesListing.length}} Liked</small>
+                <small> <img src="https://img.icons8.com/color/344/filled-like.png" width="20" alt=""> {{this.countLikesListing[ind]}} Liked</small>
               </div>
             </div>
 
