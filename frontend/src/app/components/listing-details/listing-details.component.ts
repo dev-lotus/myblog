@@ -71,6 +71,11 @@ export class ListingDetailsComponent implements OnInit {
   freeListUserToken!: string;
   likesListing: boolean = false;
   countLikesListing: any[] = [];
+  
+  haversineDistanceResult: any[] =[];
+  currentUserLat!: number;
+  currentUserLng!: number;
+
   constructor(private route: ActivatedRoute, private spinner: NgxSpinnerService, private _toast: NgToastService, private _router: Router, private _userService: UserServiceService, private _freeList: FreeListServiceService) {
     (mapboxgl as any).accessToken = environment.mapbox.accessToken;
     this.userToken = String(localStorage.getItem("userId"));
@@ -81,7 +86,9 @@ export class ListingDetailsComponent implements OnInit {
     this.freeListUserToken = String(urlParams.get('token'));
 
     console.log(this.freeListUserToken);
-
+   
+    this.currentUserLat = Number(localStorage.getItem("myLocationLat"));
+    this.currentUserLng = Number(localStorage.getItem("myLocationLng"));
   }
 
   ngOnInit(): void {
@@ -137,6 +144,9 @@ export class ListingDetailsComponent implements OnInit {
         this.freeListing = res;
         console.log(this.freeListing);
         for (var i = 0; i < this.freeListing.length; i++) {
+
+          this.haversineDistanceResult.push(this.calcCrow(this.currentUserLat,this.currentUserLng,this.freeListing[i].location.lat,this.freeListing[i].location.lng).toFixed(1));
+
           this._userService.getUserDataById(this.freeListUserToken).subscribe(
             res => {
               setTimeout(() => {
@@ -360,6 +370,27 @@ export class ListingDetailsComponent implements OnInit {
     // }
     console.log(listId, userTokenVal);
 
+  }
+
+  calcCrow(lat1:number, lon1: number, lat2: number, lon2: number) 
+  {
+    var R = 6371; // km
+    var dLat = this.toRad(lat2-lat1);
+    var dLon = this.toRad(lon2-lon1);
+    var lat1 = this.toRad(lat1);
+    var lat2 = this.toRad(lat2);
+  
+    var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+      Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+    var d = R * c;
+    return d;
+  }
+  
+  // Converts numeric degrees to radians
+   toRad(Value: number) 
+  {
+      return Value * Math.PI / 180;
   }
 
 }
