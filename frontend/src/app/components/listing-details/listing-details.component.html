@@ -3,13 +3,23 @@
 <section class="container mb-5 mt-2">
   
     <div class="row">
-      <div class="col-12 bg-light  mb-3 pt-3">
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb fs-5">
-            <li class="breadcrumb-item"><a href="listing">Listing</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Listing Details</li>
-          </ol>
-        </nav>
+      <div class="col-12 bg-light  mb-3 pt-3 d-flex justify-content-between">
+        <div>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb fs-5">
+              <li class="breadcrumb-item"><a href="listing">Listing</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Listing Details</li>
+            </ol>
+          </nav>
+        </div>
+       <div *ngIf="freeListing[0].userToken == this.userToken; else checkTokenMatch">
+        <a href="free/edit-listing/{{this.freeListId}}"  class="btn btn-warning" style="margin-right: 4px;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>       
+        
+       </div>
+       <ng-template #checkTokenMatch>
+        <div>
+        </div>
+       </ng-template>
       </div>
         <div class="col-lg-4 col-md-12 col-sm-12 col-12 my-auto">
             <div class="item-image ">
