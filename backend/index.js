@@ -26,9 +26,10 @@ con.on('open', () => {
 // Router 
 const userRouter = require('./routes/user');
 const listing = require('./routes/listing');
+const requestRouter = require('./routes/request') 
 app.use('/user', userRouter);
 app.use('/user/listing', listing);
-
+app.use('/user/request', requestRouter);
 
 
 

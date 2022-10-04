@@ -1,0 +1,6 @@
+const express = require('express')
+const router = express.Router();
+const Request = require('../models/request');
+
+
+module.exports = router;
