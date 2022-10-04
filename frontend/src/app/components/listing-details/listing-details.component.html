@@ -96,8 +96,14 @@
             <h6 class="fw-bold">APPROX. LOCATION <span class="badge bg-info text-dark location-link"><a href="http://maps.google.com/?q={{this.freeListing[0].location.lat}},{{this.freeListing[0].location.lng}}" target="_blank">Click to get direction</a></span></h6>
             <div id="map" class="map-container"></div>
         </div>
-        <a href="request" class="w-100 btn btn-primary btn-lg"><i class="fa fa-envelope" aria-hidden="true"></i> Request this</a>
-        
+        <div *ngIf="freeListing[0].userToken != this.userToken; else disableReuestButton">
+          <a href="request" class="w-100 btn btn-primary btn-lg"><i class="fa fa-envelope" aria-hidden="true"></i> Request this</a>   
+        </div>
+       <ng-template #disableReuestButton>
+        <div>
+          <!-- <a href="request" class="w-100 btn btn-primary btn-lg disabled"><i class="fa fa-envelope" aria-hidden="true"></i> Request this</a>    -->
+        </div>
+       </ng-template>
     </div>
  
 </section>
