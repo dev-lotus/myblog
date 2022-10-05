@@ -1,0 +1,15 @@
+.bg-delivered{
+    background-color: rgba(34, 236, 145, 0.316) !important; 
+}
+
+.bg-pending{
+    background-color: rgba(216, 236, 34, 0.316) !important; 
+}
+
+.bg-accepted{
+    background-color: rgba(34, 162, 236, 0.316) !important; 
+}
+
+.bg-rejected{
+    background-color: rgba(236, 68, 34, 0.316) !important; 
+}
