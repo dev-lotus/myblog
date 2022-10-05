@@ -168,6 +168,7 @@ export class SettingsComponent implements OnInit {
 
   updateUserData(updateForm: NgForm) {
     
+    console.log(updateForm);
     this.spinner.show();
     this._userService.updateUserData(String(this.user[0]._id), updateForm.value.firstName, updateForm.value.lastName, updateForm.value.mobileNumber, updateForm.value.aboutYou, this.userLikeArr, this.userDislikeArr ).subscribe(
       res => {

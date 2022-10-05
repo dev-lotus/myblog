@@ -10,6 +10,8 @@ import { User } from 'src/app/interface/user';
 import { FreeListServiceService } from 'src/app/services/freeList-service/free-list-service.service';
 import { UserServiceService } from 'src/app/services/user-service/user-service.service';
 import { count } from 'rxjs';
+import { NgForm } from '@angular/forms';
+import { RequestServiceService } from 'src/app/services/request-service/request-service.service';
 @Component({
   selector: 'app-listing-details',
   templateUrl: './listing-details.component.html',
@@ -76,7 +78,7 @@ export class ListingDetailsComponent implements OnInit {
   currentUserLat!: number;
   currentUserLng!: number;
 
-  constructor(private route: ActivatedRoute, private spinner: NgxSpinnerService, private _toast: NgToastService, private _router: Router, private _userService: UserServiceService, private _freeList: FreeListServiceService) {
+  constructor(private route: ActivatedRoute, private spinner: NgxSpinnerService, private _toast: NgToastService, private _router: Router, private _userService: UserServiceService, private _freeList: FreeListServiceService,private _requestService: RequestServiceService) {
     (mapboxgl as any).accessToken = environment.mapbox.accessToken;
     this.userToken = String(localStorage.getItem("userId"));
     const routeParams = this.route.snapshot.paramMap;
@@ -391,6 +393,48 @@ export class ListingDetailsComponent implements OnInit {
    toRad(Value: number) 
   {
       return Value * Math.PI / 180;
+  }
+
+  sendRequestMessageForm(form:NgForm)
+  {
+    // console.log(form.value.request_message);
+    this.spinner.show();
+    var acceptance_status = "pending";
+    this._requestService.addRequestMessageData(this.freeListId,this.freeListUserToken,this.userToken,form.value.request_message,acceptance_status ).subscribe(
+      res => {
+        setTimeout(() => {
+          /** spinner ends after 5 seconds */
+          this.spinner.hide();
+        }, 1000);
+        this.status = res;
+        console.log(this.status);
+        if (this.status == true) {
+          this._toast.success({ detail: "REQUEST SENT", summary: 'Please wait while your request is accepted',position: 'br'});
+          setTimeout(function () {
+            window.location.reload();
+          }, 2000);
+          this._router.navigate(['/request'])
+          .then(() => {
+            window.location.reload();
+          });
+        }
+        else {
+          this._toast.warning({ detail: "REQUEST FAILED", summary: 'Unable to send your request',position: 'br'});
+
+        }
+
+      },
+      err => {
+        setTimeout(() => {
+          /** spinner ends after 5 seconds */
+          this.spinner.hide();
+        }, 1000);
+        this.errMsg = err;
+        this._toast.warning({ detail: "FAILED", summary: 'Please try after sometime',position: 'br'});
+
+      },
+      () => console.log("Request message sent successfully")
+    )
   }
 
 }
