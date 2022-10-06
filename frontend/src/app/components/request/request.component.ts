@@ -49,6 +49,59 @@ export class RequestComponent implements OnInit {
       updatedAt: new Date(500000000000)
     }];
 
+  userReceivedRequest: User[] = [
+    {
+      _id: "",
+      profilePicture: "",
+      firstName: "",
+      lastName: "",
+      emailAddress: "",
+      mobileNumber: "",
+      aboutYou: "",
+      likes: [],
+      dislikes: [],
+      myLocation: {
+        "lng": 88.48699665399437,
+        "lat": 23.412221981538707
+
+      }
+    }
+  ];
+
+  freeListingReceivedRequest: FreeListing[] = [
+    {
+      "_id": "",
+      "userToken": "",
+      "picture": [],
+      "title": "",
+      "category": "",
+      "description": "",
+      "pickUpTime": "",
+      "listFor": 1,
+      "location": {
+        "lng": 88.48699665399437,
+        "lat": 23.412221981538707
+      },
+      likes: [],
+      disable: false,
+      createdAt: new Date(500000000000),
+      updatedAt: new Date(500000000000)
+
+    }];
+
+    requestReceivedRequest: Request[] = [
+      {
+      _id: "",
+      listId: "",
+      listedUserToken: "",
+      requesterUserToken: "",
+      request_message:"",
+      rejection_message: "",
+      acceptance_status: "",
+      createdAt: new Date(500000000000),
+      updatedAt: new Date(500000000000)
+    }];
+
   user: User[] = [
     {
       _id: "",
@@ -70,11 +123,13 @@ export class RequestComponent implements OnInit {
 
   userData: any[] = [];
   receivedRequestUserData: any[] = [];
+  receivedRequesfreeListingData: any[] = [];
   userToken!: string;
   errMsg!: string;
   status!: any;
   freeListingData: any[] = [];
   haversineDistanceResult: any[] =[];
+  haversineDistanceResultReceivedRequest: any[] =[];
   currentUserLat!: number;
   currentUserLng!: number;
   constructor(private spinner: NgxSpinnerService, private _toast: NgToastService, private _router: Router, private _userService: UserServiceService, private _freeList: FreeListServiceService, private _request: RequestServiceService) {
@@ -85,6 +140,7 @@ export class RequestComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllRequestByToken();
+    this.getAllRequestByTokeReceivedRequest();
     console.log(this.freeListingData);   
   }
   getAllRequestByToken() {
@@ -152,11 +208,89 @@ export class RequestComponent implements OnInit {
         }, () => console.log("Get User Data method excuted successfully"))
 
     }
+      },err => {
+        setTimeout(() => {
+        
+          this.spinner.hide();
+        }, 1000);
+        this.request = [];
+        this.errMsg = err;
+        console.log(this.errMsg)
+      }, () => console.log("Get All Request Data by token method excuted successfully")
+    )
+  }
 
-    for (var i = 0; i < this.request.length; i++) {
+
+  getAllRequestByTokeReceivedRequest() {
+    this.spinner.show();
+    this._request.getAllRequestByTokensReceivedRequest(this.userToken).subscribe(
+      res => {
+        setTimeout(() => {
+          /** spinner ends after 5 seconds */
+          this.spinner.hide();
+        }, 1000);
+        this.requestReceivedRequest = res;
+        console.log(this.requestReceivedRequest);
+        for(var i=0;i<this.requestReceivedRequest.length;i++)
+        {
+          this._freeList.getFreeListingDataById(this.requestReceivedRequest[i].listId, this.requestReceivedRequest[i].listedUserToken).subscribe(
+            res => {
+              setTimeout(() => {
+                /** spinner ends after 5 seconds */
+                this.spinner.hide();
+              }, 1000);
+              this.freeListingReceivedRequest = res;
+              this.receivedRequesfreeListingData.push(this.freeListingReceivedRequest);
+              this.haversineDistanceResultReceivedRequest.push(this.calcCrow(this.currentUserLat,this.currentUserLng,this.freeListingReceivedRequest[0].location.lat,this.freeListingReceivedRequest[0].location.lng).toFixed(1));
+
+              console.log(this.freeListingReceivedRequest);
+            
+            }, err => {
+              setTimeout(() => {
+                /** spinner ends after 5 seconds */
+                this.spinner.hide();
+              }, 1000);
+              this.freeListingReceivedRequest = [];
+              this.errMsg = err;
+              console.log(this.errMsg)
+            }, () => console.log("Get ALL FREE LIST Method excuted successfully"));
+      
+        }
+
+        
+    for (var i = 0; i < this.requestReceivedRequest.length; i++) {
 
            
-      this._userService.getUserDataById(this.request[i].requesterUserToken).subscribe(
+      this._userService.getUserDataById(this.requestReceivedRequest[i].requesterUserToken).subscribe(
+        async res => {
+          setTimeout(() => {
+            /** spinner ends after 5 seconds */
+            this.spinner.hide();
+          }, 1000);
+
+          await this.userReceivedRequest.push(res[0]);
+
+          console.log(this.userReceivedRequest[1]);
+          // console.log(this.user);
+
+          console.log(this.removeDupliactes(this.userReceivedRequest));
+         
+        }, err => {
+          setTimeout(() => {
+            /** spinner ends after 5 seconds */
+            this.spinner.hide();
+          }, 1000);
+          this.userReceivedRequest = [];
+          this.errMsg = err;
+          console.log(this.errMsg)
+        }, () => console.log("Get User Data method excuted successfully"))
+
+    }
+
+    for (var i = 0; i < this.requestReceivedRequest.length; i++) {
+
+           
+      this._userService.getUserDataById(this.requestReceivedRequest[i].requesterUserToken).subscribe(
         async res => {
           setTimeout(() => {
             /** spinner ends after 5 seconds */
@@ -185,7 +319,7 @@ export class RequestComponent implements OnInit {
         
           this.spinner.hide();
         }, 1000);
-        this.request = [];
+        this.requestReceivedRequest = [];
         this.errMsg = err;
         console.log(this.errMsg)
       }, () => console.log("Get All Request Data by token method excuted successfully")

@@ -25,10 +25,10 @@
         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
           <div class="row mx-1" *ngFor="let req of request; let ind = index">
-            <div class="col-md-12 mb-2 text-dark rounded border border-1 shadow-sm bg-body rounded" 
-              [ngClass]="this.request[ind].acceptance_status ==='delivered' ? 'bg-delivered' : this.request[ind].acceptance_status ==='accepted' ? 'bg-accepted'  : this.request[ind].acceptance_status ==='pending' ? 'bg-pending': 'bg-rejected' " *ngIf="this.request[ind].requesterUserToken == this.userToken">
-              <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-4  "
-                >
+            <div class="col-md-12 mb-2 text-dark rounded border border-1 shadow-sm bg-body rounded"
+              [ngClass]="this.request[ind].acceptance_status ==='delivered' ? 'bg-delivered' : this.request[ind].acceptance_status ==='accepted' ? 'bg-accepted'  : this.request[ind].acceptance_status ==='pending' ? 'bg-pending': 'bg-rejected' "
+              *ngIf="this.request[ind].requesterUserToken == this.userToken">
+              <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-4  ">
                 <div>
                   <div class="head d-flex">
                     <div class="left">
@@ -36,7 +36,8 @@
                     </div>
                     <div class="right mx-2 my-auto">
                       <h6 class="fw-bold">{{this.user[ind+1].firstName}} {{this.user[ind+1].lastName}}</h6>
-                      <span class="text-muted"> <i class="fa fa-map-marker" aria-hidden="true"></i> {{this.haversineDistanceResult[ind]}} KM away </span>
+                      <span class="text-muted"> <i class="fa fa-map-marker" aria-hidden="true"></i>
+                        {{this.haversineDistanceResult[ind]}} KM away </span>
                     </div>
                   </div>
                   <div class="mt-3">
@@ -79,13 +80,14 @@
                                       <h2>{{this.user[ind+1].firstName}} {{this.user[ind+1].lastName}}</h2>
                                       <h4>+ {{this.user[ind+1].mobileNumber}}</h4>
                                     </div>
-                                   
+
                                   </div>
                                 </div>
                               </div>
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                               <a href="tel:+{{this.user[ind+1].mobileNumber}}" type="button"  class="btn btn-primary">Call</a>
+                                <a href="tel:+{{this.user[ind+1].mobileNumber}}" type="button"
+                                  class="btn btn-primary">Call</a>
                               </div>
                             </div>
                           </div>
@@ -95,7 +97,8 @@
 
                       </div>
                       <div *ngIf="this.request[ind].acceptance_status == 'pending'">
-                        <button type="button" class="btn btn-warning disabled"><i class="fa fa-clock-o" aria-hidden="true"></i>
+                        <button type="button" class="btn btn-warning disabled"><i class="fa fa-clock-o"
+                            aria-hidden="true"></i>
                           Pending</button>
 
                       </div>
@@ -117,96 +120,56 @@
 
         </div>
         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-          
-          <div class="row mx-1"  *ngFor="let req of request; let ind = index">
-            <div class="col-md-12 mb-2 text-dark rounded border border-1 shadow-sm bg-body rounded"
-              [ngClass]="this.request[ind].acceptance_status ==='delivered' ? 'bg-delivered' : this.request[ind].acceptance_status ==='accepted' ? 'bg-accepted'  : this.request[ind].acceptance_status ==='pending' ? 'bg-pending': 'bg-rejected' " *ngIf="this.request[ind].listedUserToken == this.userToken">
-              <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-4  "
-                >
+          <div class="row mx-1" *ngFor="let req of requestReceivedRequest; let ind = index">
+            <div class="col-md-12 mb-2 text-dark rounded border border-1 shadow-sm bg-body rounded">
+              <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-4  ">
                 <div>
                   <div class="head d-flex">
                     <div class="left">
-                      <img src="{{this.freeListingData[ind][0].picture[0]}}" width="50" className="rounded-circle" />
+                      <img src="{{this.receivedRequesfreeListingData[ind][0].picture[0]}}" width="50"
+                        className="rounded-circle" />
                     </div>
                     <div class="right mx-2 my-auto">
-                      <h6 class="fw-bold">{{this.receivedRequestUserData[ind].firstName}} {{this.receivedRequestUserData[ind].lastName}}</h6>
-                      <span class="text-muted"> <i class="fa fa-map-marker" aria-hidden="true"></i> {{this.haversineDistanceResult[ind]}} KM away </span>
+                      <h6 class="fw-bold">{{this.userReceivedRequest[ind+1].firstName}}
+                        {{this.userReceivedRequest[ind+1].lastName}}</h6>
+                      <span class="text-muted"> <i class="fa fa-map-marker" aria-hidden="true"></i>
+                        {{this.haversineDistanceResultReceivedRequest[ind]}} KM away </span>
                     </div>
                   </div>
                   <div class="mt-3">
                     <p><i class="fa fa-calendar-o" aria-hidden="true"></i>
-                      {{this.freeListingData[ind][0].createdAt |  date:'MMM d, y, h:mm a' }}</p>
+                      {{this.receivedRequesfreeListingData[ind][0].createdAt |  date:'MMM d, y, h:mm a' }}</p>
 
-                    <span> Requested: {{this.freeListingData[ind][0].title}}</span><br />
-                    <span> Your Message: {{this.request[ind].request_message}}</span><br />
+                    <span> Requested: {{this.receivedRequesfreeListingData[ind][0].title}}</span><br />
+                    <span> Your Message: {{this.requestReceivedRequest[ind].request_message}}</span><br />
                     <span class="text-muted mt-2"><i class="fa fa-clock-o" aria-hidden="true"></i> Added at
-                      {{this.request[ind].createdAt |  date:'MMM d, y, h:mm a' }} </span>
+                      {{this.requestReceivedRequest[ind].createdAt |  date:'MMM d, y, h:mm a' }} </span>
 
                   </div>
                 </div>
                 <div>
                   <div class="btn-toolbar mt-2 mb-2 mb-md-0">
                     <div class="btn-group me-2 ">
-                      <a href="listing-details/{{this.freeListingData[ind][0]._id}}?token={{this.freeListingData[ind][0].userToken}}"
+                      <a href="listing-details/{{this.receivedRequesfreeListingData[ind][0]._id}}?token={{this.receivedRequesfreeListingData[ind][0].userToken}}"
                         class="btn btn-secondary" style="margin-right: 4px;"><i class="fa fa-eye"
                           aria-hidden="true"></i> View</a>
-                      <div *ngIf="this.request[ind].acceptance_status == 'accepted'">
-                        <button type="button" class="btn btn-success" style="margin-right: 4px;" data-bs-toggle="modal"
-                          data-bs-target="#staticBackdrop">
-                          <i class="fa fa-phone" aria-hidden="true"></i>
-                        </button>
-                        <!-- Modal -->
-                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
-                          tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                          <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <h5 class="modal-title" id="staticBackdropLabel">Contact Information</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                  aria-label="Close"></button>
-                              </div>
-                              <div class="modal-body">
-                                <div class="row">
-                                  <div class="col-12 text-center">
-                                    <img src="{{this.user[ind+1].profilePicture}}" width="150" alt="">
-                                    <div class="mt-4">
-                                      <h2>{{this.user[ind+1].firstName}} {{this.user[ind+1].lastName}}</h2>
-                                      <h4>+ {{this.user[ind+1].mobileNumber}}</h4>
-                                    </div>
-                                   
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                               <a href="tel:+{{this.user[ind+1].mobileNumber}}" type="button"  class="btn btn-primary">Call</a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <button type="button" class="btn btn-success disabled"><i class="fa fa-check-circle"
-                            aria-hidden="true"></i></button>
+                      <button type="button" class="btn btn-success" style="margin-right: 4px;"><i
+                          class="fa fa-check-circle" aria-hidden="true"></i></button>
+                      <button type="button" class="btn btn-danger" style="margin-right: 4px;"><i
+                          class="fa fa-window-close" aria-hidden="true"></i></button>
+                      <button type="button" class="btn btn-success" style="margin-right: 4px;"><i class="fa fa-phone"
+                          aria-hidden="true"></i> </button>
 
-                      </div>
-                      <div *ngIf="this.request[ind].acceptance_status == 'pending'">
-                        <button type="button" class="btn btn-warning disabled"><i class="fa fa-clock-o" aria-hidden="true"></i>
-                          Pending</button>
-
-                      </div>
-                      <div *ngIf="this.request[ind].acceptance_status == 'rejected'">
-                        <button type="button" class="btn btn-danger disabled"><i class="fa fa-window-close"
-                            aria-hidden="true"></i> Rejected</button>
-
-                      </div>
                     </div>
 
                   </div>
-
                 </div>
+
+
               </div>
             </div>
-
           </div>
+
         </div>
 
       </div>

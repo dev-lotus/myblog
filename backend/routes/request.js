@@ -21,13 +21,27 @@ router.post('/add/newRequest', async(req,res)=>{
     }
 })
 
-router.get('/get/allRequest/token/:token1', async(req,res)=>{
+router.get('/get/allRequest/requested/token/:token1', async(req,res)=>{
     try{
         const allRequest = await Request.find({
-            $or:[
-                {listedUserToken: req.params.token1},
-                {requesterUserToken:req.params.token1}
-              ]
+            
+                requesterUserToken:req.params.token1
+            
+        }) 
+        
+        res.status(200).json(allRequest);
+    
+    }catch(err){
+        res.status(200).send('Error '+ err);
+    }
+})
+
+router.get('/get/allRequest/received_request/token/:token1', async(req,res)=>{
+    try{
+        const allRequest = await Request.find({
+            
+                listedUserToken:req.params.token1
+            
         }) 
         
         res.status(200).json(allRequest);

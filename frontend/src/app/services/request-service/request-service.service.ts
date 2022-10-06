@@ -26,7 +26,11 @@ export class RequestServiceService {
   }
 
   getAllRequestByTokens(token1: string): Observable<Request[]> {
-    return this.http.get<Request[]>(this.request_api_url + "/get/allRequest/token/" + token1).pipe(catchError(this.errorHandler));
+    return this.http.get<Request[]>(this.request_api_url + "/get/allRequest/requested/token/" + token1).pipe(catchError(this.errorHandler));
+  }
+
+  getAllRequestByTokensReceivedRequest(token1: string): Observable<Request[]> {
+    return this.http.get<Request[]>(this.request_api_url + "/get/allRequest/received_request/token/" + token1).pipe(catchError(this.errorHandler));
   }
     errorHandler(error: HttpErrorResponse) {
       console.error(error);
