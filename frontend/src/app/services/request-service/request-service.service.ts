@@ -32,6 +32,20 @@ export class RequestServiceService {
   getAllRequestByTokensReceivedRequest(token1: string): Observable<Request[]> {
     return this.http.get<Request[]>(this.request_api_url + "/get/allRequest/received_request/token/" + token1).pipe(catchError(this.errorHandler));
   }
+
+  addRejectionMessage(request_id: string, rejection_message:string, acceptance_status:string): Observable<boolean> {
+    return this.http.patch<boolean>(this.request_api_url + "/add/rejectionMessage/" + request_id ,{
+      rejection_message:rejection_message,
+      acceptance_status:acceptance_status
+    }).pipe(catchError(this.errorHandler));
+  }
+
+  updateAcceptanceStatus(request_id: string, acceptance_status:string): Observable<boolean> {
+    return this.http.patch<boolean>(this.request_api_url + "/update/acceptanceStatus/" + request_id ,{
+      acceptance_status:acceptance_status
+    }).pipe(catchError(this.errorHandler));
+  }
+  
     errorHandler(error: HttpErrorResponse) {
       console.error(error);
       return throwError(error.message || "Server Error");

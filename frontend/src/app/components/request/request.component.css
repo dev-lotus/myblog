@@ -13,3 +13,8 @@
 .bg-rejected{
     background-color: rgba(236, 68, 34, 0.316) !important; 
 }
+
+#rejectionMessage{
+    color: red;
+    font-weight: 600;
+}

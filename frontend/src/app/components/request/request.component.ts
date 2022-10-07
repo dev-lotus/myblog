@@ -359,9 +359,87 @@ export class RequestComponent implements OnInit {
       return Value * Math.PI / 180;
   }
 
-  sendRejectionMessageForm(form:NgForm)
+  sendRejectionMessageForm(form:NgForm, request_id:any)
   {
-    
+     // console.log(form.value.request_message);
+     this.spinner.show();
+     var acceptance_status = "rejected";
+     this._request.addRejectionMessage(String(request_id),form.value.rejection_message,acceptance_status ).subscribe(
+       res => {
+         setTimeout(() => {
+           /** spinner ends after 5 seconds */
+           this.spinner.hide();
+         }, 1000);
+         this.status = res;
+         console.log(this.status);
+         if (this.status == true) {
+           this._toast.success({ detail: "MESSAGE SENT", summary: 'Rejection Message has been sent',position: 'br'});
+           setTimeout(function () {
+             window.location.reload();
+           }, 2000);
+           this._router.navigate(['/request'])
+           .then(() => {
+             window.location.reload();
+           });
+         }
+         else {
+           this._toast.warning({ detail: "MESSAGE NOT SENT", summary: 'Unable to send your message',position: 'br'});
+ 
+         }
+ 
+       },
+       err => {
+         setTimeout(() => {
+           /** spinner ends after 5 seconds */
+           this.spinner.hide();
+         }, 1000);
+         this.errMsg = err;
+         this._toast.warning({ detail: "FAILED", summary: 'Please try after sometime',position: 'br'});
+ 
+       },
+       () => console.log("REJECTION message FUNCTION  successfully")
+     )
+  }
+
+  acceptanceReject(request_id:any)
+  {
+    this.spinner.show();
+    var acceptance_status = "accepted";
+    this._request.updateAcceptanceStatus(String(request_id),acceptance_status ).subscribe(
+      res => {
+        setTimeout(() => {
+          /** spinner ends after 5 seconds */
+          this.spinner.hide();
+        }, 1000);
+        this.status = res;
+        console.log(this.status);
+        if (this.status == true) {
+          this._toast.success({ detail: "REQUEST ACCEPTED", summary: 'You have accepted the received request',position: 'br'});
+          setTimeout(function () {
+            window.location.reload();
+          }, 2000);
+          this._router.navigate(['/request'])
+          .then(() => {
+            window.location.reload();
+          });
+        }
+        else {
+          this._toast.warning({ detail: "REQUEST REJECTED", summary: 'You have rejected the received request',position: 'br'});
+
+        }
+
+      },
+      err => {
+        setTimeout(() => {
+          /** spinner ends after 5 seconds */
+          this.spinner.hide();
+        }, 1000);
+        this.errMsg = err;
+        this._toast.warning({ detail: "FAILED", summary: 'Please try after sometime',position: 'br'});
+
+      },
+      () => console.log("ACCEPTANCE STATUS FUNCTION  successfully")
+    )
   }
 
 }

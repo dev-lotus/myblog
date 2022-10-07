@@ -121,7 +121,9 @@
         </div>
         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
           <div class="row mx-1" *ngFor="let req of requestReceivedRequest; let ind = index">
-            <div class="col-md-12 mb-2 text-dark rounded border border-1 shadow-sm bg-body rounded">
+            <div class="col-md-12 mb-2 text-dark rounded border border-1 shadow-sm bg-body rounded"
+            [ngClass]="this.requestReceivedRequest[ind].acceptance_status ==='delivered' ? 'bg-delivered' : this.requestReceivedRequest[ind].acceptance_status ==='accepted' ? 'bg-accepted'  : this.requestReceivedRequest[ind].acceptance_status ==='pending' ? 'bg-pending': 'bg-rejected' "
+            >
               <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-4  ">
                 <div>
                   <div class="head d-flex">
@@ -142,6 +144,9 @@
 
                     <span> Requested: {{this.receivedRequesfreeListingData[ind][0].title}}</span><br />
                     <span> Your Message: {{this.requestReceivedRequest[ind].request_message}}</span><br />
+                    <div *ngIf="this.requestReceivedRequest[ind].rejection_message !='' ">
+                      <span id="rejectionMessage"> Rejection Message: {{this.requestReceivedRequest[ind].rejection_message}}</span><br />
+                    </div>
                     <span class="text-muted mt-2"><i class="fa fa-clock-o" aria-hidden="true"></i> Added at
                       {{this.requestReceivedRequest[ind].createdAt |  date:'MMM d, y, h:mm a' }} </span>
 
@@ -155,7 +160,7 @@
                           aria-hidden="true"></i> View</a>
 
                       <div *ngIf="this.requestReceivedRequest[ind].acceptance_status == 'pending'">
-                        <button type="button" class="btn btn-success" style="margin-right: 4px;"><i
+                        <button type="button" class="btn btn-success" style="margin-right: 4px;" (click)="acceptanceReject(this.requestReceivedRequest[ind]._id)"><i
                             class="fa fa-check-circle" aria-hidden="true"></i></button>
                         <button type="button" class="btn btn-danger" style="margin-right: 4px;" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"><i
                             class="fa fa-window-close" aria-hidden="true"></i></button>
@@ -168,7 +173,7 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                   </div>
                                   <div class="modal-body">
-                                    <form class="needs-validation"  #rejectionForm="ngForm" (ngSubmit)="sendRejectionMessageForm(rejectionForm)" novalidate="">
+                                    <form class="needs-validation"  #rejectionForm="ngForm" (ngSubmit)="sendRejectionMessageForm(rejectionForm,this.requestReceivedRequest[ind]._id)" novalidate="">
                                       <div class="mb-3">
                                         <label for="rejection_message" class="col-form-label">Message:</label>
                                         <textarea name="rejection_message" class="form-control" ngModel name="rejection_message" placeholder="Hii {{this.userReceivedRequest[ind+1].firstName}},"></textarea>
@@ -184,6 +189,12 @@
                                 </div>
                               </div>
                             </div>
+                      </div>
+
+                      <div *ngIf="this.requestReceivedRequest[ind].acceptance_status == 'rejected'">
+                        <button type="button" class="btn btn-danger disabled"><i class="fa fa-window-close"
+                            aria-hidden="true"></i> Rejected</button>
+
                       </div>
 
                       <div *ngIf="this.requestReceivedRequest[ind].acceptance_status == 'accepted'">
