@@ -153,13 +153,79 @@
                       <a href="listing-details/{{this.receivedRequesfreeListingData[ind][0]._id}}?token={{this.receivedRequesfreeListingData[ind][0].userToken}}"
                         class="btn btn-secondary" style="margin-right: 4px;"><i class="fa fa-eye"
                           aria-hidden="true"></i> View</a>
-                      <button type="button" class="btn btn-success" style="margin-right: 4px;"><i
-                          class="fa fa-check-circle" aria-hidden="true"></i></button>
-                      <button type="button" class="btn btn-danger" style="margin-right: 4px;"><i
-                          class="fa fa-window-close" aria-hidden="true"></i></button>
-                      <button type="button" class="btn btn-success" style="margin-right: 4px;"><i class="fa fa-phone"
-                          aria-hidden="true"></i> </button>
 
+                      <div *ngIf="this.requestReceivedRequest[ind].acceptance_status == 'pending'">
+                        <button type="button" class="btn btn-success" style="margin-right: 4px;"><i
+                            class="fa fa-check-circle" aria-hidden="true"></i></button>
+                        <button type="button" class="btn btn-danger" style="margin-right: 4px;" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"><i
+                            class="fa fa-window-close" aria-hidden="true"></i></button>
+
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Rejection Message</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <form class="needs-validation"  #rejectionForm="ngForm" (ngSubmit)="sendRejectionMessageForm(rejectionForm)" novalidate="">
+                                      <div class="mb-3">
+                                        <label for="rejection_message" class="col-form-label">Message:</label>
+                                        <textarea name="rejection_message" class="form-control" ngModel name="rejection_message" placeholder="Hii {{this.userReceivedRequest[ind+1].firstName}},"></textarea>
+                                      </div>
+                                      
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Send Message</button>
+                                      </div>
+                                    </form>
+                                  </div>
+                                
+                                </div>
+                              </div>
+                            </div>
+                      </div>
+
+                      <div *ngIf="this.requestReceivedRequest[ind].acceptance_status == 'accepted'">
+                        <button type="button" class="btn btn-success" style="margin-right: 4px;" data-bs-toggle="modal"
+                          data-bs-target="#staticBackdrop2">
+                          <i class="fa fa-phone" aria-hidden="true"></i>
+                        </button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false"
+                          tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">Contact Information</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                  aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                <div class="row">
+                                  <div class="col-12 text-center">
+                                    <img src="{{this.userReceivedRequest[ind+1].profilePicture}}" width="150" alt="">
+                                    <div class="mt-4">
+                                      <h2>{{this.userReceivedRequest[ind+1].firstName}}
+                                        {{this.userReceivedRequest[ind+1].lastName}}</h2>
+                                      <h4>+ {{this.userReceivedRequest[ind+1].mobileNumber}}</h4>
+                                    </div>
+
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <a href="tel:+{{this.user[ind+1].mobileNumber}}" type="button"
+                                  class="btn btn-primary">Call</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <button type="button" class="btn btn-success disabled"><i class="fa fa-check-circle"
+                            aria-hidden="true"></i></button>
+
+                      </div>
                     </div>
 
                   </div>
