@@ -37,6 +37,11 @@ const addListingSchema = new mongoose.Schema({
         type: Array,
         required: false
     },
+    onHold: {
+        type: Boolean,
+        required: false,
+        default: false
+    },
     disable: {
         type: Boolean,
         required: false,

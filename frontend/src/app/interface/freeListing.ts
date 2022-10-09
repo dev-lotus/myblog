@@ -9,6 +9,7 @@ export interface FreeListing {
     listFor: number,
     location: Location,
     likes: any[],
+    onHold:boolean,
     disable:boolean,
     createdAt: Date,
     updatedAt:Date

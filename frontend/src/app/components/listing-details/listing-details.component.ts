@@ -42,6 +42,7 @@ export class ListingDetailsComponent implements OnInit {
         "lat": 23.412221981538707
       },
       likes: [],
+      onHold:false,
       disable: false,
       createdAt: new Date(500000000000),
       updatedAt: new Date(500000000000)

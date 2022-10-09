@@ -32,19 +32,20 @@ export class RequestComponent implements OnInit {
         "lat": 23.412221981538707
       },
       likes: [],
+      onHold: false,
       disable: false,
       createdAt: new Date(500000000000),
       updatedAt: new Date(500000000000)
 
     }];
 
-    request: Request[] = [
-      {
+  request: Request[] = [
+    {
       _id: "",
       listId: "",
       listedUserToken: "",
       requesterUserToken: "",
-      request_message:"",
+      request_message: "",
       rejection_message: "",
       acceptance_status: "",
       createdAt: new Date(500000000000),
@@ -85,23 +86,24 @@ export class RequestComponent implements OnInit {
         "lat": 23.412221981538707
       },
       likes: [],
+      onHold: false,
       disable: false,
       createdAt: new Date(500000000000),
       updatedAt: new Date(500000000000)
 
     }];
 
-    requestReceivedRequest: Request[] = [
-      {
-      _id: "",
-      listId: "",
-      listedUserToken: "",
-      requesterUserToken: "",
-      request_message:"",
-      rejection_message: "",
-      acceptance_status: "",
-      createdAt: new Date(500000000000),
-      updatedAt: new Date(500000000000)
+  requestReceivedRequest: Request[] = [
+    {
+      "_id": "",
+      "listId": "",
+      "listedUserToken": "",
+      "requesterUserToken": "",
+      "request_message": "",
+      "rejection_message": "",
+      "acceptance_status": "",
+      "createdAt": new Date(500000000000),
+      "updatedAt": new Date(500000000000)
     }];
 
   user: User[] = [
@@ -130,8 +132,8 @@ export class RequestComponent implements OnInit {
   errMsg!: string;
   status!: any;
   freeListingData: any[] = [];
-  haversineDistanceResult: any[] =[];
-  haversineDistanceResultReceivedRequest: any[] =[];
+  haversineDistanceResult: any[] = [];
+  haversineDistanceResultReceivedRequest: any[] = [];
   currentUserLat!: number;
   currentUserLng!: number;
   constructor(private spinner: NgxSpinnerService, private _toast: NgToastService, private _router: Router, private _userService: UserServiceService, private _freeList: FreeListServiceService, private _request: RequestServiceService) {
@@ -143,7 +145,7 @@ export class RequestComponent implements OnInit {
   ngOnInit(): void {
     this.getAllRequestByToken();
     this.getAllRequestByTokeReceivedRequest();
-    console.log(this.freeListingData);   
+    console.log(this.freeListingData);
   }
   getAllRequestByToken() {
     this.spinner.show();
@@ -153,66 +155,71 @@ export class RequestComponent implements OnInit {
           /** spinner ends after 5 seconds */
           this.spinner.hide();
         }, 1000);
-        this.request = res;
-        console.log(this.request);
-        for(var i=0;i<this.request.length;i++)
-        {
-          this._freeList.getFreeListingDataById(this.request[i].listId, this.request[i].listedUserToken).subscribe(
-            res => {
-              setTimeout(() => {
-                /** spinner ends after 5 seconds */
-                this.spinner.hide();
-              }, 1000);
-              this.freeListing = res;
-              this.freeListingData.push(this.freeListing);
-              this.haversineDistanceResult.push(this.calcCrow(this.currentUserLat,this.currentUserLng,this.freeListing[0].location.lat,this.freeListing[0].location.lng).toFixed(1));
+        if (res.length >= 1) {
+          this.request = res;
+          console.log(this.request);
 
-              console.log(this.freeListing);
-            
-            }, err => {
-              setTimeout(() => {
-                /** spinner ends after 5 seconds */
-                this.spinner.hide();
-              }, 1000);
-              this.freeListing = [];
-              this.errMsg = err;
-              console.log(this.errMsg)
-            }, () => console.log("Get ALL FREE LIST Method excuted successfully"));
-      
+          for (var i = 0; i < this.request.length; i++) {
+            this._freeList.getFreeListingDataById(this.request[i].listId, this.request[i].listedUserToken).subscribe(
+              res => {
+                setTimeout(() => {
+                  /** spinner ends after 5 seconds */
+                  this.spinner.hide();
+                }, 1000);
+                this.freeListing = res;
+                this.freeListingData.push(this.freeListing);
+                this.haversineDistanceResult.push(this.calcCrow(this.currentUserLat, this.currentUserLng, this.freeListing[0].location.lat, this.freeListing[0].location.lng).toFixed(1));
+
+                console.log(this.freeListing);
+
+              }, err => {
+                setTimeout(() => {
+                  /** spinner ends after 5 seconds */
+                  this.spinner.hide();
+                }, 1000);
+                this.freeListing = [];
+                this.errMsg = err;
+                console.log(this.errMsg)
+              }, () => console.log("Get ALL FREE LIST Method excuted successfully"));
+
+          }
+
+          for (var i = 0; i < this.request.length; i++) {
+
+
+            this._userService.getUserDataById(this.request[i].listedUserToken).subscribe(
+              async res => {
+                setTimeout(() => {
+                  /** spinner ends after 5 seconds */
+                  this.spinner.hide();
+                }, 1000);
+
+                await this.user.push(res[0]);
+
+                console.log(this.user[1]);
+                // console.log(this.user);
+
+                console.log(this.removeDupliactes(this.user));
+
+              }, err => {
+                setTimeout(() => {
+                  /** spinner ends after 5 seconds */
+                  this.spinner.hide();
+                }, 1000);
+                this.user = [];
+                this.errMsg = err;
+                console.log(this.errMsg)
+              }, () => console.log("Get User Data method excuted successfully"))
+
+          }
         }
 
-        
-    for (var i = 0; i < this.request.length; i++) {
 
-           
-      this._userService.getUserDataById(this.request[i].listedUserToken).subscribe(
-        async res => {
-          setTimeout(() => {
-            /** spinner ends after 5 seconds */
-            this.spinner.hide();
-          }, 1000);
 
-          await this.user.push(res[0]);
 
-          console.log(this.user[1]);
-          // console.log(this.user);
-
-          console.log(this.removeDupliactes(this.user));
-         
-        }, err => {
-          setTimeout(() => {
-            /** spinner ends after 5 seconds */
-            this.spinner.hide();
-          }, 1000);
-          this.user = [];
-          this.errMsg = err;
-          console.log(this.errMsg)
-        }, () => console.log("Get User Data method excuted successfully"))
-
-    }
-      },err => {
+      }, err => {
         setTimeout(() => {
-        
+
           this.spinner.hide();
         }, 1000);
         this.request = [];
@@ -231,94 +238,105 @@ export class RequestComponent implements OnInit {
           /** spinner ends after 5 seconds */
           this.spinner.hide();
         }, 1000);
-        this.requestReceivedRequest = res;
+        console.log("req res " + res);
         console.log(this.requestReceivedRequest);
-        for(var i=0;i<this.requestReceivedRequest.length;i++)
-        {
-          this._freeList.getFreeListingDataById(this.requestReceivedRequest[i].listId, this.requestReceivedRequest[i].listedUserToken).subscribe(
-            res => {
-              setTimeout(() => {
-                /** spinner ends after 5 seconds */
-                this.spinner.hide();
-              }, 1000);
-              this.freeListingReceivedRequest = res;
-              this.receivedRequesfreeListingData.push(this.freeListingReceivedRequest);
-              this.haversineDistanceResultReceivedRequest.push(this.calcCrow(this.currentUserLat,this.currentUserLng,this.freeListingReceivedRequest[0].location.lat,this.freeListingReceivedRequest[0].location.lng).toFixed(1));
+        if (res[0]._id !='') {
+          this.requestReceivedRequest = res;
+          console.log(this.requestReceivedRequest);
 
-              console.log(this.freeListingReceivedRequest);
-            
-            }, err => {
-              setTimeout(() => {
-                /** spinner ends after 5 seconds */
-                this.spinner.hide();
-              }, 1000);
-              this.freeListingReceivedRequest = [];
-              this.errMsg = err;
-              console.log(this.errMsg)
-            }, () => console.log("Get ALL FREE LIST Method excuted successfully"));
-      
+          for (var i = 0; i < this.requestReceivedRequest.length; i++) {
+            this._freeList.getFreeListingDataById(this.requestReceivedRequest[i].listId, this.requestReceivedRequest[i].listedUserToken).subscribe(
+              res => {
+                setTimeout(() => {
+                  /** spinner ends after 5 seconds */
+                  this.spinner.hide();
+                }, 1000);
+                this.freeListingReceivedRequest = res;
+                this.receivedRequesfreeListingData.push(this.freeListingReceivedRequest);
+                this.haversineDistanceResultReceivedRequest.push(this.calcCrow(this.currentUserLat, this.currentUserLng, this.freeListingReceivedRequest[0].location.lat, this.freeListingReceivedRequest[0].location.lng).toFixed(1));
+
+                console.log(this.freeListingReceivedRequest);
+
+              }, err => {
+                setTimeout(() => {
+                  /** spinner ends after 5 seconds */
+                  this.spinner.hide();
+                }, 1000);
+                this.freeListingReceivedRequest = [];
+                this.errMsg = err;
+                console.log(this.errMsg)
+              }, () => console.log("Get ALL FREE LIST Method excuted successfully"));
+
+          }
+
+
+          for (var i = 0; i < this.requestReceivedRequest.length; i++) {
+
+
+            this._userService.getUserDataById(this.requestReceivedRequest[i].requesterUserToken).subscribe(
+              async res => {
+                setTimeout(() => {
+                  /** spinner ends after 5 seconds */
+                  this.spinner.hide();
+                }, 1000);
+
+                await this.userReceivedRequest.push(res[0]);
+
+                console.log(this.userReceivedRequest[1]);
+                // console.log(this.user);
+
+                console.log(this.removeDupliactes(this.userReceivedRequest));
+
+              }, err => {
+                setTimeout(() => {
+                  /** spinner ends after 5 seconds */
+                  this.spinner.hide();
+                }, 1000);
+                this.userReceivedRequest = [];
+                this.errMsg = err;
+                console.log(this.errMsg)
+              }, () => console.log("Get User Data method excuted successfully"))
+
+          }
+
+          for (var i = 0; i < this.requestReceivedRequest.length; i++) {
+
+
+            this._userService.getUserDataById(this.requestReceivedRequest[i].requesterUserToken).subscribe(
+              async res => {
+                setTimeout(() => {
+                  /** spinner ends after 5 seconds */
+                  this.spinner.hide();
+                }, 1000);
+
+                await this.receivedRequestUserData.push(res[0]);
+
+                console.log(this.receivedRequestUserData);
+                // console.log(this.user);
+
+
+              }, err => {
+                setTimeout(() => {
+                  /** spinner ends after 5 seconds */
+                  this.spinner.hide();
+                }, 1000);
+                this.receivedRequestUserData = [];
+                this.errMsg = err;
+                console.log(this.errMsg)
+              }, () => console.log("Get User Data method excuted successfully"))
+
+          }
+        }
+        else{
+          this.requestReceivedRequest.splice(0,res.length);
+       this.freeListingReceivedRequest.splice(0,res.length);
+       this.receivedRequesfreeListingData.splice(0,res.length);
+       this.userReceivedRequest.splice(0,res.length);
         }
 
-        
-    for (var i = 0; i < this.requestReceivedRequest.length; i++) {
-
-           
-      this._userService.getUserDataById(this.requestReceivedRequest[i].requesterUserToken).subscribe(
-        async res => {
-          setTimeout(() => {
-            /** spinner ends after 5 seconds */
-            this.spinner.hide();
-          }, 1000);
-
-          await this.userReceivedRequest.push(res[0]);
-
-          console.log(this.userReceivedRequest[1]);
-          // console.log(this.user);
-
-          console.log(this.removeDupliactes(this.userReceivedRequest));
-         
-        }, err => {
-          setTimeout(() => {
-            /** spinner ends after 5 seconds */
-            this.spinner.hide();
-          }, 1000);
-          this.userReceivedRequest = [];
-          this.errMsg = err;
-          console.log(this.errMsg)
-        }, () => console.log("Get User Data method excuted successfully"))
-
-    }
-
-    for (var i = 0; i < this.requestReceivedRequest.length; i++) {
-
-           
-      this._userService.getUserDataById(this.requestReceivedRequest[i].requesterUserToken).subscribe(
-        async res => {
-          setTimeout(() => {
-            /** spinner ends after 5 seconds */
-            this.spinner.hide();
-          }, 1000);
-
-          await this.receivedRequestUserData.push(res[0]);
-
-          console.log(this.receivedRequestUserData);
-          // console.log(this.user);
-
-         
-        }, err => {
-          setTimeout(() => {
-            /** spinner ends after 5 seconds */
-            this.spinner.hide();
-          }, 1000);
-          this.receivedRequestUserData = [];
-          this.errMsg = err;
-          console.log(this.errMsg)
-        }, () => console.log("Get User Data method excuted successfully"))
-
-    }
-      },err => {
+      }, err => {
         setTimeout(() => {
-        
+
           this.spinner.hide();
         }, 1000);
         this.requestReceivedRequest = [];
@@ -338,74 +356,30 @@ export class RequestComponent implements OnInit {
     return filterValues;
   }
 
-  calcCrow(lat1:number, lon1: number, lat2: number, lon2: number) 
-  {
+  calcCrow(lat1: number, lon1: number, lat2: number, lon2: number) {
     var R = 6371; // km
-    var dLat = this.toRad(lat2-lat1);
-    var dLon = this.toRad(lon2-lon1);
+    var dLat = this.toRad(lat2 - lat1);
+    var dLon = this.toRad(lon2 - lon1);
     var lat1 = this.toRad(lat1);
     var lat2 = this.toRad(lat2);
-  
-    var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-      Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+
+    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     var d = R * c;
     return d;
   }
-  
+
   // Converts numeric degrees to radians
-   toRad(Value: number) 
-  {
-      return Value * Math.PI / 180;
+  toRad(Value: number) {
+    return Value * Math.PI / 180;
   }
 
-  sendRejectionMessageForm(form:NgForm, request_id:any)
-  {
-     // console.log(form.value.request_message);
-     this.spinner.show();
-     var acceptance_status = "rejected";
-     this._request.addRejectionMessage(String(request_id),form.value.rejection_message,acceptance_status ).subscribe(
-       res => {
-         setTimeout(() => {
-           /** spinner ends after 5 seconds */
-           this.spinner.hide();
-         }, 1000);
-         this.status = res;
-         console.log(this.status);
-         if (this.status == true) {
-           this._toast.success({ detail: "MESSAGE SENT", summary: 'Rejection Message has been sent',position: 'br'});
-           setTimeout(function () {
-             window.location.reload();
-           }, 2000);
-           this._router.navigate(['/request'])
-           .then(() => {
-             window.location.reload();
-           });
-         }
-         else {
-           this._toast.warning({ detail: "MESSAGE NOT SENT", summary: 'Unable to send your message',position: 'br'});
- 
-         }
- 
-       },
-       err => {
-         setTimeout(() => {
-           /** spinner ends after 5 seconds */
-           this.spinner.hide();
-         }, 1000);
-         this.errMsg = err;
-         this._toast.warning({ detail: "FAILED", summary: 'Please try after sometime',position: 'br'});
- 
-       },
-       () => console.log("REJECTION message FUNCTION  successfully")
-     )
-  }
-
-  acceptanceReject(request_id:any)
-  {
+  sendRejectionMessageForm(form: NgForm, request_id: any) {
+    // console.log(form.value.request_message);
     this.spinner.show();
-    var acceptance_status = "accepted";
-    this._request.updateAcceptanceStatus(String(request_id),acceptance_status ).subscribe(
+    var acceptance_status = "rejected";
+    this._request.addRejectionMessage(String(request_id), form.value.rejection_message, acceptance_status).subscribe(
       res => {
         setTimeout(() => {
           /** spinner ends after 5 seconds */
@@ -414,17 +388,17 @@ export class RequestComponent implements OnInit {
         this.status = res;
         console.log(this.status);
         if (this.status == true) {
-          this._toast.success({ detail: "REQUEST ACCEPTED", summary: 'You have accepted the received request',position: 'br'});
+          this._toast.success({ detail: "MESSAGE SENT", summary: 'Rejection Message has been sent', position: 'br' });
           setTimeout(function () {
             window.location.reload();
           }, 2000);
           this._router.navigate(['/request'])
-          .then(() => {
-            window.location.reload();
-          });
+            .then(() => {
+              window.location.reload();
+            });
         }
         else {
-          this._toast.warning({ detail: "REQUEST REJECTED", summary: 'You have rejected the received request',position: 'br'});
+          this._toast.warning({ detail: "MESSAGE NOT SENT", summary: 'Unable to send your message', position: 'br' });
 
         }
 
@@ -435,7 +409,47 @@ export class RequestComponent implements OnInit {
           this.spinner.hide();
         }, 1000);
         this.errMsg = err;
-        this._toast.warning({ detail: "FAILED", summary: 'Please try after sometime',position: 'br'});
+        this._toast.warning({ detail: "FAILED", summary: 'Please try after sometime', position: 'br' });
+
+      },
+      () => console.log("REJECTION message FUNCTION  successfully")
+    )
+  }
+
+  acceptanceReject(request_id: any) {
+    this.spinner.show();
+    var acceptance_status = "accepted";
+    this._request.updateAcceptanceStatus(String(request_id), acceptance_status).subscribe(
+      res => {
+        setTimeout(() => {
+          /** spinner ends after 5 seconds */
+          this.spinner.hide();
+        }, 1000);
+        this.status = res;
+        console.log(this.status);
+        if (this.status == true) {
+          this._toast.success({ detail: "REQUEST ACCEPTED", summary: 'You have accepted the received request', position: 'br' });
+          setTimeout(function () {
+            window.location.reload();
+          }, 2000);
+          this._router.navigate(['/request'])
+            .then(() => {
+              window.location.reload();
+            });
+        }
+        else {
+          this._toast.warning({ detail: "REQUEST REJECTED", summary: 'You have rejected the received request', position: 'br' });
+
+        }
+
+      },
+      err => {
+        setTimeout(() => {
+          /** spinner ends after 5 seconds */
+          this.spinner.hide();
+        }, 1000);
+        this.errMsg = err;
+        this._toast.warning({ detail: "FAILED", summary: 'Please try after sometime', position: 'br' });
 
       },
       () => console.log("ACCEPTANCE STATUS FUNCTION  successfully")
