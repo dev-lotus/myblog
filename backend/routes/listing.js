@@ -107,6 +107,23 @@ router.patch('/update/freeListingPicture/:listId/:userToken', async(req, res)=>{
        
 });
 
+// ON HOLD
+router.patch('/update/onHoldListing/:id', async (req, res) => {
+    try {
+        const list = await FreeListing.findOne({
+            _id: req.params.id,
+        });
+        list.onHold = req.body.onHold;
+       
+        const l1 = await list.save();
+        res.status(200).json(true);
+
+    } catch (err) {
+        res.status(200).send('Error ' + err);
+    }
+})
+
+
 //  DISBALE LISTING VIEW STATUS
 router.patch('/update/disableStatusFreeListing/:listId/:userToken', async(req, res)=>{
     try{

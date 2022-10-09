@@ -76,6 +76,12 @@ export class FreeListServiceService {
     }).pipe(catchError(this.errorHandler));
   }
 
+  updateOnHoldStatus(listId: string, onHoldStatus:boolean): Observable<boolean> {
+    return this.http.patch<boolean>(this.freeList_api_url + "/update/onHoldListing/" + listId ,{
+      onHold:onHoldStatus
+    }).pipe(catchError(this.errorHandler));
+  }
+
   deleteFreeListing(listId:string, userToken:string):Observable<boolean>{
     return this.http.delete<boolean>(this.freeList_api_url + "/delete/freeListing/" + listId + "/" + userToken).pipe(catchError(this.errorHandler));
   }

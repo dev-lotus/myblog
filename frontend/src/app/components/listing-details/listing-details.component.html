@@ -97,31 +97,37 @@
             <div id="map" class="map-container"></div>
         </div>
         <div *ngIf="freeListing[0].userToken != this.userToken; else disableReuestButton">
-          <a href="request" class="w-100 btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"><i class="fa fa-envelope" aria-hidden="true" ></i> Request this</a>   
-          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Request Message</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <div *ngIf="freeListing[0].onHold == false; else onHoldTrue">
+            <a href="request" class="w-100 btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"><i class="fa fa-envelope" aria-hidden="true" ></i> Request this</a>   
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Request Message</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <form class="needs-validation"  #requestForm="ngForm" (ngSubmit)="sendRequestMessageForm(requestForm)" novalidate="">
+                      <div class="mb-3">
+                        <label for="request_message" class="col-form-label">Message:</label>
+                        <textarea name="request_message" class="form-control" ngModel name="request_message" placeholder="Hii {{this.user[1].firstName}},"></textarea>
+                      </div>
+                      
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Send request</button>
+                      </div>
+                    </form>
+                  </div>
+                
                 </div>
-                <div class="modal-body">
-                  <form class="needs-validation"  #requestForm="ngForm" (ngSubmit)="sendRequestMessageForm(requestForm)" novalidate="">
-                    <div class="mb-3">
-                      <label for="request_message" class="col-form-label">Message:</label>
-                      <textarea name="request_message" class="form-control" ngModel name="request_message" placeholder="Hii {{this.user[1].firstName}},"></textarea>
-                    </div>
-                    
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-primary">Send request</button>
-                    </div>
-                  </form>
-                </div>
-              
               </div>
             </div>
           </div>
+          <ng-template #onHoldTrue>
+            <button class="w-100 btn btn-warning btn-lg disabled" >Someone else is grabbing it</button>
+           
+          </ng-template>
         </div>
        <ng-template #disableReuestButton>
         <div>

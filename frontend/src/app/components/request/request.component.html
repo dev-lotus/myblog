@@ -179,7 +179,7 @@
                             aria-hidden="true"></i> View</a>
   
                         <div *ngIf="this.requestReceivedRequest[ind].acceptance_status == 'pending'">
-                          <button type="button" class="btn btn-success" style="margin-right: 4px;" (click)="acceptanceReject(this.requestReceivedRequest[ind]._id)"><i
+                          <button type="button" class="btn btn-success" style="margin-right: 4px;" (click)="acceptanceUpdate(this.requestReceivedRequest[ind]._id,'accepted')"><i
                               class="fa fa-check-circle" aria-hidden="true"></i></button>
                           <button type="button" class="btn btn-danger" style="margin-right: 4px;" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"><i
                               class="fa fa-window-close" aria-hidden="true"></i></button>
@@ -278,9 +278,13 @@
   
                     <a href="http://maps.google.com/?q={{this.receivedRequesfreeListingData[ind][0].location.lat}},{{this.receivedRequesfreeListingData[ind][0].location.lng}}" target="_blank">Click here to get direction</a>
                     
-                    <div class="d-grid gap-2 d-md-block mt-2" *ngIf="requestReceivedRequest[ind].acceptance_status == 'accepted'">
-                      <button class="btn btn-warning" style="margin-right: 4px;" type="button">Set on hold</button>
-                      <button class="btn btn-success" type="button">Delivered</button>
+                    <div class="d-grid gap-2 d-md-block mt-2" *ngIf="requestReceivedRequest[ind].acceptance_status == 'accepted'|| requestReceivedRequest[ind].acceptance_status == 'delivered'" >
+                      <button *ngIf="this.receivedRequesfreeListingData[ind][0].onHold == false; else onHoldFalse" class="btn btn-warning" style="margin-right: 4px;" type="button" (click)="onHoldStatus(this.requestReceivedRequest[ind].listId,true)">Set on hold</button>
+                     <ng-template #onHoldFalse>
+                      <button class="btn btn-warning" style="margin-right: 4px;" type="button" (click)="onHoldStatus(this.requestReceivedRequest[ind].listId,false)">Un-hold</button>
+                     
+                     </ng-template>
+                      <button class="btn btn-success" type="button" [disabled]="requestReceivedRequest[ind].acceptance_status == 'delivered'" (click)="acceptanceUpdate(this.requestReceivedRequest[ind]._id,'delivered')">Delivered</button>
                     </div>
   
                   </div>

@@ -416,9 +416,9 @@ export class RequestComponent implements OnInit {
     )
   }
 
-  acceptanceReject(request_id: any) {
+  acceptanceUpdate(request_id: any, acceptance_status:string) {
     this.spinner.show();
-    var acceptance_status = "accepted";
+    // var acceptance_status = "accepted";
     this._request.updateAcceptanceStatus(String(request_id), acceptance_status).subscribe(
       res => {
         setTimeout(() => {
@@ -428,7 +428,7 @@ export class RequestComponent implements OnInit {
         this.status = res;
         console.log(this.status);
         if (this.status == true) {
-          this._toast.success({ detail: "REQUEST ACCEPTED", summary: 'You have accepted the received request', position: 'br' });
+          this._toast.success({ detail: "SUCCESS", summary: 'We have updated the status', position: 'br' });
           setTimeout(function () {
             window.location.reload();
           }, 2000);
@@ -438,7 +438,7 @@ export class RequestComponent implements OnInit {
             });
         }
         else {
-          this._toast.warning({ detail: "REQUEST REJECTED", summary: 'You have rejected the received request', position: 'br' });
+          this._toast.warning({ detail: "FAILED", summary: 'Unable to update the status', position: 'br' });
 
         }
 
@@ -455,5 +455,43 @@ export class RequestComponent implements OnInit {
       () => console.log("ACCEPTANCE STATUS FUNCTION  successfully")
     )
   }
+ 
+  onHoldStatus(listId: any, onHoldStatus:boolean) {
+    this.spinner.show();
+    this._freeList.updateOnHoldStatus(String(listId), onHoldStatus).subscribe(
+      res => {
+        setTimeout(() => {
+          /** spinner ends after 5 seconds */
+          this.spinner.hide();
+        }, 1000);
+        this.status = res;
+        console.log(this.status);
+        if (this.status == true) {
+          this._toast.success({ detail: "SUCCESS", summary: 'We have updated the status', position: 'br' });
+          setTimeout(function () {
+            window.location.reload();
+          }, 2000);
+          this._router.navigate(['/request'])
+            .then(() => {
+              window.location.reload();
+            });
+        }
+        else {
+          this._toast.warning({ detail: "FAILED", summary: 'Unable to update the status', position: 'br' });
 
+        }
+
+      },
+      err => {
+        setTimeout(() => {
+          /** spinner ends after 5 seconds */
+          this.spinner.hide();
+        }, 1000);
+        this.errMsg = err;
+        this._toast.warning({ detail: "FAILED", summary: 'Please try after sometime', position: 'br' });
+
+      },
+      () => console.log("ON HOLD STATUS FUNCTION  successfully")
+    )
+  }
 }
