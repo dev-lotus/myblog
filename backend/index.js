@@ -2,7 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors'); 
 const bodyParser = require('body-parser')
-const url = 'mongodb+srv://lotusbiswas:lotusbiswas@cluster0.1tsbbdz.mongodb.net/?retryWrites=true&w=majority'
+const url = 'mongodb://localhost:27017/shareAndCare'
 
 // Initliaze express server 
 const app = express();app.use(cors());
