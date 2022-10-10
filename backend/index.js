@@ -17,11 +17,11 @@ con.on('open', () => {
     console.log('connected');
 })
 
-app.use('/', (req,res)=>{
-    res.json({
-     "status": "Live working fine !"
-    });
- });
+// app.use('/', (req,res)=>{
+//     res.json({
+//      "status": "Live working fine !"
+//     });
+//  });
 
 // Router 
 const userRouter = require('./routes/user');
@@ -31,8 +31,8 @@ app.use('/user', userRouter);
 app.use('/user/listing', listing);
 app.use('/user/request', requestRouter);
 
-const PORT = process.env.PORT || 9000;
 
-const server = app.listen(PORT, () => {
-  console.log("server is running on port", server.address().port);
-});
+
+app.listen(9000, () => {
+    console.log('Server is listening on port 9000')
+})
