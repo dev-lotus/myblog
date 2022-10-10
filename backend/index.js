@@ -2,7 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors'); 
 const bodyParser = require('body-parser')
-const url = 'mongodb://localhost:27017/shareAndCare'
+const url = 'mongodb+srv://lotusbiswas:lotusbiswas@cluster0.1tsbbdz.mongodb.net/?retryWrites=true&w=majority'
 
 // Initliaze express server 
 const app = express();app.use(cors());
@@ -17,11 +17,11 @@ con.on('open', () => {
     console.log('connected');
 })
 
-// app.use('/', (req,res)=>{
-//     res.json({
-//      "status": "Live working fine !"
-//     });
-//  });
+app.use('/', (req,res)=>{
+    res.json({
+     "status": "Live working fine !"
+    });
+ });
 
 // Router 
 const userRouter = require('./routes/user');
@@ -31,8 +31,8 @@ app.use('/user', userRouter);
 app.use('/user/listing', listing);
 app.use('/user/request', requestRouter);
 
+const PORT = process.env.PORT || 9000;
 
-
-app.listen(9000, () => {
-    console.log('Server is listening on port 9000')
-})
+const server = app.listen(PORT, () => {
+  console.log("server is running on port", server.address().port);
+});
