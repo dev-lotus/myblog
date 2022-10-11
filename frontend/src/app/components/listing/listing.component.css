@@ -1,9 +1,11 @@
+
 .bg-blueClr{
     background: #4e54c8;
     background: -webkit-linear-gradient(to left,#8f94fb,#4e54c8);
 }
 .card{
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    border: 1px solid rgba(0, 0, 0, 0.322);
 }
 .card:hover{
     box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
@@ -49,8 +51,15 @@
 }
 
 .card-img-top{
+  padding: 10px 10px 0 10px;
   width: 100%;
   height: 250px;
   background-repeat: no-repeat;
   background-size: contain;
+}
+
+.badge{
+  position: absolute;
+  top: 8px;
+  right: 16px;
 }
