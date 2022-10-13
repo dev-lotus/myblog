@@ -18,7 +18,7 @@
         <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
             
-            <div class="row mx-1 my-2">
+            <div class="row mx-1 my-2" *ngIf="freeListing?.length == 1; else noListingBlock">
               <div class="col-md-12 mb-2 text-dark rounded bg-white border border-1 shadow-sm bg-body rounded" *ngFor="let list of freeListing">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-4  ">
                   <div>
@@ -60,7 +60,16 @@
                 </div>
           </div>
         </div>
-  
+        <ng-template #noListingBlock>
+          <div class="row  mx-1 my-2">
+            <div class="col-md-12 mb-2 text-dark bg-white border border-1 shadow-sm bg-body rounded">
+              <div class=" pt-5 pb-5 text-center ">
+                <img src="https://byblosmiami.com/wp-content/plugins/elementor/assets/images/no-search-results.svg"
+                  alt="" class="pb-4">
+              </div>
+            </div>
+          </div>
+        </ng-template>
   
           </div>
         

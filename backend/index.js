@@ -27,10 +27,12 @@ con.on('open', () => {
 const userRouter = require('./routes/user');
 const listing = require('./routes/listing');
 const requestRouter = require('./routes/request') 
+const freeBorrowListing = require('./routes/freeBorrowListing');
+
 app.use('/user', userRouter);
 app.use('/user/listing', listing);
 app.use('/user/request', requestRouter);
-
+app.use('/user/listing/freeBorrow', freeBorrowListing);
 
 
 app.listen(9000, () => {

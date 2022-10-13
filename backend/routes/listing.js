@@ -3,7 +3,6 @@ const router = express.Router();
 const FreeListing = require('../models/freeListing');
 const User = require('../models/user');
 const Request = require('../models/request');
-
 // GET ALL FREE LISTING 
 
 router.get('/get/freeListing/', async(req,res)=>{
@@ -90,7 +89,7 @@ router.put('/update/freeListing/:listId/:userToken', async(req,res)=>{
     }
 });
 
-//  UPDATE USER PROFILE PICTURE
+//  UPDATE FREE LISTING  PICTURE
 router.patch('/update/freeListingPicture/:listId/:userToken', async(req, res)=>{
     try{
         const freeList = await FreeListing.find({
