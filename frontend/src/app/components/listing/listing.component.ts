@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { FreeBorrow } from 'src/app/interface/freeBorrow';
 import { FreeListing } from 'src/app/interface/freeListing';
 import { User } from 'src/app/interface/user';
+import { FreeBorrowServieService } from 'src/app/services/freeBorrow-servie/free-borrow-servie.service';
 import { FreeListServiceService } from 'src/app/services/freeList-service/free-list-service.service';
 import { UserServiceService } from 'src/app/services/user-service/user-service.service';
 
@@ -35,7 +37,45 @@ export class ListingComponent implements OnInit {
       updatedAt: new Date(500000000000)
 
     }];
+    freeBorrow: FreeBorrow[] = [
+      {
+        "_id": "",
+        "userToken": "",
+        "picture": [],
+        "title": "",
+        "description": "",
+        "lendingInfo": "",
+        "listFor": 1,
+        "location": {
+          "lng": 88.48699665399437,
+          "lat": 23.412221981538707
+        },
+        likes: [],
+        onHold: false,
+        disable: false,
+        createdAt: new Date(500000000000),
+        updatedAt: new Date(500000000000)
+  
+      }];
   user: User[] = [
+    {
+      _id: "",
+      profilePicture: "",
+      firstName: "",
+      lastName: "",
+      emailAddress: "",
+      mobileNumber: "",
+      aboutYou: "",
+      likes: [],
+      dislikes: [],
+      myLocation: {
+        "lng": 88.48699665399437,
+        "lat": 23.412221981538707
+
+      }
+    }
+  ];
+  userBorrow: User[] = [
     {
       _id: "",
       profilePicture: "",
@@ -59,12 +99,15 @@ export class ListingComponent implements OnInit {
   status!: any;
   
   likesListing: boolean = false;
+
   countLikesListing: any[] = [];
+  countLikesListingForBorrow: any[] = [];
   haversineDistanceResult: any[] =[];
+  haversineDistanceResultForBorrow: any[] =[];
   currentUserLat!: number;
   currentUserLng!: number;
   
-  constructor(private spinner: NgxSpinnerService, private _toast: NgToastService, private _router: Router, private _userService: UserServiceService, private _freeList: FreeListServiceService) {
+  constructor(private spinner: NgxSpinnerService, private _toast: NgToastService, private _router: Router, private _userService: UserServiceService, private _freeList: FreeListServiceService, private _freeBorrow: FreeBorrowServieService) {
     this.userToken = String(localStorage.getItem("userId"));
     this.currentUserLat = Number(localStorage.getItem("myLocationLat"));
     this.currentUserLng = Number(localStorage.getItem("myLocationLng"));
@@ -72,7 +115,7 @@ export class ListingComponent implements OnInit {
 
   ngOnInit(): void {
     this.getFreeListUserData();
-
+    this.getFreeBorrowUserData();
 
   }
   getFreeListUserData() {
@@ -140,16 +183,7 @@ export class ListingComponent implements OnInit {
 
     console.log("User " + this.user);
   }
-   removeDupliactes = (values: any[]) => {
-    let concatArray = values.map(eachValue => {
-      return Object.values(eachValue).join('')
-    })
-    let filterValues = values.filter((value, index) => {
-      return concatArray.indexOf(concatArray[index]) === index
-  
-    })
-    return filterValues
-  }
+ 
   getUserDataByToken(userTokenFreeList: string) {
     this._userService.getUserDataById(userTokenFreeList).subscribe(
       res => {
@@ -178,8 +212,83 @@ export class ListingComponent implements OnInit {
 
   // BORROW
 
-  
+  getFreeBorrowUserData() {
+    this.spinner.show();
+    this._freeBorrow.getAllFreeBorrowListing().subscribe(
+      res => {
+        setTimeout(() => {
+          /** spinner ends after 5 seconds */
+          this.spinner.hide();
+        }, 1000);
+        this.freeBorrow = res;
+        console.log(this.freeBorrow);
+        for(var ele= 0;ele< this.freeBorrow.length;ele++)
+        {
+          if(this.freeBorrow[ele].disable == true)
+          {
+            this.freeBorrow.splice(ele,1);
+          }
+        }
+        for (var i = 0; i < this.freeBorrow.length; i++) {
+          console.log(this.removeDupliactes(this.freeBorrow[i].likes).length);
+          this.countLikesListingForBorrow.push(this.removeDupliactes(this.freeBorrow[i].likes).length);
+          console.log(this.countLikesListingForBorrow);
+          this.haversineDistanceResultForBorrow.push(this.calcCrow(this.currentUserLat,this.currentUserLng,this.freeBorrow[i].location.lat,this.freeBorrow[i].location.lng).toFixed(1));
 
+          this._userService.getUserDataById(this.freeBorrow[i].userToken).subscribe(
+            res => {
+              setTimeout(() => {
+                /** spinner ends after 5 seconds */
+                this.spinner.hide();
+              }, 1000);
+
+              this.userBorrow.push(res[0]);
+
+              console.log(this.userBorrow[1]);
+              // console.log(this.user);
+
+              console.log(this.removeDupliactes(this.userBorrow));
+             
+              
+            }, err => {
+              setTimeout(() => {
+                /** spinner ends after 5 seconds */
+                this.spinner.hide();
+              }, 1000);
+              this.userBorrow = [];
+              this.errMsg = err;
+              console.log(this.errMsg)
+            }, () => console.log("Get User Data for borrow method excuted successfully"))
+
+        }
+        console.log(this.haversineDistanceResultForBorrow);
+              
+      }, err => {
+        setTimeout(() => {
+          /** spinner ends after 5 seconds */
+          this.spinner.hide();
+        }, 1000);
+        this.freeBorrow = [];
+        this.errMsg = err;
+        console.log(this.errMsg)
+      }, () => console.log("Get ALL FREE LIST Method excuted successfully"));
+
+    console.log("Free List " + this.freeBorrow[0]);
+
+    console.log("User " + this.user);
+  }
+
+
+  removeDupliactes = (values: any[]) => {
+    let concatArray = values.map(eachValue => {
+      return Object.values(eachValue).join('')
+    })
+    let filterValues = values.filter((value, index) => {
+      return concatArray.indexOf(concatArray[index]) === index
+  
+    })
+    return filterValues
+  }
 
 
 

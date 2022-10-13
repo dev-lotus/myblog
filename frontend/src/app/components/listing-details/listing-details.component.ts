@@ -12,6 +12,8 @@ import { UserServiceService } from 'src/app/services/user-service/user-service.s
 import { count } from 'rxjs';
 import { NgForm } from '@angular/forms';
 import { RequestServiceService } from 'src/app/services/request-service/request-service.service';
+import { FreeBorrow } from 'src/app/interface/freeBorrow';
+import { FreeBorrowServieService } from 'src/app/services/freeBorrow-servie/free-borrow-servie.service';
 @Component({
   selector: 'app-listing-details',
   templateUrl: './listing-details.component.html',
@@ -48,6 +50,26 @@ export class ListingDetailsComponent implements OnInit {
       updatedAt: new Date(500000000000)
 
     }];
+    freeBorrow: FreeBorrow[] = [
+      {
+        "_id": "",
+        "userToken": "",
+        "picture": [],
+        "title": "",
+        "description": "",
+        "lendingInfo": "",
+        "listFor": 1,
+        "location": {
+          "lng": 88.48699665399437,
+          "lat": 23.412221981538707
+        },
+        likes: [],
+        onHold: false,
+        disable: false,
+        createdAt: new Date(500000000000),
+        updatedAt: new Date(500000000000)
+  
+      }];
   user: User[] = [
     {
       _id: "",
@@ -66,12 +88,15 @@ export class ListingDetailsComponent implements OnInit {
       }
     }
   ];
+ 
   userData: any[] = [];
   userToken!: string;
   errMsg!: string;
   status!: any;
   freeListId: string;
   freeListUserToken!: string;
+  getListingType!:string;
+
   likesListing: boolean = false;
   countLikesListing: any[] = [];
   
@@ -79,7 +104,7 @@ export class ListingDetailsComponent implements OnInit {
   currentUserLat!: number;
   currentUserLng!: number;
 
-  constructor(private route: ActivatedRoute, private spinner: NgxSpinnerService, private _toast: NgToastService, private _router: Router, private _userService: UserServiceService, private _freeList: FreeListServiceService,private _requestService: RequestServiceService) {
+  constructor(private route: ActivatedRoute, private spinner: NgxSpinnerService, private _toast: NgToastService, private _router: Router, private _userService: UserServiceService, private _freeList: FreeListServiceService,private _requestService: RequestServiceService,private _freeBorrow: FreeBorrowServieService) {
     (mapboxgl as any).accessToken = environment.mapbox.accessToken;
     this.userToken = String(localStorage.getItem("userId"));
     const routeParams = this.route.snapshot.paramMap;
@@ -87,7 +112,11 @@ export class ListingDetailsComponent implements OnInit {
 
     const urlParams = new URLSearchParams(window.location.search);
     this.freeListUserToken = String(urlParams.get('token'));
+    const type = new URLSearchParams(window.location.search);
+    this.getListingType = String(urlParams.get('type'));
 
+    console.log(this.getListingType);
+    
     console.log(this.freeListUserToken);
    
     this.currentUserLat = Number(localStorage.getItem("myLocationLat"));
@@ -96,8 +125,23 @@ export class ListingDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeMap();
-    this.getFreeListUserData();
+    if(this.getListingType == "borrow")
+    {
+      this.getFreeBorrowUserData();
+    }
+    else if(this.getListingType == 'listing')
+    {
+      this.getFreeListUserData();
+    }
+    else if(this.getListingType =='wanted')
+    {
+      // this.getFreeListUserData();
 
+    }
+    else {
+      alert("WRONG");
+    }
+   
   }
 
   private initializeMap() {
@@ -230,6 +274,158 @@ export class ListingDetailsComponent implements OnInit {
 
     console.log("User " + this.user);
   }
+  // BORROW
+
+  getFreeBorrowUserData() {
+    this.spinner.show();
+    this._freeBorrow.getFreeBorrowListingDataById(this.freeListId, this.freeListUserToken).subscribe(
+      res => {
+        setTimeout(() => {
+          /** spinner ends after 5 seconds */
+          this.spinner.hide();
+        }, 1000);
+        this.freeBorrow = res;
+        console.log(this.freeBorrow);
+        for (var i = 0; i < this.freeBorrow.length; i++) {
+
+          this.haversineDistanceResult.push(this.calcCrow(this.currentUserLat,this.currentUserLng,this.freeBorrow[i].location.lat,this.freeBorrow[i].location.lng).toFixed(1));
+
+          this._userService.getUserDataById(this.freeListUserToken).subscribe(
+            res => {
+              setTimeout(() => {
+                /** spinner ends after 5 seconds */
+                this.spinner.hide();
+              }, 1000);
+
+              this.user.push(res[0]);
+
+              console.log(this.user[1]);
+              // console.log(this.user);
+
+              console.log(this.removeDupliactes(this.user));
+              this.lng = this.freeBorrow[0].location.lng;
+              this.lat = this.freeBorrow[0].location.lat;
+              console.log(this.lng, this.lat);
+              this.setHomeLocation(this.lng, this.lat);
+              console.log(this.removeDupliactes(this.freeBorrow[0].likes));
+              this.countLikesListing = this.removeDupliactes(this.freeBorrow[0].likes);
+              console.log(this.countLikesListing);
+
+
+              
+              this.likesListing = !!this.countLikesListing.find(like => {  
+                return like.listId === this.freeListId && like.userToken === this.userToken;
+              });
+
+
+          
+            }, err => {
+              setTimeout(() => {
+                /** spinner ends after 5 seconds */
+                this.spinner.hide();
+              }, 1000);
+              this.user = [];
+              this.errMsg = err;
+              console.log(this.errMsg)
+            }, () => console.log("Get User Data method excuted successfully"))
+
+        }
+      }, err => {
+        setTimeout(() => {
+          /** spinner ends after 5 seconds */
+          this.spinner.hide();
+        }, 1000);
+        this.freeBorrow = [];
+        this.errMsg = err;
+        console.log(this.errMsg)
+      }, () => console.log("Get ALL FREE borrow Method excuted successfully"));
+
+    console.log("Free Borrow " + this.freeBorrow[0]);
+
+    console.log("User " + this.user);
+  }
+
+  addLikeFreeBorrowItem(listId: string, userTokenVal: string) {
+   
+      this._freeBorrow.updateAddLikeFreeBorrow(listId, userTokenVal).subscribe(
+        res => {
+          setTimeout(() => {
+            /** spinner ends after 5 seconds */
+            this.spinner.hide();
+          }, 1000);
+          this.status = res;
+          console.log(this.status);
+          if (this.status == true) {
+            this._toast.success({ detail: "SUCCESS", summary: 'You liked this listing', position: 'br' });
+            setTimeout(function () {
+              window.location.reload();
+            }, 2000);
+
+          }
+          else {
+            this._toast.warning({ detail: "FAILED", summary: 'Unable to like this listing', position: 'br' });
+
+          }
+        }, err => {
+          setTimeout(() => {
+            /** spinner ends after 5 seconds */
+            this.spinner.hide();
+          }, 1000);
+          this.errMsg = err;
+          this._toast.warning({ detail: "FAILED", summary: 'Please try after sometime', position: 'br' });
+
+        },
+        () => console.log("LIKE LISTING FREE BORROW successfully EXECUTED")
+      )
+    // }
+    // else {
+    //   alert("You already Liked it");
+    // }
+    console.log(listId, userTokenVal);
+
+  }
+
+  removeLikeFreeBorrow(listId: string, userTokenVal: string) {
+   
+      this._freeBorrow.updateRemoveLikeFreeBorrow(listId, userTokenVal).subscribe(
+        res => {
+          setTimeout(() => {
+            /** spinner ends after 5 seconds */
+            this.spinner.hide();
+          }, 1000);
+          this.status = res;
+          console.log(this.status);
+          if (this.status == true) {
+            this._toast.success({ detail: "SUCCESS", summary: 'You unliked this listing', position: 'br' });
+            setTimeout(function () {
+              window.location.reload();
+            }, 2000);
+
+          }
+          else {
+            this._toast.warning({ detail: "FAILED", summary: 'Unable to unliked this listing', position: 'br' });
+
+          }
+        }, err => {
+          setTimeout(() => {
+            /** spinner ends after 5 seconds */
+            this.spinner.hide();
+          }, 1000);
+          this.errMsg = err;
+          this._toast.warning({ detail: "FAILED", summary: 'Please try after sometime', position: 'br' });
+
+        },
+        () => console.log("LIKE LISTING FREE BORROW successfully EXECUTED")
+      )
+    // }
+    // else {
+    //   alert("You already Liked it");
+    // }
+    console.log(listId, userTokenVal);
+
+  }
+  ///
+
   removeDupliactes = (values: any[]) => {
     let concatArray = values.map(eachValue => {
       return Object.values(eachValue).join('')

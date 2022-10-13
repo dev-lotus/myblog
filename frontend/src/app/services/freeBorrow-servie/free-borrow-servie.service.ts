@@ -12,7 +12,7 @@ export class FreeBorrowServieService {
   constructor(private http: HttpClient) { }
 
   getAllFreeBorrowListing():Observable<FreeBorrow[]>{
-    return this.http.get<FreeBorrow[]>(this.freeBorrow_api_url + "/get").pipe(catchError(this.errorHandler));
+    return this.http.get<FreeBorrow[]>(this.freeBorrow_api_url + "/get/all").pipe(catchError(this.errorHandler));
   }
 
   getFreeBorrowListingDataByUserToken(userToken:string): Observable<FreeBorrow[]>{
