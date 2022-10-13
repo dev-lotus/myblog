@@ -175,6 +175,14 @@ export class ListingComponent implements OnInit {
 
   }
 
+
+  // BORROW
+
+  
+
+
+
+
    calcCrow(lat1:number, lon1: number, lat2: number, lon2: number) 
 {
   var R = 6371; // km
