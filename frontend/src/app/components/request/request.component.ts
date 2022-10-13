@@ -256,6 +256,7 @@ export class RequestComponent implements OnInit {
                 this.haversineDistanceResultReceivedRequest.push(this.calcCrow(this.currentUserLat, this.currentUserLng, this.freeListingReceivedRequest[0].location.lat, this.freeListingReceivedRequest[0].location.lng).toFixed(1));
 
                 console.log(this.freeListingReceivedRequest);
+                console.log(this.receivedRequesfreeListingData);
 
               }, err => {
                 setTimeout(() => {
