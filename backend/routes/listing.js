@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const FreeListing = require('../models/freeListing');
 const User = require('../models/user');
+const Request = require('../models/request');
 
 // GET ALL FREE LISTING 
 
@@ -186,8 +187,13 @@ router.delete('/delete/freeListing/:listId/:userToken', async(req,res)=>{
             userToken:req.params.userToken
         });
 
-        const f1 = await freeList.remove();
+        const requestOne = await Request.findOne({
+            listId: req.params.listId,
+            listedUserToken:req.params.userToken
+        });
 
+        const f1 = await freeList.remove();
+        const r1 = await requestOne.remove();
         res.status(200).json(true);
     
     }catch(err){
