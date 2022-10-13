@@ -417,10 +417,10 @@ export class RequestComponent implements OnInit {
     )
   }
 
-  acceptanceUpdate(request_id: any, acceptance_status:string) {
+  acceptanceUpdate(request_id: any,listId:any, acceptance_status:string) {
     this.spinner.show();
     // var acceptance_status = "accepted";
-    this._request.updateAcceptanceStatus(String(request_id), acceptance_status).subscribe(
+    this._request.updateAcceptanceStatus(String(request_id),String(listId), acceptance_status).subscribe(
       res => {
         setTimeout(() => {
           /** spinner ends after 5 seconds */

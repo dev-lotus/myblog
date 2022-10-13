@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router();
 const Request = require('../models/request');
 
+const FreeListing = require('../models/freeListing');
 router.post('/add/newRequest', async (req, res) => {
     try {
         const newRequest = new Request({
@@ -39,14 +40,25 @@ router.patch('/add/rejectionMessage/:id', async (req, res) => {
 })
 
 // ACCEPTANCE
-router.patch('/update/acceptanceStatus/:id', async (req, res) => {
+router.patch('/update/acceptanceStatus/:reqId/:listId', async (req, res) => {
     try {
         const requestOne = await Request.findOne({
-            _id: req.params.id,
+            _id: req.params.reqId,
         });
-        requestOne.acceptance_status = req.body.acceptance_status;
-       
+        const freeList = await FreeListing.findOne({
+            _id:req.params.listId
+        });
+        if(req.body.acceptance_status == 'delivered')
+        {
+            requestOne.acceptance_status = req.body.acceptance_status;
+            freeList.onHold = false;
+            freeList.disable = true;
+        }else{
+            requestOne.acceptance_status = req.body.acceptance_status;
+        }
+        
         const r1 = await requestOne.save();
+        const f1 = await freeList.save();
         res.status(200).json(true);
 
     } catch (err) {
