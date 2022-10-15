@@ -3,6 +3,7 @@ const router = express.Router();
 const Request = require('../models/request');
 
 const FreeListing = require('../models/freeListing');
+const FreeBorrow = require('../models/freeBorrow');
 router.post('/add/newRequest', async (req, res) => {
     try {
         const newRequest = new Request({
@@ -49,17 +50,44 @@ router.patch('/update/acceptanceStatus/:reqId/:listId', async (req, res) => {
         const freeList = await FreeListing.findOne({
             _id:req.params.listId
         });
-        if(req.body.acceptance_status == 'delivered')
+        const freeBorrow = await FreeBorrow.findOne({
+            _id:req.params.listId
+        })
+        if(req.body.listType == 'listing')
         {
-            requestOne.acceptance_status = req.body.acceptance_status;
-            freeList.onHold = false;
-            freeList.disable = true;
-        }else{
-            requestOne.acceptance_status = req.body.acceptance_status;
+            if(req.body.acceptance_status == 'delivered' )
+            {
+                requestOne.acceptance_status = req.body.acceptance_status;
+                freeList.onHold = false;
+                freeList.disable = true;
+                const r1 = await requestOne.save();
+                const f1 = await freeList.save();
+            }
+            
+            else{
+                requestOne.acceptance_status = req.body.acceptance_status;
+                const r1 = await requestOne.save();
+            }
         }
+        else if(req.body.listType == 'borrow')
+        {
+            if(req.body.acceptance_status == 'delivered' )
+            {
+                requestOne.acceptance_status = req.body.acceptance_status;
+                freeBorrow.onHold = false;
+                freeBorrow.disable = true;
+                const r1 = await requestOne.save();
+                const f1 = await freeBorrow.save();
+            }
+            
+            else{
+                requestOne.acceptance_status = req.body.acceptance_status;
+                const r1 = await requestOne.save();
+            }
+        }
+       
         
-        const r1 = await requestOne.save();
-        const f1 = await freeList.save();
+      
         res.status(200).json(true);
 
     } catch (err) {

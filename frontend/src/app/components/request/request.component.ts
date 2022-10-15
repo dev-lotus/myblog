@@ -442,10 +442,10 @@ export class RequestComponent implements OnInit {
     )
   }
 
-  acceptanceUpdate(request_id: any,listId:any, acceptance_status:string) {
+  acceptanceUpdate(request_id: any,listId:any, acceptance_status:string, listType:string) {
     this.spinner.show();
     // var acceptance_status = "accepted";
-    this._request.updateAcceptanceStatus(String(request_id),String(listId), acceptance_status).subscribe(
+    this._request.updateAcceptanceStatus(String(request_id),String(listId), acceptance_status, listType).subscribe(
       res => {
         setTimeout(() => {
           /** spinner ends after 5 seconds */
@@ -482,42 +482,88 @@ export class RequestComponent implements OnInit {
     )
   }
  
-  onHoldStatus(listId: any, onHoldStatus:boolean) {
+  onHoldStatus(listId: any, onHoldStatus:boolean, listType:string) {
     this.spinner.show();
-    this._freeList.updateOnHoldStatus(String(listId), onHoldStatus).subscribe(
-      res => {
-        setTimeout(() => {
-          /** spinner ends after 5 seconds */
-          this.spinner.hide();
-        }, 1000);
-        this.status = res;
-        console.log(this.status);
-        if (this.status == true) {
-          this._toast.success({ detail: "SUCCESS", summary: 'We have updated the status', position: 'br' });
-          setTimeout(function () {
-            window.location.reload();
-          }, 2000);
-          this._router.navigate(['/request'])
-            .then(() => {
+    if(listType == 'listing')
+    {
+      this._freeList.updateOnHoldStatus(String(listId), onHoldStatus).subscribe(
+        res => {
+          setTimeout(() => {
+            /** spinner ends after 5 seconds */
+            this.spinner.hide();
+          }, 1000);
+          this.status = res;
+          console.log(this.status);
+          if (this.status == true) {
+            this._toast.success({ detail: "SUCCESS", summary: 'We have updated the status', position: 'br' });
+            setTimeout(function () {
               window.location.reload();
-            });
-        }
-        else {
-          this._toast.warning({ detail: "FAILED", summary: 'Unable to update the status', position: 'br' });
+            }, 2000);
+            this._router.navigate(['/request'])
+              .then(() => {
+                window.location.reload();
+              });
+          }
+          else {
+            this._toast.warning({ detail: "FAILED", summary: 'Unable to update the status', position: 'br' });
+  
+          }
+  
+        },
+        err => {
+          setTimeout(() => {
+            /** spinner ends after 5 seconds */
+            this.spinner.hide();
+          }, 1000);
+          this.errMsg = err;
+          this._toast.warning({ detail: "FAILED", summary: 'Please try after sometime', position: 'br' });
+  
+        },
+        () => console.log("ON HOLD STATUS FUNCTION  successfully")
+      )
+    }
+    else if(listType == 'borrow')
+    {
+      this._freeBorrow.updateOnHoldStatus(String(listId), onHoldStatus).subscribe(
+        res => {
+          setTimeout(() => {
+            /** spinner ends after 5 seconds */
+            this.spinner.hide();
+          }, 1000);
+          this.status = res;
+          console.log(this.status);
+          if (this.status == true) {
+            this._toast.success({ detail: "SUCCESS", summary: 'We have updated the status', position: 'br' });
+            setTimeout(function () {
+              window.location.reload();
+            }, 2000);
+            this._router.navigate(['/request'])
+              .then(() => {
+                window.location.reload();
+              });
+          }
+          else {
+            this._toast.warning({ detail: "FAILED", summary: 'Unable to update the status', position: 'br' });
+  
+          }
+  
+        },
+        err => {
+          setTimeout(() => {
+            /** spinner ends after 5 seconds */
+            this.spinner.hide();
+          }, 1000);
+          this.errMsg = err;
+          this._toast.warning({ detail: "FAILED", summary: 'Please try after sometime', position: 'br' });
+  
+        },
+        () => console.log("ON HOLD STATUS FUNCTION  successfully")
+      )
+    }
+    else if(listType == 'wanted')
+    {
 
-        }
-
-      },
-      err => {
-        setTimeout(() => {
-          /** spinner ends after 5 seconds */
-          this.spinner.hide();
-        }, 1000);
-        this.errMsg = err;
-        this._toast.warning({ detail: "FAILED", summary: 'Please try after sometime', position: 'br' });
-
-      },
-      () => console.log("ON HOLD STATUS FUNCTION  successfully")
-    )
+    }
+    
   }
 }

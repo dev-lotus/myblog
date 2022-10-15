@@ -41,9 +41,10 @@ export class RequestServiceService {
     }).pipe(catchError(this.errorHandler));
   }
 
-  updateAcceptanceStatus(request_id: string,listId:string, acceptance_status:string): Observable<boolean> {
+  updateAcceptanceStatus(request_id: string,listId:string, acceptance_status:string, listType:string): Observable<boolean> {
     return this.http.patch<boolean>(this.request_api_url + "/update/acceptanceStatus/" + request_id +"/" + listId,{
-      acceptance_status:acceptance_status
+      acceptance_status:acceptance_status,
+      listType:listType
     }).pipe(catchError(this.errorHandler));
   }
   

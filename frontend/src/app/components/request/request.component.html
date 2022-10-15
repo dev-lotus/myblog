@@ -38,6 +38,10 @@
                         <h6 class="fw-bold">{{this.user[ind+1].firstName}} {{this.user[ind+1].lastName}}</h6>
                         <span class="text-muted"> <i class="fa fa-map-marker" aria-hidden="true"></i>
                           {{this.haversineDistanceResult[ind]}} KM away </span>
+                          <span class="badge rounded-pill bg-dark" *ngIf="this.request[ind].listType == 'listing'">Free</span>
+                          <span class="badge rounded-pill bg-dark" *ngIf="this.request[ind].listType == 'borrow'">Borrow</span>
+                          <span class="badge rounded-pill bg-dark" *ngIf="this.request[ind].listType == 'wanted'">Wanted</span>
+                     
                       </div>
                     </div>
                     <div class="mt-3">
@@ -169,6 +173,10 @@
                           {{this.userReceivedRequest[ind+1].lastName}}</h6>
                         <span class="text-muted"> <i class="fa fa-map-marker" aria-hidden="true"></i>
                           {{this.haversineDistanceResultReceivedRequest[ind]}} KM away </span>
+                          <span class="badge rounded-pill bg-dark" *ngIf="this.requestReceivedRequest[ind].listType == 'listing'">Free</span>
+                          <span class="badge rounded-pill bg-dark" *ngIf="this.requestReceivedRequest[ind].listType == 'borrow'">Borrow</span>
+                          <span class="badge rounded-pill bg-dark" *ngIf="this.requestReceivedRequest[ind].listType == 'wanted'">Wanted</span>
+                     
                       </div>
                     </div>
                     <div class="mt-3">
@@ -195,7 +203,7 @@
 
                         <div *ngIf="this.requestReceivedRequest[ind].acceptance_status == 'pending'">
                           <button type="button" class="btn btn-success" style="margin-right: 4px;"
-                            (click)="acceptanceUpdate(this.requestReceivedRequest[ind]._id,this.receivedRequesfreeListingData[ind][0]._id,'accepted')"><i
+                            (click)="acceptanceUpdate(this.requestReceivedRequest[ind]._id,this.receivedRequesfreeListingData[ind][0]._id,'accepted', this.requestReceivedRequest[ind].listType)"><i
                               class="fa fa-check-circle" aria-hidden="true"></i></button>
                           <button type="button" class="btn btn-danger" style="margin-right: 4px;" data-bs-toggle="modal"
                             data-bs-target="#exampleModal" data-bs-whatever="@mdo"><i class="fa fa-window-close"
@@ -308,20 +316,25 @@
 
 
                     <div class="d-grid gap-2 d-md-block mt-2"
-                      *ngIf="requestReceivedRequest[ind].acceptance_status == 'accepted'|| requestReceivedRequest[ind].acceptance_status == 'delivered'">
+                      *ngIf="requestReceivedRequest[ind].acceptance_status == 'accepted'">
                       <button *ngIf="this.receivedRequesfreeListingData[ind][0].onHold == false; else onHoldFalse"
                         class="btn btn-warning" style="margin-right: 4px;" type="button"
-                        (click)="onHoldStatus(this.requestReceivedRequest[ind].listId,true)">Set on hold</button>
+                        (click)="onHoldStatus(this.requestReceivedRequest[ind].listId,true, this.requestReceivedRequest[ind].listType)">Set on hold</button>
                       <ng-template #onHoldFalse>
                         <button class="btn btn-warning" style="margin-right: 4px;" type="button"
-                          (click)="onHoldStatus(this.requestReceivedRequest[ind].listId,false)">Un-hold</button>
+                          (click)="onHoldStatus(this.requestReceivedRequest[ind].listId,false, this.requestReceivedRequest[ind].listType)">Un-hold</button>
 
                       </ng-template>
                       <button class="btn btn-success" type="button"
                         [disabled]="requestReceivedRequest[ind].acceptance_status == 'delivered'"
-                        (click)="acceptanceUpdate(this.requestReceivedRequest[ind]._id,this.receivedRequesfreeListingData[ind][0]._id,'delivered')">Delivered</button>
+                        (click)="acceptanceUpdate(this.requestReceivedRequest[ind]._id,this.receivedRequesfreeListingData[ind][0]._id,'delivered', this.requestReceivedRequest[ind].listType)">Delivered</button>
                     </div>
-
+                    <div *ngIf="requestReceivedRequest[ind].acceptance_status == 'delivered'">
+                      <button class="btn btn-success" type="button"
+                      [disabled]="requestReceivedRequest[ind].acceptance_status == 'delivered'"
+                      (click)="acceptanceUpdate(this.requestReceivedRequest[ind]._id,this.receivedRequesfreeListingData[ind][0]._id,'delivered', this.requestReceivedRequest[ind].listType)">Delivered</button>
+                
+                    </div>
                   </div>
                 </div>
 
