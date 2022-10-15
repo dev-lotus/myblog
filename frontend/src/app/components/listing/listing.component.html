@@ -12,12 +12,14 @@
         <li class="nav-item" role="presentation">
           <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home"
             type="button" role="tab" aria-controls="pills-home" aria-selected="true"><i class="fa fa-gift"
-              aria-hidden="true"></i> Free</button>
+              aria-hidden="true"></i> Free <span class="badge bg-danger">{{freeListing.length}}</span>
+            
+            </button>
         </li>
         <li class="nav-item" role="presentation">
           <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile"
             type="button" role="tab" aria-controls="pills-profile" aria-selected="false"><i class="fa fa-handshake-o"
-              aria-hidden="true"></i> Borrow</button>
+              aria-hidden="true"></i> Borrow <span class="badge bg-danger">{{freeBorrow.length}}</span></button>
         </li>
         <li class="nav-item" role="presentation">
           <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact"
