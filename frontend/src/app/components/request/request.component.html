@@ -58,7 +58,7 @@
                   <div>
                     <div class="btn-toolbar mt-2 mb-2 mb-md-0">
                       <div class="btn-group me-2 ">
-                        <a href="listing-details/{{this.freeListingData[ind][0]._id}}?token={{this.freeListingData[ind][0].userToken}}"
+                        <a href="listing-details/{{this.freeListingData[ind][0]._id}}?token={{this.freeListingData[ind][0].userToken}}&type={{this.request[ind].listType}}"
                           class="btn btn-secondary" style="margin-right: 4px;"><i class="fa fa-eye"
                             aria-hidden="true"></i> View</a>
                         <div *ngIf="this.request[ind].acceptance_status == 'accepted'">
@@ -189,7 +189,7 @@
                   <div>
                     <div class="btn-toolbar mt-2 mb-2 mb-md-0">
                       <div class="btn-group me-2 ">
-                        <a href="listing-details/{{this.receivedRequesfreeListingData[ind][0]._id}}?token={{this.receivedRequesfreeListingData[ind][0].userToken}}"
+                        <a href="listing-details/{{this.receivedRequesfreeListingData[ind][0]._id}}?token={{this.receivedRequesfreeListingData[ind][0].userToken}}&type={{this.requestReceivedRequest[ind].listType}}"
                           class="btn btn-secondary" style="margin-right: 4px;"><i class="fa fa-eye"
                             aria-hidden="true"></i> View</a>
 

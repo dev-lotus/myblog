@@ -112,7 +112,10 @@
                         <label for="request_message" class="col-form-label">Message:</label>
                         <textarea name="request_message" class="form-control" ngModel name="request_message" placeholder="Hii {{this.user[1].firstName}},"></textarea>
                       </div>
-                      
+                      <div class="mb-3" style="display: none;" >
+                        <label for="listType" class="col-form-label">List Type:</label>
+                        <input type="text" id="listType" ngModel name="listType" class="form-control" [(ngModel)]="this.getListingType">
+                      </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Send request</button>
@@ -242,7 +245,10 @@
                       <label for="request_message" class="col-form-label">Message:</label>
                       <textarea name="request_message" class="form-control" ngModel name="request_message" placeholder="Hii {{this.user[1].firstName}},"></textarea>
                     </div>
-                    
+                    <div class="mb-3" style="display: none;">
+                      <label for="listType" class="col-form-label">List Type:</label>
+                      <input type="text" id="listType" ngModel name="listType" class="form-control" [(ngModel)]="this.getListingType">
+                    </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                       <button type="submit" class="btn btn-primary">Send request</button>

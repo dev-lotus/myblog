@@ -3,15 +3,19 @@ const mongoose = require('mongoose');
 const addRequestScheme = new mongoose.Schema({
     listId: {
         type:String,
-        require:true
+        required:true
+    },
+    listType: {
+        type:String,
+        required:true,
     },
     listedUserToken:{
         type:String,
-        require:true
+        required:true
     },
     requesterUserToken:{
         type:String,
-        require:true
+        required:true
     },
     request_message:{
         type:String,

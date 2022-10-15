@@ -597,7 +597,8 @@ export class ListingDetailsComponent implements OnInit {
     // console.log(form.value.request_message);
     this.spinner.show();
     var acceptance_status = "pending";
-    this._requestService.addRequestMessageData(this.freeListId,this.freeListUserToken,this.userToken,form.value.request_message,acceptance_status ).subscribe(
+    // console.log(form.value);
+    this._requestService.addRequestMessageData(this.freeListId,form.value.listType,this.freeListUserToken,this.userToken,form.value.request_message,acceptance_status ).subscribe(
       res => {
         setTimeout(() => {
           /** spinner ends after 5 seconds */

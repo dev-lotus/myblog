@@ -7,6 +7,7 @@ router.post('/add/newRequest', async (req, res) => {
     try {
         const newRequest = new Request({
             listId: req.body.listId,
+            listType:req.body.listType,
             listedUserToken: req.body.listedUserToken,
             requesterUserToken: req.body.requesterUserToken,
             request_message: req.body.request_message,

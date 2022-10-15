@@ -1,6 +1,7 @@
 export interface Request {
     _id: Object,
     listId: string,
+    listType:string,
     listedUserToken: string,
     requesterUserToken: string,
     request_message: string,

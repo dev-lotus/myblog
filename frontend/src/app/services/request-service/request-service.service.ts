@@ -12,9 +12,10 @@ export class RequestServiceService {
   constructor(private http: HttpClient) { }
 
 
-  addRequestMessageData(listId: string, listedUserToken: string, requesterUserToken: string, request_message: string,acceptance_status:string): Observable<boolean> {
+  addRequestMessageData(listId: string, listType:string, listedUserToken: string, requesterUserToken: string, request_message: string,acceptance_status:string): Observable<boolean> {
     return this.http.post<boolean>(this.request_api_url + "/add/newRequest", {
       listId: listId,
+      listType:listType,
       listedUserToken: listedUserToken,
       requesterUserToken: requesterUserToken,
       request_message: request_message,

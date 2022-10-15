@@ -7,6 +7,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { FreeListing } from 'src/app/interface/freeListing';
 import { Request } from 'src/app/interface/request';
 import { User } from 'src/app/interface/user';
+import { FreeBorrowServieService } from 'src/app/services/freeBorrow-servie/free-borrow-servie.service';
 import { FreeListServiceService } from 'src/app/services/freeList-service/free-list-service.service';
 import { RequestServiceService } from 'src/app/services/request-service/request-service.service';
 import { UserServiceService } from 'src/app/services/user-service/user-service.service';
@@ -17,32 +18,13 @@ import { UserServiceService } from 'src/app/services/user-service/user-service.s
   styleUrls: ['./request.component.css']
 })
 export class RequestComponent implements OnInit {
-  freeListing: FreeListing[] = [
-    {
-      "_id": "",
-      "userToken": "",
-      "picture": [],
-      "title": "",
-      "category": "",
-      "description": "",
-      "pickUpTime": "",
-      "listFor": 1,
-      "location": {
-        "lng": 88.48699665399437,
-        "lat": 23.412221981538707
-      },
-      likes: [],
-      onHold: false,
-      disable: false,
-      createdAt: new Date(500000000000),
-      updatedAt: new Date(500000000000)
-
-    }];
+  freeListing: any;
 
   request: Request[] = [
     {
       _id: "",
       listId: "",
+      listType:"",
       listedUserToken: "",
       requesterUserToken: "",
       request_message: "",
@@ -71,32 +53,13 @@ export class RequestComponent implements OnInit {
     }
   ];
 
-  freeListingReceivedRequest: FreeListing[] = [
-    {
-      "_id": "",
-      "userToken": "",
-      "picture": [],
-      "title": "",
-      "category": "",
-      "description": "",
-      "pickUpTime": "",
-      "listFor": 1,
-      "location": {
-        "lng": 88.48699665399437,
-        "lat": 23.412221981538707
-      },
-      likes: [],
-      onHold: false,
-      disable: false,
-      createdAt: new Date(500000000000),
-      updatedAt: new Date(500000000000)
-
-    }];
+  freeListingReceivedRequest: any;
 
   requestReceivedRequest: Request[] = [
     {
       "_id": "",
       "listId": "",
+      "listType":"",
       "listedUserToken": "",
       "requesterUserToken": "",
       "request_message": "",
@@ -136,7 +99,7 @@ export class RequestComponent implements OnInit {
   haversineDistanceResultReceivedRequest: any[] = [];
   currentUserLat!: number;
   currentUserLng!: number;
-  constructor(private spinner: NgxSpinnerService, private _toast: NgToastService, private _router: Router, private _userService: UserServiceService, private _freeList: FreeListServiceService, private _request: RequestServiceService) {
+  constructor(private spinner: NgxSpinnerService, private _toast: NgToastService, private _router: Router, private _userService: UserServiceService, private _freeList: FreeListServiceService, private _freeBorrow: FreeBorrowServieService, private _request: RequestServiceService) {
     this.userToken = String(localStorage.getItem("userId"));
     this.currentUserLat = Number(localStorage.getItem("myLocationLat"));
     this.currentUserLng = Number(localStorage.getItem("myLocationLng"));
@@ -159,29 +122,58 @@ export class RequestComponent implements OnInit {
           this.request = res;
           console.log(this.request);
 
-          for (var i = 0; i < this.request.length; i++) {
-            this._freeList.getFreeListingDataById(this.request[i].listId, this.request[i].listedUserToken).subscribe(
-              res => {
-                setTimeout(() => {
-                  /** spinner ends after 5 seconds */
-                  this.spinner.hide();
-                }, 1000);
-                this.freeListing = res;
-                this.freeListingData.push(this.freeListing);
-                this.haversineDistanceResult.push(this.calcCrow(this.currentUserLat, this.currentUserLng, this.freeListing[0].location.lat, this.freeListing[0].location.lng).toFixed(1));
-
-                console.log(this.freeListing);
-
-              }, err => {
-                setTimeout(() => {
-                  /** spinner ends after 5 seconds */
-                  this.spinner.hide();
-                }, 1000);
-                this.freeListing = [];
-                this.errMsg = err;
-                console.log(this.errMsg)
-              }, () => console.log("Get ALL FREE LIST Method excuted successfully"));
-
+          for (var i = 0; i < this.request.length; i++) { 
+            if(this.request[i].listType == 'listing')
+            {
+              this._freeList.getFreeListingDataById(this.request[i].listId, this.request[i].listedUserToken).subscribe(
+                res => {
+                  setTimeout(() => {
+                    /** spinner ends after 5 seconds */
+                    this.spinner.hide();
+                  }, 1000);
+                  this.freeListing = res;
+                  this.freeListingData.push(this.freeListing);
+                  this.haversineDistanceResult.push(this.calcCrow(this.currentUserLat, this.currentUserLng, this.freeListing[0].location.lat, this.freeListing[0].location.lng).toFixed(1));
+  
+                  console.log(this.freeListing);
+  
+                }, err => {
+                  setTimeout(() => {
+                    /** spinner ends after 5 seconds */
+                    this.spinner.hide();
+                  }, 1000);
+                  this.freeListing = [];
+                  this.errMsg = err;
+                  console.log(this.errMsg)
+                }, () => console.log("Get ALL FREE LIST Method excuted successfully"));
+  
+            }
+            else if(this.request[i].listType == 'borrow')
+            {
+              this._freeBorrow.getFreeBorrowListingDataById(this.request[i].listId, this.request[i].listedUserToken).subscribe(
+                res => {
+                  setTimeout(() => {
+                    /** spinner ends after 5 seconds */
+                    this.spinner.hide();
+                  }, 1000);
+                  this.freeListing = res;
+                  this.freeListingData.push(this.freeListing);
+                  this.haversineDistanceResult.push(this.calcCrow(this.currentUserLat, this.currentUserLng, this.freeListing[0].location.lat, this.freeListing[0].location.lng).toFixed(1));
+  
+                  console.log(this.freeListing);
+  
+                }, err => {
+                  setTimeout(() => {
+                    /** spinner ends after 5 seconds */
+                    this.spinner.hide();
+                  }, 1000);
+                  this.freeListing = [];
+                  this.errMsg = err;
+                  console.log(this.errMsg)
+                }, () => console.log("Get ALL FREE LIST Method excuted successfully"));
+  
+            }
+            
           }
 
           for (var i = 0; i < this.request.length; i++) {
@@ -244,30 +236,63 @@ export class RequestComponent implements OnInit {
           this.requestReceivedRequest = res;
           console.log(this.requestReceivedRequest);
 
+         
           for (var i = 0; i < this.requestReceivedRequest.length; i++) {
-            this._freeList.getFreeListingDataById(this.requestReceivedRequest[i].listId, this.requestReceivedRequest[i].listedUserToken).subscribe(
-              res => {
-                setTimeout(() => {
-                  /** spinner ends after 5 seconds */
-                  this.spinner.hide();
-                }, 1000);
-                this.freeListingReceivedRequest = res;
-                this.receivedRequesfreeListingData.push(this.freeListingReceivedRequest);
-                this.haversineDistanceResultReceivedRequest.push(this.calcCrow(this.currentUserLat, this.currentUserLng, this.freeListingReceivedRequest[0].location.lat, this.freeListingReceivedRequest[0].location.lng).toFixed(1));
-
-                console.log(this.freeListingReceivedRequest);
-                console.log(this.receivedRequesfreeListingData);
-
-              }, err => {
-                setTimeout(() => {
-                  /** spinner ends after 5 seconds */
-                  this.spinner.hide();
-                }, 1000);
-                this.freeListingReceivedRequest = [];
-                this.errMsg = err;
-                console.log(this.errMsg)
-              }, () => console.log("Get ALL FREE LIST Method excuted successfully"));
-
+            if(this.requestReceivedRequest[i].listType == 'listing' )
+            {
+              this._freeList.getFreeListingDataById(this.requestReceivedRequest[i].listId, this.requestReceivedRequest[i].listedUserToken).subscribe(
+                res => {
+                  setTimeout(() => {
+                    /** spinner ends after 5 seconds */
+                    this.spinner.hide();
+                  }, 1000);
+                  this.freeListingReceivedRequest = res;
+                  console.log("res " + res);
+                  this.receivedRequesfreeListingData.push(this.freeListingReceivedRequest);
+                  this.haversineDistanceResultReceivedRequest.push(this.calcCrow(this.currentUserLat, this.currentUserLng, this.freeListingReceivedRequest[0].location.lat, this.freeListingReceivedRequest[0].location.lng).toFixed(1));
+  
+                  console.log(this.freeListingReceivedRequest);
+                  console.log(this.receivedRequesfreeListingData);
+  
+                }, err => {
+                  setTimeout(() => {
+                    /** spinner ends after 5 seconds */
+                    this.spinner.hide();
+                  }, 1000);
+                  this.freeListingReceivedRequest = [];
+                  this.errMsg = err;
+                  console.log(this.errMsg)
+                }, () => console.log("Get ALL FREE LIST Method excuted successfully"));
+  
+            }
+            else if(this.requestReceivedRequest[i].listType == 'borrow' )
+            {
+              this._freeBorrow.getFreeBorrowListingDataById(this.requestReceivedRequest[i].listId, this.requestReceivedRequest[i].listedUserToken).subscribe(
+                res => {
+                  setTimeout(() => {
+                    /** spinner ends after 5 seconds */
+                    this.spinner.hide();
+                  }, 1000);
+                  this.freeListingReceivedRequest = res;
+                  console.log("res " + res);
+                  this.receivedRequesfreeListingData.push(this.freeListingReceivedRequest);
+                  this.haversineDistanceResultReceivedRequest.push(this.calcCrow(this.currentUserLat, this.currentUserLng, this.freeListingReceivedRequest[0].location.lat, this.freeListingReceivedRequest[0].location.lng).toFixed(1));
+  
+                  console.log(this.freeListingReceivedRequest);
+                  console.log(this.receivedRequesfreeListingData);
+  
+                }, err => {
+                  setTimeout(() => {
+                    /** spinner ends after 5 seconds */
+                    this.spinner.hide();
+                  }, 1000);
+                  this.freeListingReceivedRequest = [];
+                  this.errMsg = err;
+                  console.log(this.errMsg)
+                }, () => console.log("Get ALL FREE LIST Method excuted successfully"));
+  
+            }
+           
           }
 
 
