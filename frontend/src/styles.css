@@ -24,8 +24,7 @@
 }
 
 .bg-main{
-  background: rgb(214,201,194);
-  background: linear-gradient(175deg, rgba(214,201,194,1) 0%, rgba(225,162,126,1) 57%, rgba(45,76,209,1) 98%);
+  background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(14,174,87,1) 0%, rgba(12,116,117,1) 90% );/* background: linear-gradient(175deg, rgba(214,201,194,1) 0%, rgba(225,162,126,1) 57%, rgba(45,76,209,1) 98%); */
 }
 
 .marker {

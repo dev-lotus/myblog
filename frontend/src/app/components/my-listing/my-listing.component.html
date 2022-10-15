@@ -31,8 +31,11 @@
                   <div>
                     <div class="head d-flex">
                       <div class="left">
+                        <figure>
                           <img src="{{list.picture[0]}}" width="100" className="rounded-circle" />
-                      </div>
+                      
+                        </figure>
+                          </div>
                       <div class="right mx-2 my-auto">
                         <h6 class="fw-bold">{{list.title}}</h6>
                         <span class="text-muted" *ngIf="list.category =='Food'; else elseBlock">  <span class="badge bg-success">Food</span> </span>
@@ -131,7 +134,7 @@
         </ng-template>
           </div>
           <div class="tab-pane fade show" id="freeWanted" role="tabpanel" aria-labelledby="freeWanted-tab">
-            Free freeWanted
+            Wanted
           </div>
         </div>
       </div>

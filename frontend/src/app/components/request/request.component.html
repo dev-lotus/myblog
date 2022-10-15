@@ -54,7 +54,7 @@
                         <span id="rejectionMessage"> Rejection Message:
                           {{this.request[ind].rejection_message}}</span><br />
                       </div>
-                      <span class="text-muted mt-2"><i class="fa fa-clock-o" aria-hidden="true"></i> Added at
+                      <span class="text-muted mt-2"><i class="fa fa-clock-o" aria-hidden="true"></i> Added on
                         {{this.request[ind].createdAt |  date:'MMM d, y, h:mm a' }} </span>
 
                     </div>
@@ -83,7 +83,7 @@
                                 <div class="modal-body">
                                   <div class="row">
                                     <div class="col-12 text-center">
-                                      <img src="{{this.user[ind+1].profilePicture}}" width="150" alt="">
+                                      <img src="{{this.user[ind+1].profilePicture}}"  alt="">
                                       <div class="mt-4">
                                         <h2>{{this.user[ind+1].firstName}} {{this.user[ind+1].lastName}}</h2>
                                         <h4>+ {{this.user[ind+1].mobileNumber}}</h4>
@@ -189,7 +189,7 @@
                         <span id="rejectionMessage"> Rejection Message:
                           {{this.requestReceivedRequest[ind].rejection_message}}</span><br />
                       </div>
-                      <span class="text-muted mt-2"><i class="fa fa-clock-o" aria-hidden="true"></i> Added at
+                      <span class="text-muted mt-2"><i class="fa fa-clock-o" aria-hidden="true"></i> Added on
                         {{this.requestReceivedRequest[ind].createdAt |  date:'MMM d, y, h:mm a' }} </span>
 
                     </div>
@@ -267,7 +267,7 @@
                                 <div class="modal-body">
                                   <div class="row">
                                     <div class="col-12 text-center">
-                                      <img src="{{this.userReceivedRequest[ind+1].profilePicture}}" width="150" alt="">
+                                      <img src="{{this.userReceivedRequest[ind+1].profilePicture}}"  alt="">
                                       <div class="mt-4">
                                         <h2>{{this.userReceivedRequest[ind+1].firstName}}
                                           {{this.userReceivedRequest[ind+1].lastName}}</h2>
