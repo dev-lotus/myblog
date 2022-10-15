@@ -1,148 +1,7 @@
 <app-navbar></app-navbar>
 
 <section class="container mb-5 mt-2" *ngIf="this.getListingType==  'listing'">
-  
-    <div class="row">
-      <div class="col-12 bg-light  mb-3 pt-3 d-flex justify-content-between">
-        <div>
-          <nav aria-label="breadcrumb">
-            <ol class="breadcrumb fs-5">
-              <li class="breadcrumb-item"><a href="listing">Listing</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Listing Details</li>
-            </ol>
-          </nav>
-        </div>
-       <div *ngIf="freeListing[0].userToken == this.userToken; else checkTokenMatch">
-        <a href="free/edit-listing/{{this.freeListId}}"  class="btn btn-warning" style="margin-right: 4px;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>       
-        
-       </div>
-       <ng-template #checkTokenMatch>
-        <div>
-        </div>
-       </ng-template>
-      </div>
-        <div class="col-lg-4 col-md-12 col-sm-12 col-12 my-auto">
-            <div class="item-image ">
-                <div id="carouselExampleFade" class="carousel slide carousel-fade " data-bs-ride="carousel">
-                    <div class="carousel-inner ">
-                      <div *ngFor="let list of freeListing[0].picture; index as mdx" class="carousel-item" [class.active]="mdx==0?true:false">
-                        <img src="{{freeListing[0].picture[mdx]}}" class="d-block w-100" alt="...">
-                        <p>{{freeListing[0].picture[list]}}</p>
-                      </div>
-                   
-                    </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                      <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
-                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                      <span class="visually-hidden">Next</span>
-                    </button>
-                  </div>
-            </div>
-        </div>
-        <div class="col-lg-8 col-md-12 col-sm-12 col-12 mt-lg-0 mt-md-4 mt-4">
-           
-           <div class="head d-flex">
-            <div class="left">
-                <img src="{{this.user[1].profilePicture}}" width="60" className="rounded-circle" />
-            </div>
-            <div class="right mx-2">
-               
-              <h5>{{this.user[1].firstName}} {{this.user[1].lastName}} is giving away</h5>
-              <h6 class="fw-bold">{{this.freeListing[0].title}}</h6>
-             
-            </div>
-           </div>
-           <div class="body">
-            <div class="miscellaneous mt-2">
-              
-                <p class="text-muted"><img src="https://img.icons8.com/ios-glyphs/344/time-machine.png" width="20" alt="" srcset=""> Added {{ freeListing[0].updatedAt |  date:'MMM d, y, h:mm a' }} | <img src="https://img.icons8.com/fluency/344/order-delivered.png" width="20" alt=""> {{this.haversineDistanceResult[0]}} KM away </p>
-                <div class="btn-group" role="group" aria-label="Basic outlined example">
-                    <button type="button" class="btn btn-outline-primary "><i class="fa fa-share-square-o" aria-hidden="true"></i> Share</button>
-                    <button type="button" class="btn btn-outline-danger" (click)="addLikeFreeListItem(freeListing[0]._id, this.userToken)" *ngIf="this.likesListing == false; else elseBlock">
-                      <span><i class="fa fa-heart-o" aria-hidden="true"></i></span> {{this.countLikesListing.length}} Like </button>
-                      <ng-template #elseBlock>
-                        <button type="button" class="btn btn-danger" (click)="removeLikeFreeListing(freeListing[0]._id, this.userToken)">
-                          <span><i class="fa fa-heart-o" aria-hidden="true"></i></span> {{this.countLikesListing.length}} Like</button>
-                      </ng-template>
-                  </div>
-             
-            </div>
-            
-            <div class="desc mt-3">
-              <p *ngIf="this.freeListing[0].category == 'Food'; else elseBlockCategory">
-                <span class="badge bg-success">Food</span>
-              </p>
-              <ng-template #elseBlockCategory>
-                <p>
-                  <span class="badge bg-warning">Non - Food</span>
-                </p>
-              </ng-template>
-              
-                <p>{{this.freeListing[0].description}}</p>
-            </div>
-            <div class="pickUpTime">
-                <h6 class="fw-bold">PICK UP TIME</h6>
-                <p>{{this.freeListing[0].pickUpTime}}</p>
-            </div>
-           
-        </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-12 mb-4">
-            <h6 class="fw-bold">APPROX. LOCATION <span class="badge bg-info text-dark location-link"><a href="http://maps.google.com/?q={{this.freeListing[0].location.lat}},{{this.freeListing[0].location.lng}}" target="_blank">Click to get direction</a></span></h6>
-            <div id="map" class="map-container"></div>
-        </div>
-        <div *ngIf="freeListing[0].userToken != this.userToken; else disableReuestButton">
-          <div *ngIf="freeListing[0].onHold == false; else onHoldTrue">
-            <a href="request" class="w-100 btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"><i class="fa fa-envelope" aria-hidden="true" ></i> Request this</a>   
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Request Message</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <form class="needs-validation"  #requestForm="ngForm" (ngSubmit)="sendRequestMessageForm(requestForm)" novalidate="">
-                      <div class="mb-3">
-                        <label for="request_message" class="col-form-label">Message:</label>
-                        <textarea name="request_message" class="form-control" ngModel name="request_message" placeholder="Hii {{this.user[1].firstName}},"></textarea>
-                      </div>
-                      <div class="mb-3" style="display: none;" >
-                        <label for="listType" class="col-form-label">List Type:</label>
-                        <input type="text" id="listType" ngModel name="listType" class="form-control" [(ngModel)]="this.getListingType">
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Send request</button>
-                      </div>
-                    </form>
-                  </div>
-                
-                </div>
-              </div>
-            </div>
-          </div>
-          <ng-template #onHoldTrue>
-            <button class="w-100 btn btn-warning btn-lg disabled" >Someone else is grabbing it</button>
-           
-          </ng-template>
-        </div>
-       <ng-template #disableReuestButton>
-        <div>
-          <!-- <a href="request" class="w-100 btn btn-primary btn-lg disabled"><i class="fa fa-envelope" aria-hidden="true"></i> Request this</a>    -->
-        </div>
-       </ng-template>
-    </div>
- 
-</section>
 
-<section class="container mb-5 mt-2" *ngIf="this.getListingType ==  'borrow'">
-  
   <div class="row">
     <div class="col-12 bg-light  mb-3 pt-3 d-flex justify-content-between">
       <div>
@@ -153,123 +12,345 @@
           </ol>
         </nav>
       </div>
-     <div *ngIf="freeBorrow[0].userToken == this.userToken; else checkTokenMatch">
-      <a href="free/edit-borrow/{{this.freeListId}}"  class="btn btn-warning" style="margin-right: 4px;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>       
-      
-     </div>
-     <ng-template #checkTokenMatch>
-      <div>
+      <div *ngIf="freeListing[0].userToken == this.userToken; else checkTokenMatch">
+        <a href="free/edit-listing/{{this.freeListId}}" class="btn btn-warning" style="margin-right: 4px;"><i
+            class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
+
       </div>
-     </ng-template>
+      <ng-template #checkTokenMatch>
+        <div>
+        </div>
+      </ng-template>
     </div>
-      <div class="col-lg-4 col-md-12 col-sm-12 col-12 my-auto">
-          <div class="item-image ">
-              <div id="carouselExampleFade" class="carousel slide carousel-fade " data-bs-ride="carousel">
-                  <div class="carousel-inner ">
-                    <div *ngFor="let list of freeBorrow[0].picture; index as mdx" class="carousel-item" [class.active]="mdx==0?true:false">
-                      <img src="{{freeBorrow[0].picture[mdx]}}" class="d-block w-100" alt="...">
-                      <p>{{freeBorrow[0].picture[list]}}</p>
-                    </div>
-                 
-                  </div>
-                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                  </button>
-                  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                  </button>
-                </div>
+    <div class="col-lg-4 col-md-12 col-sm-12 col-12 my-auto">
+      <div class="item-image ">
+        <div id="carouselExampleFade" class="carousel slide carousel-fade " data-bs-ride="carousel">
+          <div class="carousel-inner " *ngIf="freeListing[0].picture.length !=0; else noImageFound2 ">
+            <div *ngFor="let list of freeListing[0].picture; index as mdx" class="carousel-item"
+              [class.active]="mdx==0?true:false">
+              <figure>
+                <img src="{{freeListing[0].picture[mdx]}}" class="d-block w-100 img-item" alt="...">
+
+              </figure>
+
+
+              <!-- <p>{{freeListing[0].picture[list]}}</p> -->
+            </div>
+
           </div>
+          <ng-template #noImageFound2>
+            <div class="carousel-inner ">
+              <div class="carousel-item" [class.active]="true">
+                <figure>
+                  <img src="../../../assets/images/no-image-found.svg" class="d-block w-100 img-item" alt="...">
+
+                </figure>
+
+
+                <!-- <p>{{freeBorrow[0].picture[list]}}</p> -->
+              </div>
+
+            </div>
+
+          </ng-template>
+
+
+
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
       </div>
-      <div class="col-lg-8 col-md-12 col-sm-12 col-12 mt-lg-0 mt-md-4 mt-4">
-         
-         <div class="head d-flex">
-          <div class="left">
-              <img src="{{this.user[1].profilePicture}}" width="60" className="rounded-circle" />
-          </div>
-          <div class="right mx-2">
-             
-            <h5>{{this.user[1].firstName}} {{this.user[1].lastName}} is giving away</h5>
-            <h6 class="fw-bold">{{this.freeBorrow[0].title}}</h6>
-           
-          </div>
-         </div>
-         <div class="body">
-          <div class="miscellaneous mt-2">
-            
-              <p class="text-muted"><img src="https://img.icons8.com/ios-glyphs/344/time-machine.png" width="20" alt="" srcset=""> Added {{ freeBorrow[0].updatedAt |  date:'MMM d, y, h:mm a' }} | <img src="https://img.icons8.com/fluency/344/order-delivered.png" width="20" alt=""> {{this.haversineDistanceResult[0]}} KM away </p>
-              <div class="btn-group" role="group" aria-label="Basic outlined example">
-                  <button type="button" class="btn btn-outline-primary "><i class="fa fa-share-square-o" aria-hidden="true"></i> Share</button>
-                  <button type="button" class="btn btn-outline-danger" (click)="addLikeFreeBorrowItem(freeBorrow[0]._id, this.userToken)" *ngIf="this.likesListing == false; else elseBlock">
-                    <span><i class="fa fa-heart-o" aria-hidden="true"></i></span> {{this.countLikesListing.length}} Like </button>
-                    <ng-template #elseBlock>
-                      <button type="button" class="btn btn-danger" (click)="removeLikeFreeBorrow(freeBorrow[0]._id, this.userToken)">
-                        <span><i class="fa fa-heart-o" aria-hidden="true"></i></span> {{this.countLikesListing.length}} Like</button>
-                    </ng-template>
-                </div>
-           
-          </div>
-          
-          <div class="desc mt-3">
-          
-              <p>{{this.freeBorrow[0].description}}</p>
-          </div>
-          <div class="pickUpTime">
-              <h6 class="fw-bold">LENDING INFO</h6>
-              <p>{{this.freeBorrow[0].lendingInfo}}</p>
-          </div>
-         
+    </div>
+    <div class="col-lg-8 col-md-12 col-sm-12 col-12 mt-lg-0 mt-md-4 mt-4">
+
+      <div class="head d-flex">
+        <div class="left">
+          <img src="{{this.user[1].profilePicture}}" width="60" className="rounded-circle" />
+        </div>
+        <div class="right mx-2">
+
+          <h5>{{this.user[1].firstName}} {{this.user[1].lastName}} is giving away</h5>
+          <h6 class="fw-bold">{{this.freeListing[0].title}}</h6>
+
+        </div>
       </div>
+      <div class="body">
+        <div class="miscellaneous mt-2">
+
+          <p class="text-muted"><img src="https://img.icons8.com/ios-glyphs/344/time-machine.png" width="20" alt=""
+              srcset=""> Added {{ freeListing[0].updatedAt |  date:'MMM d, y, h:mm a' }} | <img
+              src="https://img.icons8.com/fluency/344/order-delivered.png" width="20" alt="">
+            {{this.haversineDistanceResult[0]}} KM away </p>
+          <div class="btn-group" role="group" aria-label="Basic outlined example">
+            <button type="button" class="btn btn-outline-primary "><i class="fa fa-share-square-o"
+                aria-hidden="true"></i> Share</button>
+            <button type="button" class="btn btn-outline-danger"
+              (click)="addLikeFreeListItem(freeListing[0]._id, this.userToken)"
+              *ngIf="this.likesListing == false; else elseBlock">
+              <span><i class="fa fa-heart-o" aria-hidden="true"></i></span> {{this.countLikesListing.length}} Like
+            </button>
+            <ng-template #elseBlock>
+              <button type="button" class="btn btn-danger"
+                (click)="removeLikeFreeListing(freeListing[0]._id, this.userToken)">
+                <span><i class="fa fa-heart-o" aria-hidden="true"></i></span> {{this.countLikesListing.length}}
+                Like</button>
+            </ng-template>
+          </div>
+
+        </div>
+
+        <div class="desc mt-3">
+          <p *ngIf="this.freeListing[0].category == 'Food'; else elseBlockCategory">
+            <span class="badge bg-success">Food</span>
+          </p>
+          <ng-template #elseBlockCategory>
+            <p>
+              <span class="badge bg-warning">Non - Food</span>
+            </p>
+          </ng-template>
+
+          <p>{{this.freeListing[0].description}}</p>
+        </div>
+        <div class="pickUpTime">
+          <h6 class="fw-bold">PICK UP TIME</h6>
+          <p>{{this.freeListing[0].pickUpTime}}</p>
+        </div>
+
       </div>
+    </div>
   </div>
   <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12 col-12 mb-4">
-          <h6 class="fw-bold">APPROX. LOCATION <span class="badge bg-info text-dark location-link"><a href="http://maps.google.com/?q={{this.freeBorrow[0].location.lat}},{{this.freeBorrow[0].location.lng}}" target="_blank">Click to get direction</a></span></h6>
-          <div id="map" class="map-container"></div>
-      </div>
-      <div *ngIf="freeBorrow[0].userToken != this.userToken; else disableReuestButton">
-        <div *ngIf="freeBorrow[0].onHold == false; else onHoldTrue">
-          <a href="request" class="w-100 btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"><i class="fa fa-envelope" aria-hidden="true" ></i> Request this</a>   
-          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Request Message</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <form class="needs-validation"  #requestForm="ngForm" (ngSubmit)="sendRequestMessageForm(requestForm)" novalidate="">
-                    <div class="mb-3">
-                      <label for="request_message" class="col-form-label">Message:</label>
-                      <textarea name="request_message" class="form-control" ngModel name="request_message" placeholder="Hii {{this.user[1].firstName}},"></textarea>
-                    </div>
-                    <div class="mb-3" style="display: none;">
-                      <label for="listType" class="col-form-label">List Type:</label>
-                      <input type="text" id="listType" ngModel name="listType" class="form-control" [(ngModel)]="this.getListingType">
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-primary">Send request</button>
-                    </div>
-                  </form>
-                </div>
-              
+    <div class="col-lg-12 col-md-12 col-sm-12 col-12 mb-4">
+      <h6 class="fw-bold">APPROX. LOCATION <span class="badge bg-info text-dark location-link"><a
+            href="http://maps.google.com/?q={{this.freeListing[0].location.lat}},{{this.freeListing[0].location.lng}}"
+            target="_blank">Click to get direction</a></span></h6>
+      <div id="map" class="map-container"></div>
+    </div>
+    <div *ngIf="freeListing[0].userToken != this.userToken; else disableReuestButton">
+      <div *ngIf="freeListing[0].onHold == false; else onHoldTrue">
+        <a href="request" class="w-100 btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal"
+          data-bs-whatever="@mdo"><i class="fa fa-envelope" aria-hidden="true"></i> Request this</a>
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Request Message</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
+              <div class="modal-body">
+                <form class="needs-validation" #requestForm="ngForm" (ngSubmit)="sendRequestMessageForm(requestForm)"
+                  novalidate="">
+                  <div class="mb-3">
+                    <label for="request_message" class="col-form-label">Message:</label>
+                    <textarea name="request_message" class="form-control" ngModel name="request_message"
+                      placeholder="Hii {{this.user[1].firstName}},"></textarea>
+                  </div>
+                  <div class="mb-3" style="display: none;">
+                    <label for="listType" class="col-form-label">List Type:</label>
+                    <input type="text" id="listType" ngModel name="listType" class="form-control"
+                      [(ngModel)]="this.getListingType">
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Send request</button>
+                  </div>
+                </form>
+              </div>
+
             </div>
           </div>
         </div>
-        <ng-template #onHoldTrue>
-          <button class="w-100 btn btn-warning btn-lg disabled" >Someone else is grabbing it</button>
-         
-        </ng-template>
       </div>
-     <ng-template #disableReuestButton>
+      <ng-template #onHoldTrue>
+        <button class="w-100 btn btn-warning btn-lg disabled">Someone else is grabbing it</button>
+
+      </ng-template>
+    </div>
+    <ng-template #disableReuestButton>
       <div>
         <!-- <a href="request" class="w-100 btn btn-primary btn-lg disabled"><i class="fa fa-envelope" aria-hidden="true"></i> Request this</a>    -->
       </div>
-     </ng-template>
+    </ng-template>
+  </div>
+
+</section>
+
+<section class="container mb-5 mt-2" *ngIf="this.getListingType ==  'borrow'">
+
+  <div class="row">
+    <div class="col-12 bg-light  mb-3 pt-3 d-flex justify-content-between">
+      <div>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb fs-5">
+            <li class="breadcrumb-item"><a href="listing">Listing</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Listing Details </li>
+          </ol>
+        </nav>
+      </div>
+      <div *ngIf="freeBorrow[0].userToken == this.userToken; else checkTokenMatch">
+        <a href="free/edit-borrow/{{this.freeListId}}" class="btn btn-warning" style="margin-right: 4px;"><i
+            class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
+
+      </div>
+      <ng-template #checkTokenMatch>
+        <div>
+        </div>
+      </ng-template>
+    </div>
+    <div class="col-lg-4 col-md-12 col-sm-12 col-12 my-auto">
+      <div class="item-image ">
+        <div id="carouselExampleFade" class="carousel slide carousel-fade " data-bs-ride="carousel">
+          <div class="carousel-inner " *ngIf="freeBorrow[0].picture.length !=0; else noImageFound2 ">
+            <div *ngFor="let list of freeBorrow[0].picture; index as mdx" class="carousel-item"
+              [class.active]="mdx==0?true:false">
+              <figure>
+                <img src="{{freeBorrow[0].picture[mdx]}}" class="d-block w-100 img-item" alt="...">
+
+              </figure>
+
+
+              <!-- <p>{{freeBorrow[0].picture[list]}}</p> -->
+            </div>
+
+          </div>
+          <ng-template #noImageFound2>
+            <div class="carousel-inner ">
+              <div class="carousel-item" [class.active]="true">
+                <figure>
+                  <img src="../../../assets/images/no-image-found.svg" class="d-block w-100 img-item" alt="...">
+
+                </figure>
+
+
+                <!-- <p>{{freeBorrow[0].picture[list]}}</p> -->
+              </div>
+
+            </div>
+
+          </ng-template>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-8 col-md-12 col-sm-12 col-12 mt-lg-0 mt-md-4 mt-4">
+
+      <div class="head d-flex">
+        <div class="left">
+          <img src="{{this.user[1].profilePicture}}" width="60" className="rounded-circle" />
+        </div>
+        <div class="right mx-2">
+
+          <h5>{{this.user[1].firstName}} {{this.user[1].lastName}} is giving away</h5>
+          <h6 class="fw-bold">{{this.freeBorrow[0].title}}</h6>
+
+        </div>
+      </div>
+      <div class="body">
+        <div class="miscellaneous mt-2">
+
+          <p class="text-muted"><img src="https://img.icons8.com/ios-glyphs/344/time-machine.png" width="20" alt=""
+              srcset=""> Added {{ freeBorrow[0].updatedAt |  date:'MMM d, y, h:mm a' }} | <img
+              src="https://img.icons8.com/fluency/344/order-delivered.png" width="20" alt="">
+            {{this.haversineDistanceResult[0]}} KM away </p>
+          <div class="btn-group" role="group" aria-label="Basic outlined example">
+            <button type="button" class="btn btn-outline-primary "><i class="fa fa-share-square-o"
+                aria-hidden="true"></i> Share</button>
+            <button type="button" class="btn btn-outline-danger"
+              (click)="addLikeFreeBorrowItem(freeBorrow[0]._id, this.userToken)"
+              *ngIf="this.likesListing == false; else elseBlock">
+              <span><i class="fa fa-heart-o" aria-hidden="true"></i></span> {{this.countLikesListing.length}} Like
+            </button>
+            <ng-template #elseBlock>
+              <button type="button" class="btn btn-danger"
+                (click)="removeLikeFreeBorrow(freeBorrow[0]._id, this.userToken)">
+                <span><i class="fa fa-heart-o" aria-hidden="true"></i></span> {{this.countLikesListing.length}}
+                Like</button>
+            </ng-template>
+          </div>
+
+        </div>
+
+        <div class="desc mt-3">
+
+          <p>{{this.freeBorrow[0].description}}</p>
+        </div>
+        <div class="pickUpTime">
+          <h6 class="fw-bold">LENDING INFO</h6>
+          <p>{{this.freeBorrow[0].lendingInfo}}</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-12 mb-4">
+      <h6 class="fw-bold">APPROX. LOCATION <span class="badge bg-info text-dark location-link"><a
+            href="http://maps.google.com/?q={{this.freeBorrow[0].location.lat}},{{this.freeBorrow[0].location.lng}}"
+            target="_blank">Click to get direction</a></span></h6>
+      <div id="map" class="map-container"></div>
+    </div>
+    <div *ngIf="freeBorrow[0].userToken != this.userToken; else disableReuestButton">
+      <div *ngIf="freeBorrow[0].onHold == false; else onHoldTrue">
+        <a href="request" class="w-100 btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal"
+          data-bs-whatever="@mdo"><i class="fa fa-envelope" aria-hidden="true"></i> Request this</a>
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Request Message</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form class="needs-validation" #requestForm="ngForm" (ngSubmit)="sendRequestMessageForm(requestForm)"
+                  novalidate="">
+                  <div class="mb-3">
+                    <label for="request_message" class="col-form-label">Message:</label>
+                    <textarea name="request_message" class="form-control" ngModel name="request_message"
+                      placeholder="Hii {{this.user[1].firstName}},"></textarea>
+                  </div>
+                  <div class="mb-3" style="display: none;">
+                    <label for="listType" class="col-form-label">List Type:</label>
+                    <input type="text" id="listType" ngModel name="listType" class="form-control"
+                      [(ngModel)]="this.getListingType">
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Send request</button>
+                  </div>
+                </form>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <ng-template #onHoldTrue>
+        <button class="w-100 btn btn-warning btn-lg disabled">Someone else is grabbing it</button>
+
+      </ng-template>
+    </div>
+    <ng-template #disableReuestButton>
+      <div>
+        <!-- <a href="request" class="w-100 btn btn-primary btn-lg disabled"><i class="fa fa-envelope" aria-hidden="true"></i> Request this</a>    -->
+      </div>
+    </ng-template>
   </div>
 
 </section>

@@ -71,14 +71,14 @@ router.post('/add', async (req, res) => {
 
 router.put('/update/:listId/:userToken', async (req, res) => {
     try {
-        const freeBorrow = await FreeListing.findOne({
+        const freeBorrow = await  FreeBorrow.findOne({
             _id: req.params.listId,
             userToken: req.params.userToken
         });
         freeBorrow.picture = req.body.picture;
         freeBorrow.title = req.body.title;
         freeBorrow.description = req.body.description;
-        freeBorrow.lendingInfo = req.body.pickUpTime;
+        freeBorrow.lendingInfo = req.body.lendingInfo;
         freeBorrow.listFor = req.body.listFor;
         freeBorrow.location = {
             "lng": req.body.lng,

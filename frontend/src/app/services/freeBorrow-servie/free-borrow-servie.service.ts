@@ -68,8 +68,8 @@ export class FreeBorrowServieService {
       description:description,
       lendingInfo:lendingInfo,
       listFor:listFor,
-      lng:lng,
-      lat:lat
+      lng: lng,
+      lat: lat
     
     }).pipe(catchError(this.errorHandler));
   }

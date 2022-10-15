@@ -17,3 +17,11 @@
   .carousel-control-next-icon {
   background-color: turquoise;
   }
+
+  .img-item{
+    width: 150px;
+    height: 250px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    object-fit: contain;
+  }

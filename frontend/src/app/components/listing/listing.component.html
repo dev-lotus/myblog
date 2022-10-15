@@ -38,7 +38,12 @@
               <a href="listing-details/{{list._id}}/?token={{list.userToken}}&type=listing" class="link-direct">
 
                <figure>
-                <img src="{{list.picture[0]}}" class="card-img-top" alt="...">
+                <img src="{{list.picture[0]}}" class="card-img-top" alt="..." *ngIf="list.picture.length !=0; else noImageFound1 ">
+                <ng-template #noImageFound1>
+                  <img src="../../../assets/images/no-image-found.svg" class="card-img-top" alt="...">
+              
+                </ng-template>
+
                </figure>
                 <div class="card-body">
                   <!-- <p class="card-text " *ngIf="this.user[ind+1]._id == list.userToken"><span>
@@ -90,8 +95,11 @@
               <a href="listing-details/{{list._id}}/?token={{list.userToken}}&type=borrow" class="link-direct">
 
                 <figure>
-                  <img src="{{list.picture[0]}}" class="card-img-top" alt="...">
-              
+                  <img src="{{list.picture[0]}}" class="card-img-top" alt="..." *ngIf="list.picture.length !=0; else noImageFound ">
+                  <ng-template #noImageFound>
+                    <img src="../../../assets/images/no-image-found.svg" class="card-img-top" alt="...">
+                
+                  </ng-template>
                 </figure>
                 <div class="card-body">
                   <!-- <p class="card-text " *ngIf="this.user[ind+1]._id == list.userToken"><span>
@@ -109,7 +117,7 @@
     
                     </div>
                     <div *ngIf="list.userToken == this.userToken" class="my-auto">
-                     <a href="free/edit-listing/{{list._id}}">
+                     <a href="free/edit-borrow/{{list._id}}">
                       <img src="https://img.icons8.com/external-kiranshastry-solid-kiranshastry/344/external-edit-interface-kiranshastry-solid-kiranshastry.png" width="30" alt="">
                      </a>
                     </div>
