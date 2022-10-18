@@ -28,3 +28,7 @@ img{
     background-size: contain;
     object-fit: contain;
   }
+  .no-request-img{
+    width: 100%;
+    height: 200px;
+  }
