@@ -21,10 +21,11 @@
 .icon-bar a {
   display: block;
   text-align: center;
-  padding: 16px;
   transition: all 0.3s ease;
   color: white;
   font-size: 20px;
+  padding: 10px;
+ 
 }
 
 .icon-bar a:hover {
@@ -44,6 +45,10 @@
 .wanted {
   background: #cfdd39;
   color: white;
+}
+
+.icon-bar img{
+  width: 40px;
 }
 
 .card-img-top{
@@ -66,4 +71,15 @@
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
   color: #000;
   background-color: #fcfcfd;
+}
+.nav .nav-item{
+font-size: 14px;
+}
+.nav .nav-item img{
+  width: 30px;
+}
+@media screen and (max-width: 600px) {
+  .nav .nav-item img{
+    width: 20px;
+  }
 }

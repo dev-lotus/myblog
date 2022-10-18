@@ -8,6 +8,10 @@
   font-family: 'Spectral', serif;
 
 }
+p{
+  font-size: 14px;
+  text-align: justify;
+}
 
 .link-direct {
   text-decoration: none;

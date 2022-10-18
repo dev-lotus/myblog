@@ -1,7 +1,4 @@
-img{
-    width: 100px;
-    height: 80px;
-    background-repeat: no-repeat;
-    background-size: contain;
-    object-fit: contain;
+
+  .nav  img{
+    width: 30px;
   }

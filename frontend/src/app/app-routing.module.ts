@@ -28,8 +28,8 @@ const routes: Routes = [
   {path:'free/add-listing', component:AddFreeListingComponent, canActivate:[AuthGuardService]},
   {path:'free/edit-listing/:id', component:EditFreeListingComponent, canActivate:[AuthGuardService]},
   {path:'free/edit-borrow/:id', component:EditFreeBorrowComponent, canActivate:[AuthGuardService]},
-  {path:'add-borrow', component:AddBorrowListingComponent, canActivate:[AuthGuardService]},
-  {path:'add-wanted', component:AddWantedListingComponent, canActivate:[AuthGuardService]},
+  {path:'free/add-borrow', component:AddBorrowListingComponent, canActivate:[AuthGuardService]},
+  {path:'free/add-wanted', component:AddWantedListingComponent, canActivate:[AuthGuardService]},
   {path:'my-location', component:MyLocationComponent, canActivate:[AuthGuardService]},
   {path:'my-listing', component:MyListingComponent, canActivate:[AuthGuardService]}
 

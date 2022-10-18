@@ -463,8 +463,22 @@ export class ListingDetailsComponent implements OnInit {
     for (const feature of homeLocationJson.features) {
       const el = document.createElement('div');
       el.className = 'marker';
-      el.style.backgroundImage = "url(./../../../assets/images/icons/freeListing.png)";
+      if(this.getListingType == "borrow")
+      {
+        el.style.backgroundImage = "url(./../../../assets/images/icons/freeBorrow.png)";
 
+      }
+      else if(this.getListingType == 'listing')
+      {
+        el.style.backgroundImage = "url(./../../../assets/images/icons/freeListing.png)";
+
+      }
+      else if(this.getListingType =='wanted')
+      {
+        // el.style.backgroundImage = "url(./../../../assets/images/icons/freeListing.png)";
+  
+      }
+     
       new mapboxgl.Marker(el)
         .setLngLat([feature.geometry.coordinates.lng, feature.geometry.coordinates.lat])
         .addTo(this.map);

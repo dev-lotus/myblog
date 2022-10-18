@@ -140,7 +140,7 @@ export class AddBorrowListingComponent implements OnInit {
     for (const feature of homeLocationJson.features) {
       const el = document.createElement('div');
       el.className = 'marker';
-      el.style.backgroundImage = "url(./../../../assets/images/icons/freeListing.png)";
+      el.style.backgroundImage = "url(./../../../assets/images/icons/freeBorrow.png)";
 
       new mapboxgl.Marker(el)
         .setLngLat([feature.geometry.coordinates.lng, feature.geometry.coordinates.lat])
