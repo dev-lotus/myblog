@@ -1,16 +1,16 @@
 <section>
     <div class="container-fluid ">
-        <div class="row">
+        <div class="row d-flex justify-content-center">
             <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 d-flex justify-content-center my-auto py-4 order-lg-1 order-2">
                 <div class="text-center ">
                     <div class="">
                         <img src="../../../assets/images/logo/shareandcare.svg" width="220px" alt="">
-                        <p class="fs-5 mt-5">Join the #1 free local sharing app</p>
+                        <p class="fs-4 mt-5">Join the #1 free local sharing app</p>
                     </div>
 
                     <div class="mt-4">
-                        <asl-google-signin-button *ngIf="!user" type='standard' size='medium' width="300"
-                            theme="filled_blue" class="mx-auto"></asl-google-signin-button>
+                        <asl-google-signin-button *ngIf="!user" type='standard' size='medium' width="350"
+                            theme="filled_blue" class="mx-auto "></asl-google-signin-button>
 
                         <div *ngIf="user">
                             <button type="button" disabled="true" class="btn btn-success fs-5">Logging you in..</button>
@@ -21,7 +21,9 @@
                 </div>
 
             </div>
-            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 bg-main order-lg-2 order-1 vh-100"></div>
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 bg-main order-lg-2 order-1 vh-100">
+              
+            </div>
         </div>
     </div>
 </section>

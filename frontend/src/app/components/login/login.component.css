@@ -13,3 +13,10 @@
     box-shadow: rgba(0, 0, 0, 0.108) 0px 3px 8px;
     
 }
+
+
+.bg-main{
+    background-image: linear-gradient(rgba(14, 174, 86, 0.532), rgba(0, 0, 0, 0.5)), url(../../../assets/images/mika-baumeister-nDciGidCdQo-unsplash.jpg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
