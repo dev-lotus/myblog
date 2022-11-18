@@ -7,11 +7,13 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Spectral', serif;
-/* font-family: 'Oswald', sans-serif; */
 }
-p{
-  text-align: justify;
+
+iframe {
+  display: unset !important
 }
+
+
 
 .link-direct {
   text-decoration: none;
@@ -27,8 +29,9 @@ p{
   background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);
 }
 
-.bg-main{
-  background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(14,174,87,1) 0%, rgba(12,116,117,1) 90% );/* background: linear-gradient(175deg, rgba(214,201,194,1) 0%, rgba(225,162,126,1) 57%, rgba(45,76,209,1) 98%); */
+.bg-main {
+  background-image: radial-gradient(circle farthest-corner at 10% 20%, rgba(14, 174, 87, 1) 0%, rgba(12, 116, 117, 1) 90%);
+  /* background: linear-gradient(175deg, rgba(214,201,194,1) 0%, rgba(225,162,126,1) 57%, rgba(45,76,209,1) 98%); */
 }
 
 .marker {
@@ -46,9 +49,42 @@ p{
   box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
   padding: 25px;
   pointer-events: auto;
-  
+
 }
 
 .mapboxgl-popup-close-button {
-    padding: 8px;
+  padding: 8px;
+}
+
+
+.header-section {
+  margin-bottom: 50px;
+  color: #17cf97;
+  
+}
+
+.header-section .title {
+  margin-bottom: 18px;
+  font-size: 50px;
+  text-transform: uppercase;
+  display: block;
+  font-weight: bold;
+  font-family: 'Oswald', sans-serif !important; 
+}
+
+.header-section .small-title {
+  font-size: 30px;
+
+  font-weight: 400;
+  line-height: 33px;
+  margin: 0px 0px 15px;
+  text-transform: capitalize;
+  font-family: 'Oswald', sans-serif !important; 
+}
+
+@media only screen and (max-width: 600px) {
+
+  .header-section .title {
+    font-size: 40px;
+  }
 }

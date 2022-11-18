@@ -1,4 +1,14 @@
 
+.login-page{
+     background-image: linear-gradient(rgba(0, 0, 0, 0.815),rgba(0, 0, 0, 0.689)),url(../../../assets/images/ill_landing.jpg), linear-gradient(180deg, #00C47C 24.58%, #C8FFB5 68.5%, #FFE4AE 82.3%);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    width: 100%;
+    object-fit: contain;
+    color: #fff;
+}
+
 .google-logo img {
     width: 30px;
     padding: 0 5px 0 0;
@@ -14,9 +24,17 @@
     
 }
 
+.how-we-work{
+    padding: 90px 0 60px 0;
+    
+    background: url(http://avantage.bold-themes.com/business/wp-content/uploads/sites/2/2019/04/bgn-industries.png);
+    background-position: center top;
+    background-size: contain;
+    color: #5a5a5a;
 
-.bg-main{
-    background-image: linear-gradient(rgba(14, 174, 86, 0.532), rgba(0, 0, 0, 0.5)), url(../../../assets/images/mika-baumeister-nDciGidCdQo-unsplash.jpg);
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-  }
+}
+.how-we-work img{
+    height: 232px;
+    width: 232px;
+    border-radius: 10px;
+}
