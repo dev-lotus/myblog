@@ -38,6 +38,55 @@ export class FreeWantedServiceService {
     
     }).pipe(catchError(this.errorHandler));
   }
+
+  
+  updateListingPicture(listId: string, userToken:string, listingPicture:any[]): Observable<boolean> {
+    return this.http.patch<boolean>(this.freeWanted_api_url + "/update/freeWantedPicture/" + listId  + "/"+userToken, {
+      picture: listingPicture
+    }).pipe(catchError(this.errorHandler));
+  }
+
+  updateAddLikeFreeWanted(listId: string, userToken:string): Observable<boolean> {
+    return this.http.patch<boolean>(this.freeWanted_api_url + "/update/addLike/" + listId ,{
+      userToken:userToken, 
+    }).pipe(catchError(this.errorHandler));
+  }
+
+  updateFreeWantedData(listId:string, userToken:string, listingPicture:any[], title:string, description:string, pickUpTime:string,listFor:number, lng: number, lat: number): Observable<boolean> {
+    return this.http.put<boolean>(this.freeWanted_api_url + "/update/" + listId + "/" + userToken, {
+      picture:listingPicture,   
+      title:title,
+      description:description,
+      pickUpTime:pickUpTime,
+      listFor:listFor,
+      lng: lng,
+      lat: lat
+    
+    }).pipe(catchError(this.errorHandler));
+  }
+  updateDisableStatusFreeWanted(listId: string, userToken:string, disableStatus:boolean): Observable<boolean> {
+    return this.http.patch<boolean>(this.freeWanted_api_url + "/update/disableStatus/" + listId + "/"+userToken,{
+      disableStatus:disableStatus, 
+    }).pipe(catchError(this.errorHandler));
+  }
+  updateRemoveLikeFreeWanted(listId: string, userToken:string): Observable<boolean> {
+    return this.http.patch<boolean>(this.freeWanted_api_url + "/update/removeLike/" + listId ,{
+      userToken:userToken, 
+    }).pipe(catchError(this.errorHandler));
+  }
+  
+  updateOnHoldStatus(listId: string, onHoldStatus:boolean): Observable<boolean> {
+    return this.http.patch<boolean>(this.freeWanted_api_url + "/update/onHoldListing/" + listId ,{
+      onHold:onHoldStatus
+    }).pipe(catchError(this.errorHandler));
+  }
+
+  deleteFreeWanted(listId:string, userToken:string):Observable<boolean>{
+    return this.http.delete<boolean>(this.freeWanted_api_url + "/delete/" + listId + "/" + userToken).pipe(catchError(this.errorHandler));
+  }
+  
+
+
   errorHandler(error: HttpErrorResponse) {
     console.error(error);
     return throwError(error.message || "Server Error");

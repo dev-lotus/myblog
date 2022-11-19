@@ -5,6 +5,7 @@ import { AddFreeListingComponent } from './components/add-free-listing/add-free-
 import { AddWantedListingComponent } from './components/add-wanted-listing/add-wanted-listing.component';
 import { EditFreeBorrowComponent } from './components/edit-free-borrow/edit-free-borrow.component';
 import { EditFreeListingComponent } from './components/edit-free-listing/edit-free-listing.component';
+import { EditFreeWantedComponent } from './components/edit-free-wanted/edit-free-wanted.component';
 import { HomeComponent } from './components/home/home.component';
 import { ListingDetailsComponent } from './components/listing-details/listing-details.component';
 import { ListingComponent } from './components/listing/listing.component';
@@ -28,6 +29,7 @@ const routes: Routes = [
   {path:'free/add-listing', component:AddFreeListingComponent, canActivate:[AuthGuardService]},
   {path:'free/edit-listing/:id', component:EditFreeListingComponent, canActivate:[AuthGuardService]},
   {path:'free/edit-borrow/:id', component:EditFreeBorrowComponent, canActivate:[AuthGuardService]},
+  {path:'free/edit-wanted/:id', component:EditFreeWantedComponent, canActivate:[AuthGuardService]},
   {path:'free/add-borrow', component:AddBorrowListingComponent, canActivate:[AuthGuardService]},
   {path:'free/add-wanted', component:AddWantedListingComponent, canActivate:[AuthGuardService]},
   {path:'my-location', component:MyLocationComponent, canActivate:[AuthGuardService]},

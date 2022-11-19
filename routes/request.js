@@ -4,6 +4,8 @@ const Request = require('../models/request');
 
 const FreeListing = require('../models/freeListing');
 const FreeBorrow = require('../models/freeBorrow');
+const FreeWanted = require('../models/freeWanted');
+
 router.post('/add/newRequest', async (req, res) => {
     try {
         const newRequest = new Request({
@@ -53,6 +55,9 @@ router.patch('/update/acceptanceStatus/:reqId/:listId', async (req, res) => {
         const freeBorrow = await FreeBorrow.findOne({
             _id:req.params.listId
         })
+        const freeWanted = await FreeWanted.findOne({
+            _id:req.params.listId
+        })
         if(req.body.listType == 'listing')
         {
             if(req.body.acceptance_status == 'delivered' )
@@ -78,6 +83,22 @@ router.patch('/update/acceptanceStatus/:reqId/:listId', async (req, res) => {
                 freeBorrow.disable = true;
                 const r1 = await requestOne.save();
                 const f1 = await freeBorrow.save();
+            }
+            
+            else{
+                requestOne.acceptance_status = req.body.acceptance_status;
+                const r1 = await requestOne.save();
+            }
+        }
+        else if(req.body.listType == 'wanted')
+        {
+            if(req.body.acceptance_status == 'delivered' )
+            {
+                requestOne.acceptance_status = req.body.acceptance_status;
+                freeWanted.onHold = false;
+                freeWanted.disable = true;
+                const r1 = await requestOne.save();
+                const f1 = await freeWanted.save();
             }
             
             else{

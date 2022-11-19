@@ -40,7 +40,7 @@
             <div class="card">
               <a href="listing-details/{{list._id}}/?token={{list.userToken}}&type=listing" class="link-direct">
 
-                <figure>
+                <figure class="my-auto">
                   <img src="{{list.picture[0]}}" class="card-img-top" alt="..."
                     *ngIf="list.picture.length !=0; else noImageFound1 ">
                   <ng-template #noImageFound1>
@@ -56,14 +56,15 @@
 
                   <div class="d-flex justify-content-between ">
                     <div>
-                      <span class="badge bg-warning text-dark " *ngIf="list.onHold == true; else onHoldStatus">On
+                      <span class="badge bg-warning text-dark status-badge" *ngIf="list.onHold == true; else onHoldStatus">On
                         Hold</span>
                       <ng-template #onHoldStatus>
-                        <span class="badge bg-success">Available</span>
+                        <span class="badge bg-success status-badge">Available</span>
 
                       </ng-template>
+                      <p>Someone is giving away</p>
                       <h5 class="card-title fw-bold mt-2">{{list.title}}</h5>
-
+                      <span class="badge bg-warning text-dark">Added At {{ list.updatedAt | date: 'shortTime' }}</span>
                     </div>
                     <div *ngIf="list.userToken == this.userToken" class="my-auto">
                       <a href="free/edit-listing/{{list._id}}">
@@ -73,8 +74,8 @@
                       </a>
                     </div>
                   </div>
-
-                  <p>{{ (list.description.length>100)? (list.description | slice:0:150)+'..':(list.description) }}</p>
+                 
+                  <!-- <p>{{ (list.description.length>100)? (list.description | slice:0:150)+'..':(list.description) }}</p> -->
 
                 </div>
               </a>
@@ -116,14 +117,16 @@
 
                   <div class="d-flex justify-content-between ">
                     <div>
-                      <span class="badge bg-warning text-dark " *ngIf="list.onHold == true; else onHoldStatus">On
+                      <span class="badge bg-warning text-dark status-badge" *ngIf="list.onHold == true; else onHoldStatus">On
                         Hold</span>
                       <ng-template #onHoldStatus>
-                        <span class="badge bg-success">Available</span>
+                        <span class="badge bg-success status-badge">Available</span>
 
                       </ng-template>
+                      <p>Someone is lending</p>
                       <h5 class="card-title fw-bold ">{{list.title}}</h5>
-
+                      <span class="badge bg-warning text-dark">Added At {{ list.updatedAt | date: 'shortTime' }}</span>
+                   
                     </div>
                     <div *ngIf="list.userToken == this.userToken" class="my-auto">
                       <a href="free/edit-borrow/{{list._id}}">
@@ -133,8 +136,8 @@
                       </a>
                     </div>
                   </div>
-
-                  <p>{{ (list.description.length>100)? (list.description | slice:0:130)+'..':(list.description) }}</p>
+               
+                  <!-- <p>{{ (list.description.length>100)? (list.description | slice:0:130)+'..':(list.description) }}</p> -->
 
                 </div>
               </a>
@@ -175,14 +178,16 @@
 
                   <div class="d-flex justify-content-between ">
                     <div>
-                      <span class="badge bg-warning text-dark " *ngIf="list.onHold == true; else onHoldStatus">On
+                      <span class="badge bg-warning text-dark status-badge" *ngIf="list.onHold == true; else onHoldStatus">On
                         Hold</span>
                       <ng-template #onHoldStatus>
-                        <span class="badge bg-success">Available</span>
+                        <span class="badge bg-success status-badge">Available</span>
 
                       </ng-template>
+                      <p>Someone is in need of </p>
                       <h5 class="card-title fw-bold ">{{list.title}}</h5>
-
+                      <span class="badge bg-warning text-dark">Added At {{ list.updatedAt | date: 'shortTime' }}</span>
+                   
                     </div>
                     <div *ngIf="list.userToken == this.userToken" class="my-auto">
                       <a href="free/edit-wanted/{{list._id}}">
@@ -192,8 +197,8 @@
                       </a>
                     </div>
                   </div>
-
-                  <p>{{ (list.description.length>100)? (list.description | slice:0:130)+'..':(list.description) }}</p>
+                  
+                  <!-- <p>{{ (list.description.length>100)? (list.description | slice:0:130)+'..':(list.description) }}</p> -->
 
                 </div>
               </a>

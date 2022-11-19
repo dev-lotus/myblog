@@ -14,6 +14,8 @@ import { NgForm } from '@angular/forms';
 import { RequestServiceService } from 'src/app/services/request-service/request-service.service';
 import { FreeBorrow } from 'src/app/interface/freeBorrow';
 import { FreeBorrowServieService } from 'src/app/services/freeBorrow-servie/free-borrow-servie.service';
+import { FreeWantedServiceService } from 'src/app/services/freeWanted-service/free-wanted-service.service';
+import { FreeWanted } from 'src/app/interface/freeWanted';
 @Component({
   selector: 'app-listing-details',
   templateUrl: './listing-details.component.html',
@@ -70,6 +72,26 @@ export class ListingDetailsComponent implements OnInit {
         updatedAt: new Date(500000000000)
   
       }];
+      freeWanted: FreeWanted[] = [
+        {
+          "_id": "",
+          "userToken": "",
+          "picture": [],
+          "title": "",
+          "description": "",
+          "pickUpTime": "",
+          "listFor": 1,
+          "location": {
+            "lng": 88.48699665399437,
+            "lat": 23.412221981538707
+          },
+          likes: [],
+          onHold: false,
+          disable: false,
+          createdAt: new Date(500000000000),
+          updatedAt: new Date(500000000000)
+    
+        }];
   user: User[] = [
     {
       _id: "",
@@ -104,7 +126,7 @@ export class ListingDetailsComponent implements OnInit {
   currentUserLat!: number;
   currentUserLng!: number;
 
-  constructor(private route: ActivatedRoute, private spinner: NgxSpinnerService, private _toast: NgToastService, private _router: Router, private _userService: UserServiceService, private _freeList: FreeListServiceService,private _requestService: RequestServiceService,private _freeBorrow: FreeBorrowServieService) {
+  constructor(private route: ActivatedRoute, private spinner: NgxSpinnerService, private _toast: NgToastService, private _router: Router, private _userService: UserServiceService, private _freeList: FreeListServiceService,private _requestService: RequestServiceService,private _freeBorrow: FreeBorrowServieService, private _freeWanted: FreeWantedServiceService) {
     (mapboxgl as any).accessToken = environment.mapbox.accessToken;
     this.userToken = String(localStorage.getItem("userId"));
     const routeParams = this.route.snapshot.paramMap;
@@ -135,7 +157,7 @@ export class ListingDetailsComponent implements OnInit {
     }
     else if(this.getListingType =='wanted')
     {
-      // this.getFreeListUserData();
+      this.getFreeWantedUserData();
 
     }
     else {
@@ -274,6 +296,7 @@ export class ListingDetailsComponent implements OnInit {
 
     console.log("User " + this.user);
   }
+  
   // BORROW
 
   getFreeBorrowUserData() {
@@ -424,7 +447,160 @@ export class ListingDetailsComponent implements OnInit {
     console.log(listId, userTokenVal);
 
   }
+
   ///
+
+
+   // WANTED
+
+   getFreeWantedUserData() {
+    this.spinner.show();
+    this._freeWanted.getFreeWantedListingDataById(this.freeListId, this.freeListUserToken).subscribe(
+      res => {
+        setTimeout(() => {
+          /** spinner ends after 5 seconds */
+          this.spinner.hide();
+        }, 1000);
+        this.freeWanted = res;
+        console.log(this.freeWanted);
+        for (var i = 0; i < this.freeWanted.length; i++) {
+
+          this.haversineDistanceResult.push(this.calcCrow(this.currentUserLat,this.currentUserLng,this.freeWanted[i].location.lat,this.freeWanted[i].location.lng).toFixed(1));
+
+          this._userService.getUserDataById(this.freeListUserToken).subscribe(
+            res => {
+              setTimeout(() => {
+                /** spinner ends after 5 seconds */
+                this.spinner.hide();
+              }, 1000);
+
+              this.user.push(res[0]);
+
+              console.log(this.user[1]);
+              // console.log(this.user);
+
+              console.log(this.removeDupliactes(this.user));
+              this.lng = this.freeWanted[0].location.lng;
+              this.lat = this.freeWanted[0].location.lat;
+              console.log(this.lng, this.lat);
+              this.setHomeLocation(this.lng, this.lat);
+              console.log(this.removeDupliactes(this.freeWanted[0].likes));
+              this.countLikesListing = this.removeDupliactes(this.freeWanted[0].likes);
+              console.log(this.countLikesListing);
+
+
+              
+              this.likesListing = !!this.countLikesListing.find(like => {  
+                return like.listId === this.freeListId && like.userToken === this.userToken;
+              });
+
+
+          
+            }, err => {
+              setTimeout(() => {
+                /** spinner ends after 5 seconds */
+                this.spinner.hide();
+              }, 1000);
+              this.user = [];
+              this.errMsg = err;
+              console.log(this.errMsg)
+            }, () => console.log("Get User Data method excuted successfully"))
+
+        }
+      }, err => {
+        setTimeout(() => {
+          /** spinner ends after 5 seconds */
+          this.spinner.hide();
+        }, 1000);
+        this.freeWanted = [];
+        this.errMsg = err;
+        console.log(this.errMsg)
+      }, () => console.log("Get ALL FREE Wanted Method excuted successfully"));
+
+    console.log("Free Wanted " + this.freeWanted[0]);
+
+    console.log("User " + this.user);
+  }
+
+  addLikeFreeWantedItem(listId: string, userTokenVal: string) {
+   
+    this._freeWanted.updateAddLikeFreeWanted(listId, userTokenVal).subscribe(
+      res => {
+        setTimeout(() => {
+          /** spinner ends after 5 seconds */
+          this.spinner.hide();
+        }, 1000);
+        this.status = res;
+        console.log(this.status);
+        if (this.status == true) {
+          this._toast.success({ detail: "SUCCESS", summary: 'You liked this listing', position: 'br' });
+          setTimeout(function () {
+            window.location.reload();
+          }, 2000);
+
+        }
+        else {
+          this._toast.warning({ detail: "FAILED", summary: 'Unable to like this listing', position: 'br' });
+
+        }
+      }, err => {
+        setTimeout(() => {
+          /** spinner ends after 5 seconds */
+          this.spinner.hide();
+        }, 1000);
+        this.errMsg = err;
+        this._toast.warning({ detail: "FAILED", summary: 'Please try after sometime', position: 'br' });
+
+      },
+      () => console.log("LIKE LISTING FREE WANTED successfully EXECUTED")
+    )
+  // }
+  // else {
+  //   alert("You already Liked it");
+  // }
+  console.log(listId, userTokenVal);
+
+}
+
+removeLikeFreeWanted(listId: string, userTokenVal: string) {
+ 
+    this._freeWanted.updateRemoveLikeFreeWanted(listId, userTokenVal).subscribe(
+      res => {
+        setTimeout(() => {
+          /** spinner ends after 5 seconds */
+          this.spinner.hide();
+        }, 1000);
+        this.status = res;
+        console.log(this.status);
+        if (this.status == true) {
+          this._toast.success({ detail: "SUCCESS", summary: 'You unliked this listing', position: 'br' });
+          setTimeout(function () {
+            window.location.reload();
+          }, 2000);
+
+        }
+        else {
+          this._toast.warning({ detail: "FAILED", summary: 'Unable to unliked this listing', position: 'br' });
+
+        }
+      }, err => {
+        setTimeout(() => {
+          /** spinner ends after 5 seconds */
+          this.spinner.hide();
+        }, 1000);
+        this.errMsg = err;
+        this._toast.warning({ detail: "FAILED", summary: 'Please try after sometime', position: 'br' });
+
+      },
+      () => console.log("LIKE LISTING FREE WANTED successfully EXECUTED")
+    )
+  // }
+  // else {
+  //   alert("You already Liked it");
+  // }
+  console.log(listId, userTokenVal);
+
+}
 
   removeDupliactes = (values: any[]) => {
     let concatArray = values.map(eachValue => {
@@ -475,7 +651,7 @@ export class ListingDetailsComponent implements OnInit {
       }
       else if(this.getListingType =='wanted')
       {
-        // el.style.backgroundImage = "url(./../../../assets/images/icons/freeListing.png)";
+        el.style.backgroundImage = "url(./../../../assets/images/icons/freeWanted.png)";
   
       }
      

@@ -49,7 +49,7 @@
                         {{this.freeListingData[ind][0].createdAt |  date:'MMM d, y, h:mm a' }}</p>
 
                       <span> Requested: {{this.freeListingData[ind][0].title}}</span><br />
-                      <span> Your Message: {{this.request[ind].request_message}}</span><br />
+                      <span> Message: {{this.request[ind].request_message}}</span><br />
                       <div *ngIf="this.request[ind].rejection_message !='' ">
                         <span id="rejectionMessage"> Rejection Message:
                           {{this.request[ind].rejection_message}}</span><br />
@@ -131,7 +131,7 @@
                     <p class="fw-bold badge bg-primary text-wrap" style="width: 10rem;">More Information</p>
 
                     <span> Requested: {{this.freeListingData[ind][0].title}}</span><br />
-                    <span> Your Message: {{this.request[ind].request_message}}</span><br />
+                    <span> Message: {{this.request[ind].request_message}}</span><br />
                     <div *ngIf="this.request[ind].rejection_message !='' ">
                       <span id="rejectionMessage"> Rejection Message:
                         {{this.request[ind].rejection_message}}</span><br />
@@ -184,7 +184,7 @@
                         {{this.receivedRequesfreeListingData[ind][0].createdAt |  date:'MMM d, y, h:mm a' }}</p>
 
                       <span> Requested: {{this.receivedRequesfreeListingData[ind][0].title}}</span><br />
-                      <span> Your Message: {{this.requestReceivedRequest[ind].request_message}}</span><br />
+                      <span> Message: {{this.requestReceivedRequest[ind].request_message}}</span><br />
                       <div *ngIf="this.requestReceivedRequest[ind].rejection_message !='' ">
                         <span id="rejectionMessage"> Rejection Message:
                           {{this.requestReceivedRequest[ind].rejection_message}}</span><br />
@@ -308,7 +308,7 @@
                     <p class="fw-bold badge bg-primary text-wrap" style="width: 10rem;">More Information</p>
 
                     <span> Requested: {{this.receivedRequesfreeListingData[ind][0].title}}</span><br />
-                    <span> Your Message: {{this.requestReceivedRequest[ind].request_message}}</span><br />
+                    <span> Message: {{this.requestReceivedRequest[ind].request_message}}</span><br />
                     <div *ngIf="this.requestReceivedRequest[ind].rejection_message !='' ">
                       <span id="rejectionMessage"> Rejection Message:
                         {{this.requestReceivedRequest[ind].rejection_message}}</span><br />

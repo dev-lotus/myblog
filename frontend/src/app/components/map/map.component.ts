@@ -92,14 +92,42 @@ export class MapComponent implements OnInit {
           type: 'Feature',
           geometry: {
             type: 'Point',
-            'coordinates': [-77.032, 38.913]
+            'coordinates': {
+              "lng": 83.48786130507187,
+              "lat":23.41248256345665 
+            },
           },
           properties: {
-            title: 'Home'
+            availStatus:'Available',
+            title: 'Pizza',
+            picture:'https://i.ibb.co/j3jGCXw/pizza.jpg',
+            updatedAt: '2022-11-19T09:12:46.056+00:00',
+            likes: 1,
+            distance: '0.4 KM',
+          }
+        },
+        {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            'coordinates': {
+              "lng": 88.48786130507187,
+              "lat":23.41248256345665 
+            },
+          },
+          properties: {
+            availStatus:'Available',
+            title: 'Pizza',
+            picture:'https://i.ibb.co/j3jGCXw/pizza.jpg',
+            updatedAt: '2022-11-19T09:12:46.056+00:00',
+            likes: 1,
+            distance: '0.4 KM',
+
           }
         }
       ]
     };
+    console.log(geojson.features.length);
 
     for (const feature of geojson.features) {
       // create a HTML element for each feature
@@ -109,13 +137,16 @@ export class MapComponent implements OnInit {
 
       // make a marker for each feature and add it to the map
       new mapboxgl.Marker(el)
-      .setLngLat([88.48786130507187,23.41248256345665])
-      // .setPopup(
-      // new mapboxgl.Popup({ offset: 25 }) // add popups
-      // .setHTML(
-      // `<h3>${feature.properties.title}</h3>`
-      // )
-      // )
+      .setLngLat([feature.geometry.coordinates.lng, feature.geometry.coordinates.lat])
+      .setPopup(
+      new mapboxgl.Popup({ offset: 25 }) // add popups
+      .setHTML(
+      `<div style="text-align:center; padding-bottom: 5px;"><img src="${feature.properties.picture}" width="100" /></div> <p>Someone is giving away</p> 
+      <h5><b>${feature.properties.title}</b></h5> 
+      <p>Added on: 19th, Nov, 2022</p>
+       <p>Added at: 12:30 PM</p>`
+      )
+      )
       .addTo(this.map);
       }
       

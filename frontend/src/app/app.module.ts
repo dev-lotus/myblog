@@ -31,6 +31,7 @@ import { FormsModule } from '@angular/forms';
 import { EditFreeListingComponent } from './components/edit-free-listing/edit-free-listing.component';
 import { MyListingComponent } from './components/my-listing/my-listing.component';
 import { EditFreeBorrowComponent } from './components/edit-free-borrow/edit-free-borrow.component';
+import { EditFreeWantedComponent } from './components/edit-free-wanted/edit-free-wanted.component';
 
 
 const CLIENT_ID = "39639459278-dgjd1pif6o14m1c1le0hsi3244ml1bjr.apps.googleusercontent.com";
@@ -51,7 +52,8 @@ const CLIENT_ID = "39639459278-dgjd1pif6o14m1c1le0hsi3244ml1bjr.apps.googleuserc
     RequestComponent,
     EditFreeListingComponent,
     MyListingComponent,
-    EditFreeBorrowComponent
+    EditFreeBorrowComponent,
+    EditFreeWantedComponent
   ],
   imports: [
     BrowserModule,

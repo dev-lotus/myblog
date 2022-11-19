@@ -51,6 +51,9 @@ iframe {
   pointer-events: auto;
 
 }
+.mapboxgl-popup-content p{
+  margin-bottom: 0 !important;
+}
 
 .mapboxgl-popup-close-button {
   padding: 8px;
@@ -88,3 +91,4 @@ iframe {
     font-size: 40px;
   }
 }
+
