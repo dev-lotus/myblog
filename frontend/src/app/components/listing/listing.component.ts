@@ -165,7 +165,7 @@ export class ListingComponent implements OnInit {
   }
   getFreeListUserData() {
     this.spinner.show();
-    this._freeList.getAllFreeListing().subscribe(
+    this._freeList.getAllFreeListingNearBy(this.currentUserLng, this.currentUserLat).subscribe(
       res => {
         setTimeout(() => {
           /** spinner ends after 5 seconds */
@@ -257,7 +257,7 @@ export class ListingComponent implements OnInit {
 
   getFreeBorrowUserData() {
     this.spinner.show();
-    this._freeBorrow.getAllFreeBorrowListing().subscribe(
+    this._freeBorrow.getAllFreeBorrowNearBy(this.currentUserLng, this.currentUserLat).subscribe(
       res => {
         setTimeout(() => {
           /** spinner ends after 5 seconds */
@@ -324,7 +324,7 @@ export class ListingComponent implements OnInit {
 
    getFreeWantedUserData() {
     this.spinner.show();
-    this._freeWanted.getAllFreeWantedListing().subscribe(
+    this._freeWanted.getAllFreeWantedNearBy(this.currentUserLng, this.currentUserLat).subscribe(
       res => {
         setTimeout(() => {
           /** spinner ends after 5 seconds */

@@ -43,6 +43,34 @@ router.get('/get/listingId/:listId/:userToken', async (req, res) => {
     }
 });
 
+router.get('/get/listings/nearBy/:lng/:lat', async (req, res) => {
+    try {
+
+        const longitude = Number(req.params.lng);
+        const latitude = Number(req.params.lat);
+        const find_nearBy = await FreeWanted.find({
+            location: {
+                $near: {
+                    $geometry: {
+                        type: "Point",
+                        coordinates: [
+                            longitude,
+                            latitude
+                        ]
+                    },
+
+                    $maxDistance: 25000,
+
+                }
+            }
+        })
+
+
+        res.status(200).json(find_nearBy);
+    } catch (err) {
+        res.status(502).send('Error ' + err);
+    }
+})
 
 // ADD FREE BORROW
 router.post('/add', async (req, res) => {

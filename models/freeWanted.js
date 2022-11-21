@@ -48,5 +48,5 @@ const FreeWantedSchema = new mongoose.Schema({
 });
 
 FreeWantedSchema.set('timestamps', true);
-
+FreeWantedSchema.index({ "location": '2dsphere' });
 module.exports = mongoose.model('FreeWanted', FreeWantedSchema);

@@ -52,5 +52,5 @@ const addListingSchema = new mongoose.Schema({
 });
 
 addListingSchema.set('timestamps', true);
-
+addListingSchema.index({ "location": '2dsphere' });
 module.exports = mongoose.model('AddListing', addListingSchema);

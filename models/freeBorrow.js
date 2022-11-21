@@ -49,5 +49,5 @@ const FreeBorrowSchema = new mongoose.Schema({
 });
 
 FreeBorrowSchema.set('timestamps', true);
-
+FreeBorrowSchema.index({ "location": '2dsphere' });
 module.exports = mongoose.model('FreeBorrow', FreeBorrowSchema);

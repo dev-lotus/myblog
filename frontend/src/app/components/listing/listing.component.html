@@ -26,7 +26,7 @@
         <li class="nav-item" role="presentation">
           <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact"
             type="button" role="tab" aria-controls="pills-contact" aria-selected="false"><img
-              src="../../../assets/images/icons/freeWanted.png" alt="" srcset=""> Wanted  <span
+              src="../../../assets/images/icons/freeWanted.png" alt="" srcset=""> Wanted <span
               class="badge bg-danger">{{freeWanted.length}}</span></button>
         </li>
       </ul>
@@ -34,190 +34,232 @@
     </div>
 
     <div class="tab-content mt-2" id="pills-tabContent">
+
       <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-        <div class="row row-cols-xl-4 row-cols-md-2  row-cols-1   g-4">
-          <div class="col" *ngFor="let list of freeListing; let ind = index">
-            <div class="card">
-              <a href="listing-details/{{list._id}}/?token={{list.userToken}}&type=listing" class="link-direct">
-
-                <figure class="my-auto">
-                  <img src="{{list.picture[0]}}" class="card-img-top" alt="..."
-                    *ngIf="list.picture.length !=0; else noImageFound1 ">
-                  <ng-template #noImageFound1>
-                    <img src="../../../assets/images/no-image-found.svg" class="card-img-top" alt="...">
-
-                  </ng-template>
-
-                </figure>
-                <div class="card-body">
-                  <!-- <p class="card-text " *ngIf="this.user[ind+1]._id == list.userToken"><span>
-                    <img src="{{this.user[ind+1].profilePicture}}"
-                        width="40" className="rounded-circle" /> </span> {{this.user[ind+1].firstName}} {{this.user[ind+1].lastName}}</p> -->
-
-                  <div class="d-flex justify-content-between ">
-                    <div>
-                      <span class="badge bg-warning text-dark status-badge" *ngIf="list.onHold == true; else onHoldStatus">On
-                        Hold</span>
-                      <ng-template #onHoldStatus>
-                        <span class="badge bg-success status-badge">Available</span>
-
-                      </ng-template>
-                      <p>Someone is giving away</p>
-                      <h5 class="card-title fw-bold mt-2">{{list.title}}</h5>
-                      <span class="badge bg-warning text-dark">Added At {{ list.updatedAt | date: 'shortTime' }}</span>
-                    </div>
-                    <div *ngIf="list.userToken == this.userToken" class="my-auto">
-                      <a href="free/edit-listing/{{list._id}}">
-                        <img
-                          src="https://img.icons8.com/external-kiranshastry-solid-kiranshastry/344/external-edit-interface-kiranshastry-solid-kiranshastry.png"
-                          width="30" alt="">
-                      </a>
-                    </div>
-                  </div>
-                 
-                  <!-- <p>{{ (list.description.length>100)? (list.description | slice:0:150)+'..':(list.description) }}</p> -->
-
-                </div>
-              </a>
-              <div class="card-footer d-flex justify-content-around">
-                <small class="text-muted"><img src="https://img.icons8.com/fluency/344/order-delivered.png" width="20"
-                    alt=""> {{this.haversineDistanceResult[ind]}} KM</small>
-
-                <small class="text-muted">{{ list.updatedAt | date }}</small>
-                <small> <img src="https://img.icons8.com/color/344/filled-like.png" width="20" alt="">
-                  {{this.countLikesListing[ind]}} Liked</small>
-              </div>
-            </div>
-
+        <div *ngIf="freeListing.length !=0; else noListing">
+          <div class="pb-2">
+            <span class="text-muted"> <i class="fa fa-arrow-down" aria-hidden="true"></i> Near by listings upto 25
+              KM</span>
 
           </div>
+          <div class="row row-cols-xl-4 row-cols-md-2  row-cols-1   g-4">
+            <div class="col" *ngFor="let list of freeListing; let ind = index">
+              <div class="card">
+                <a href="listing-details/{{list._id}}/?token={{list.userToken}}&type=listing" class="link-direct">
 
+                  <figure class="my-auto">
+                    <img src="{{list.picture[0]}}" class="card-img-top" alt="..."
+                      *ngIf="list.picture.length !=0; else noImageFound1 ">
+                    <ng-template #noImageFound1>
+                      <img src="../../../assets/images/no-image-found.svg" class="card-img-top" alt="...">
+
+                    </ng-template>
+
+                  </figure>
+                  <div class="card-body">
+                    <!-- <p class="card-text " *ngIf="this.user[ind+1]._id == list.userToken"><span>
+                      <img src="{{this.user[ind+1].profilePicture}}"
+                          width="40" className="rounded-circle" /> </span> {{this.user[ind+1].firstName}} {{this.user[ind+1].lastName}}</p> -->
+
+                    <div class="d-flex justify-content-between ">
+                      <div>
+                        <span class="badge bg-warning text-dark status-badge"
+                          *ngIf="list.onHold == true; else onHoldStatus">On
+                          Hold</span>
+                        <ng-template #onHoldStatus>
+                          <span class="badge bg-success status-badge">Available</span>
+
+                        </ng-template>
+                        <p>Someone is giving away</p>
+                        <h5 class="card-title fw-bold mt-2">{{list.title}}</h5>
+                        <span class="badge bg-warning text-dark">Added At {{ list.updatedAt | date: 'shortTime'
+                          }}</span>
+                      </div>
+                      <div *ngIf="list.userToken == this.userToken" class="my-auto">
+                        <a href="free/edit-listing/{{list._id}}">
+                          <img
+                            src="https://img.icons8.com/external-kiranshastry-solid-kiranshastry/344/external-edit-interface-kiranshastry-solid-kiranshastry.png"
+                            width="30" alt="">
+                        </a>
+                      </div>
+                    </div>
+
+                    <!-- <p>{{ (list.description.length>100)? (list.description | slice:0:150)+'..':(list.description) }}</p> -->
+
+                  </div>
+                </a>
+                <div class="card-footer d-flex justify-content-around">
+                  <small class="text-muted"><img src="https://img.icons8.com/fluency/344/order-delivered.png" width="20"
+                      alt=""> {{this.haversineDistanceResult[ind]}} KM</small>
+
+                  <small class="text-muted">{{ list.updatedAt | date }}</small>
+                  <small> <img src="https://img.icons8.com/color/344/filled-like.png" width="20" alt="">
+                    {{this.countLikesListing[ind]}} Liked</small>
+                </div>
+              </div>
+
+
+            </div>
+
+          </div>
         </div>
+       
       </div>
       <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+        <div *ngIf="freeBorrow.length !=0; else noListing">
+          <div class="pb-2">
+            <span class="text-muted"> <i class="fa fa-arrow-down" aria-hidden="true"></i> Near by listings upto 25
+              KM</span>
 
-
-        <div class="row row-cols-xl-4 row-cols-md-2  row-cols-1  g-4">
-          <div class="col" *ngFor="let list of freeBorrow; let ind = index">
-            <div class="card">
-              <a href="listing-details/{{list._id}}/?token={{list.userToken}}&type=borrow" class="link-direct">
-
-                <figure>
-                  <img src="{{list.picture[0]}}" class="card-img-top" alt="..."
-                    *ngIf="list.picture.length !=0; else noImageFound ">
-                  <ng-template #noImageFound>
-                    <img src="../../../assets/images/no-image-found.svg" class="card-img-top" alt="...">
-
-                  </ng-template>
-                </figure>
-                <div class="card-body">
-                  <!-- <p class="card-text " *ngIf="this.user[ind+1]._id == list.userToken"><span>
-                    <img src="{{this.user[ind+1].profilePicture}}"
-                        width="40" className="rounded-circle" /> </span> {{this.user[ind+1].firstName}} {{this.user[ind+1].lastName}}</p> -->
-
-                  <div class="d-flex justify-content-between ">
-                    <div>
-                      <span class="badge bg-warning text-dark status-badge" *ngIf="list.onHold == true; else onHoldStatus">On
-                        Hold</span>
-                      <ng-template #onHoldStatus>
-                        <span class="badge bg-success status-badge">Available</span>
-
-                      </ng-template>
-                      <p>Someone is lending</p>
-                      <h5 class="card-title fw-bold ">{{list.title}}</h5>
-                      <span class="badge bg-warning text-dark">Added At {{ list.updatedAt | date: 'shortTime' }}</span>
-                   
+          </div>
+          <div class="row row-cols-xl-4 row-cols-md-2  row-cols-1  g-4">
+            <div class="col" *ngFor="let list of freeBorrow; let ind = index">
+              <div class="card">
+                <a href="listing-details/{{list._id}}/?token={{list.userToken}}&type=borrow" class="link-direct">
+  
+                  <figure>
+                    <img src="{{list.picture[0]}}" class="card-img-top" alt="..."
+                      *ngIf="list.picture.length !=0; else noImageFound ">
+                    <ng-template #noImageFound>
+                      <img src="../../../assets/images/no-image-found.svg" class="card-img-top" alt="...">
+  
+                    </ng-template>
+                  </figure>
+                  <div class="card-body">
+                    <!-- <p class="card-text " *ngIf="this.user[ind+1]._id == list.userToken"><span>
+                      <img src="{{this.user[ind+1].profilePicture}}"
+                          width="40" className="rounded-circle" /> </span> {{this.user[ind+1].firstName}} {{this.user[ind+1].lastName}}</p> -->
+  
+                    <div class="d-flex justify-content-between ">
+                      <div>
+                        <span class="badge bg-warning text-dark status-badge"
+                          *ngIf="list.onHold == true; else onHoldStatus">On
+                          Hold</span>
+                        <ng-template #onHoldStatus>
+                          <span class="badge bg-success status-badge">Available</span>
+  
+                        </ng-template>
+                        <p>Someone is lending</p>
+                        <h5 class="card-title fw-bold ">{{list.title}}</h5>
+                        <span class="badge bg-warning text-dark">Added At {{ list.updatedAt | date: 'shortTime' }}</span>
+  
+                      </div>
+                      <div *ngIf="list.userToken == this.userToken" class="my-auto">
+                        <a href="free/edit-borrow/{{list._id}}">
+                          <img
+                            src="https://img.icons8.com/external-kiranshastry-solid-kiranshastry/344/external-edit-interface-kiranshastry-solid-kiranshastry.png"
+                            width="30" alt="">
+                        </a>
+                      </div>
                     </div>
-                    <div *ngIf="list.userToken == this.userToken" class="my-auto">
-                      <a href="free/edit-borrow/{{list._id}}">
-                        <img
-                          src="https://img.icons8.com/external-kiranshastry-solid-kiranshastry/344/external-edit-interface-kiranshastry-solid-kiranshastry.png"
-                          width="30" alt="">
-                      </a>
-                    </div>
+  
+                    <!-- <p>{{ (list.description.length>100)? (list.description | slice:0:130)+'..':(list.description) }}</p> -->
+  
                   </div>
-               
-                  <!-- <p>{{ (list.description.length>100)? (list.description | slice:0:130)+'..':(list.description) }}</p> -->
-
+                </a>
+                <div class="card-footer d-flex justify-content-around">
+                  <small class="text-muted"><img src="https://img.icons8.com/fluency/344/order-delivered.png" width="20"
+                      alt=""> {{this.haversineDistanceResultForBorrow[ind]}} KM</small>
+  
+                  <small class="text-muted">{{ list.updatedAt | date }}</small>
+                  <small> <img src="https://img.icons8.com/color/344/filled-like.png" width="20" alt="">
+                    {{this.countLikesListingForBorrow[ind]}} Liked</small>
                 </div>
-              </a>
-              <div class="card-footer d-flex justify-content-around">
-                <small class="text-muted"><img src="https://img.icons8.com/fluency/344/order-delivered.png" width="20"
-                    alt=""> {{this.haversineDistanceResultForBorrow[ind]}} KM</small>
-
-                <small class="text-muted">{{ list.updatedAt | date }}</small>
-                <small> <img src="https://img.icons8.com/color/344/filled-like.png" width="20" alt="">
-                  {{this.countLikesListingForBorrow[ind]}} Liked</small>
               </div>
+  
+  
             </div>
-
+  
+          </div>
+  
 
           </div>
 
-        </div>
-
+       
       </div>
       <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-        <div class="row row-cols-xl-4 row-cols-md-2  row-cols-1  g-4">
-          <div class="col" *ngFor="let list of freeWanted; let ind = index">
-            <div class="card">
-              <a href="listing-details/{{list._id}}/?token={{list.userToken}}&type=wanted" class="link-direct">
-
-                <figure>
-                  <img src="{{list.picture[0]}}" class="card-img-top" alt="..."
-                    *ngIf="list.picture.length !=0; else noImageFound ">
-                  <ng-template #noImageFound>
-                    <img src="../../../assets/images/no-image-found.svg" class="card-img-top" alt="...">
-
-                  </ng-template>
-                </figure>
-                <div class="card-body">
-                  <!-- <p class="card-text " *ngIf="this.user[ind+1]._id == list.userToken"><span>
-                    <img src="{{this.user[ind+1].profilePicture}}"
-                        width="40" className="rounded-circle" /> </span> {{this.user[ind+1].firstName}} {{this.user[ind+1].lastName}}</p> -->
-
-                  <div class="d-flex justify-content-between ">
-                    <div>
-                      <span class="badge bg-warning text-dark status-badge" *ngIf="list.onHold == true; else onHoldStatus">On
-                        Hold</span>
-                      <ng-template #onHoldStatus>
-                        <span class="badge bg-success status-badge">Available</span>
-
-                      </ng-template>
-                      <p>Someone is in need of </p>
-                      <h5 class="card-title fw-bold ">{{list.title}}</h5>
-                      <span class="badge bg-warning text-dark">Added At {{ list.updatedAt | date: 'shortTime' }}</span>
-                   
-                    </div>
-                    <div *ngIf="list.userToken == this.userToken" class="my-auto">
-                      <a href="free/edit-wanted/{{list._id}}">
-                        <img
-                          src="https://img.icons8.com/external-kiranshastry-solid-kiranshastry/344/external-edit-interface-kiranshastry-solid-kiranshastry.png"
-                          width="30" alt="">
-                      </a>
-                    </div>
-                  </div>
-                  
-                  <!-- <p>{{ (list.description.length>100)? (list.description | slice:0:130)+'..':(list.description) }}</p> -->
-
-                </div>
-              </a>
-              <div class="card-footer d-flex justify-content-around">
-                <small class="text-muted"><img src="https://img.icons8.com/fluency/344/order-delivered.png" width="20"
-                    alt=""> {{this.haversineDistanceResultForWanted[ind]}} KM</small>
-
-                <small class="text-muted">{{ list.updatedAt | date }}</small>
-                <small> <img src="https://img.icons8.com/color/344/filled-like.png" width="20" alt="">
-                  {{this.countLikesListingForWanted[ind]}} Liked</small>
-              </div>
-            </div>
-
+        
+        <div *ngIf="freeWanted.length !=0; else noListing">
+          <div class="pb-2">
+            <span class="text-muted"> <i class="fa fa-arrow-down" aria-hidden="true"></i> Near by listings upto 25
+              KM</span>
 
           </div>
-
-        </div>
+          <div class="row row-cols-xl-4 row-cols-md-2  row-cols-1  g-4">
+            <div class="col" *ngFor="let list of freeWanted; let ind = index">
+              <div class="card">
+                <a href="listing-details/{{list._id}}/?token={{list.userToken}}&type=wanted" class="link-direct">
+  
+                  <figure>
+                    <img src="{{list.picture[0]}}" class="card-img-top" alt="..."
+                      *ngIf="list.picture.length !=0; else noImageFound ">
+                    <ng-template #noImageFound>
+                      <img src="../../../assets/images/no-image-found.svg" class="card-img-top" alt="...">
+  
+                    </ng-template>
+                  </figure>
+                  <div class="card-body">
+                    <!-- <p class="card-text " *ngIf="this.user[ind+1]._id == list.userToken"><span>
+                      <img src="{{this.user[ind+1].profilePicture}}"
+                          width="40" className="rounded-circle" /> </span> {{this.user[ind+1].firstName}} {{this.user[ind+1].lastName}}</p> -->
+  
+                    <div class="d-flex justify-content-between ">
+                      <div>
+                        <span class="badge bg-warning text-dark status-badge"
+                          *ngIf="list.onHold == true; else onHoldStatus">On
+                          Hold</span>
+                        <ng-template #onHoldStatus>
+                          <span class="badge bg-success status-badge">Available</span>
+  
+                        </ng-template>
+                        <p>Someone is in need of </p>
+                        <h5 class="card-title fw-bold ">{{list.title}}</h5>
+                        <span class="badge bg-warning text-dark">Added At {{ list.updatedAt | date: 'shortTime' }}</span>
+  
+                      </div>
+                      <div *ngIf="list.userToken == this.userToken" class="my-auto">
+                        <a href="free/edit-wanted/{{list._id}}">
+                          <img
+                            src="https://img.icons8.com/external-kiranshastry-solid-kiranshastry/344/external-edit-interface-kiranshastry-solid-kiranshastry.png"
+                            width="30" alt="">
+                        </a>
+                      </div>
+                    </div>
+  
+                    <!-- <p>{{ (list.description.length>100)? (list.description | slice:0:130)+'..':(list.description) }}</p> -->
+  
+                  </div>
+                </a>
+                <div class="card-footer d-flex justify-content-around">
+                  <small class="text-muted"><img src="https://img.icons8.com/fluency/344/order-delivered.png" width="20"
+                      alt=""> {{this.haversineDistanceResultForWanted[ind]}} KM</small>
+  
+                  <small class="text-muted">{{ list.updatedAt | date }}</small>
+                  <small> <img src="https://img.icons8.com/color/344/filled-like.png" width="20" alt="">
+                    {{this.countLikesListingForWanted[ind]}} Liked</small>
+                </div>
+              </div>
+  
+  
+            </div>
+  
+          </div>
+          </div>
+      
       </div>
     </div>
+    <ng-template #noListing>
+
+      <div class="row d-flex justify-content-center">
+        <div class="col-lg-10 text-center">
+          <img
+            src="https://images.squarespace-cdn.com/content/v1/5bedad7c3c3a53457fb01d75/1548006826710-FT0AGR9DF8CPN6NZGEBG/Screen+Shot+2019-01-20+at+17.52.20.png?format=750w"
+            width="300" alt="">
+          <h4>Awww.. We are sorry</h4>
+          <h5>No Listings found near by</h5>
+        </div>
+      </div>
+    </ng-template>
   </div>
 
 </section>

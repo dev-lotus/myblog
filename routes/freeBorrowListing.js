@@ -42,6 +42,35 @@ router.get('/get/listingId/:listId/:userToken', async (req, res) => {
     }
 });
 
+router.get('/get/listings/nearBy/:lng/:lat', async (req, res) => {
+    try {
+
+        const longitude = Number(req.params.lng);
+        const latitude = Number(req.params.lat);
+        const find_nearBy = await FreeBorrow.find({
+            location: {
+                $near: {
+                    $geometry: {
+                        type: "Point",
+                        coordinates: [
+                            longitude,
+                            latitude
+                        ]
+                    },
+
+                    $maxDistance: 25000,
+
+                }
+            }
+        })
+
+
+        res.status(200).json(find_nearBy);
+    } catch (err) {
+        res.status(502).send('Error ' + err);
+    }
+})
+
 // ADD FREE BORROW
 router.post('/add', async (req, res) => {
 
@@ -71,7 +100,7 @@ router.post('/add', async (req, res) => {
 
 router.put('/update/:listId/:userToken', async (req, res) => {
     try {
-        const freeBorrow = await  FreeBorrow.findOne({
+        const freeBorrow = await FreeBorrow.findOne({
             _id: req.params.listId,
             userToken: req.params.userToken
         });
@@ -94,21 +123,21 @@ router.put('/update/:listId/:userToken', async (req, res) => {
 });
 
 //  UPDATE FREE LISTING  PICTURE
-router.patch('/update/freeBorrowPicture/:listId/:userToken', async(req, res)=>{
-    try{
+router.patch('/update/freeBorrowPicture/:listId/:userToken', async (req, res) => {
+    try {
         const freeBorrowList = await FreeBorrow.find({
-            _id:req.params.listId,
-            userToken:req.params.userToken
+            _id: req.params.listId,
+            userToken: req.params.userToken
         });
-        freeBorrowList.picture =req.body.picture;      
+        freeBorrowList.picture = req.body.picture;
         const l1 = await freeBorrowList.save();
-        
+
         res.status(200).json(true);
-    
-    }catch (err) {
+
+    } catch (err) {
         res.status(502).send('Error ' + err);
     }
-       
+
 });
 
 // ON HOLD
@@ -199,24 +228,24 @@ router.patch('/update/removeLike/:listId', async (req, res) => {
 });
 
 // DELETE FREE LISTING 
-router.delete('/delete/:listId/:userToken', async(req,res)=>{
-    try{
+router.delete('/delete/:listId/:userToken', async (req, res) => {
+    try {
         const freeBorrowList = await FreeBorrow.findOne({
-            _id:req.params.listId,
-            userToken:req.params.userToken
+            _id: req.params.listId,
+            userToken: req.params.userToken
         });
 
         const requestOne = await Request.findOne({
             listId: req.params.listId,
-            listedUserToken:req.params.userToken
+            listedUserToken: req.params.userToken
         });
 
         const f1 = await freeBorrowList.remove();
         const r1 = await requestOne.remove();
         res.status(200).json(true);
-    
-    }catch(err){
-        res.status(200).json('Error '+ err);
+
+    } catch (err) {
+        res.status(200).json('Error ' + err);
     }
 })
 

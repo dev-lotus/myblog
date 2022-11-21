@@ -25,6 +25,10 @@ export class FreeWantedServiceService {
     return this.http.get<FreeWanted[]>(this.freeWanted_api_url + "/get/listingId/" + listId + "/"+userToken).pipe(catchError(this.errorHandler));
   }
 
+  getAllFreeWantedNearBy(lng: number, lat: number): Observable<FreeWanted[]> {
+    return this.http.get<FreeWanted[]>(this.freeWanted_api_url + "/get/listings/nearBy/"  + lng + "/"+lat).pipe(catchError(this.errorHandler));
+  }
+
   addFreeWantedListingData(userToken:string, listingPicture:any[], title:string, description:string, pickUpTime:string,listFor:number, lng: number, lat: number): Observable<boolean> {
     return this.http.post<boolean>(this.freeWanted_api_url + "/add/", {
       userToken:userToken,

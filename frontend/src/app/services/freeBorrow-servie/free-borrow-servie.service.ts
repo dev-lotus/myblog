@@ -24,6 +24,10 @@ export class FreeBorrowServieService {
     return this.http.get<FreeBorrow[]>(this.freeBorrow_api_url + "/get/listingId/" + listId + "/"+userToken).pipe(catchError(this.errorHandler));
   }
 
+  getAllFreeBorrowNearBy(lng: number, lat: number): Observable<FreeBorrow[]> {
+    return this.http.get<FreeBorrow[]>(this.freeBorrow_api_url + "/get/listings/nearBy/"  + lng + "/"+lat).pipe(catchError(this.errorHandler));
+  }
+
   addFreeBorrowListingData(userToken:string, listingPicture:any[], title:string, description:string, lendingInfo:string,listFor:number, lng: number, lat: number): Observable<boolean> {
     return this.http.post<boolean>(this.freeBorrow_api_url + "/add/", {
       userToken:userToken,
