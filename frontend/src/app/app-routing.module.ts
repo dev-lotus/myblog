@@ -7,6 +7,7 @@ import { EditFreeBorrowComponent } from './components/edit-free-borrow/edit-free
 import { EditFreeListingComponent } from './components/edit-free-listing/edit-free-listing.component';
 import { EditFreeWantedComponent } from './components/edit-free-wanted/edit-free-wanted.component';
 import { HomeComponent } from './components/home/home.component';
+import { KarmaPointsComponent } from './components/karma-points/karma-points.component';
 import { ListingDetailsComponent } from './components/listing-details/listing-details.component';
 import { ListingComponent } from './components/listing/listing.component';
 import { LoginComponent } from './components/login/login.component';
@@ -33,7 +34,8 @@ const routes: Routes = [
   {path:'free/add-borrow', component:AddBorrowListingComponent, canActivate:[AuthGuardService]},
   {path:'free/add-wanted', component:AddWantedListingComponent, canActivate:[AuthGuardService]},
   {path:'my-location', component:MyLocationComponent, canActivate:[AuthGuardService]},
-  {path:'my-listing', component:MyListingComponent, canActivate:[AuthGuardService]}
+  {path:'my-listing', component:MyListingComponent, canActivate:[AuthGuardService]},
+  {path:'karma-points', component:KarmaPointsComponent, canActivate:[AuthGuardService]}
 
 
 ];

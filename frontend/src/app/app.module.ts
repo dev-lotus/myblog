@@ -33,6 +33,7 @@ import { MyListingComponent } from './components/my-listing/my-listing.component
 import { EditFreeBorrowComponent } from './components/edit-free-borrow/edit-free-borrow.component';
 import { EditFreeWantedComponent } from './components/edit-free-wanted/edit-free-wanted.component';
 import { DatePipe } from '@angular/common';
+import { KarmaPointsComponent } from './components/karma-points/karma-points.component';
 
 
 const CLIENT_ID = "39639459278-dgjd1pif6o14m1c1le0hsi3244ml1bjr.apps.googleusercontent.com";
@@ -54,7 +55,8 @@ const CLIENT_ID = "39639459278-dgjd1pif6o14m1c1le0hsi3244ml1bjr.apps.googleuserc
     EditFreeListingComponent,
     MyListingComponent,
     EditFreeBorrowComponent,
-    EditFreeWantedComponent
+    EditFreeWantedComponent,
+    KarmaPointsComponent
   ],
   imports: [
     BrowserModule,

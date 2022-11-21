@@ -1,15 +1,41 @@
 <app-navbar></app-navbar>
 
 <section class="container">
-    <div class="p-4 p-md-5 mb-4 mt-2 text-dark rounded home-first-intro shadow bg-body rounded">
-        <div class="col-md-7 col-sm-12 px-0 ">
-          <h1 class="fw-1">Join the #1 free sharing app</h1>
-          <p class="lead mt-3">Join millions of neighbours all over the world to share more, care more and waste less.
+  <div class="p-4 p-md-5 mb-4 mt-2 text-dark rounded home-first-intro shadow bg-body rounded">
+    <div class="col-md-10 col-sm-12 px-0 ">
+      <h1 class="fw-1">Join the #1 free sharing app</h1>
+      <p class="lead mt-3">Join millions of neighbours all over the world to share more, care more and waste less.
 
-            Give & get free stuff and borrow & lend household items – all directly from your community.</p>
+        Give & get free stuff and borrow & lend household items – all directly from your community.</p>
 
-            <p  class="lead"> Fight waste. Help your neighbours. Save our planet. Feel amazing!</p>
-          <a href="listing" class="btn btn-dark lead mb-0 mt-3  btn-lg">Get Started Now</a>
-        </div>
-      </div>
+      <p class="lead"> Fight waste. Help your neighbours. Save our planet. Feel amazing!</p>
+      <a href="map" class="btn btn-dark lead mb-0 mt-3  btn-lg">Get Started Now</a>
+    </div>
+  </div>
 </section>
+
+<div class="container overflow-hidden karmaWinner">
+  <div class="row g-2">
+    <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+     <div class="px-lg-5 px-md-4 px-3 py-5 border bg-dark text-white">
+      <div class="row ">
+        <div class="col-lg-4 col-md-12 col-12 d-flex justify-content-center">
+          <img src="https://img.icons8.com/color/512/medieval-crown.png" id="img1" width="80" alt="">
+          <img src="{{this.user[0].profilePicture}}" width="150" id="img2" alt="">
+          </div>
+          <div class="col-lg-8 col-md-12 col-sm-12 col-12 my-auto mx-auto text-center pt-lg-0 pt-md-3 pt-3">
+            <h1 class="fs-1">Hall Of Fame</h1>
+            <p class="fs-5">Highest Karma Point Winner</p>
+            <p class="fs-5">{{this.user[0].rewardPoints}} Points</p>
+          </div>
+       </div>
+     </div>
+    </div>
+    <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+      <div class="px-lg-5 px-md-4 px-3 py-5  border bg-light">
+         <p class="fs-5">Give & get free stuff and borrow & lend household items – all directly from your community. Fight waste. Help your neighbours. Save our planet. Feel amazing!</p>
+        <a href="karma-points" class="btn btn-dark lead ">My Karma Points</a>
+      </div>
+    </div>
+  </div>
+</div>

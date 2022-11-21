@@ -26,6 +26,10 @@ export class UserServiceService {
     return this.http.get<any>(this.user_api_url + "/getMyLocation/" + userToken).pipe(catchError(this.errorHandler));
   }
 
+  getHighestRewardPointMember():Observable<User[]> {
+    return this.http.get<User[]>(this.user_api_url + "/getHighestRewardPointMember").pipe(catchError(this.errorHandler));
+  }
+
   updateUserLocation(userToken: string, lng: number, lat: number): Observable<boolean> {
     return this.http.patch<boolean>(this.user_api_url + "/updateMyLocation/" + userToken, {
       lng: lng,
@@ -36,6 +40,12 @@ export class UserServiceService {
   updateUserProfilePicture(userToken: string, profilePicture: string): Observable<boolean> {
     return this.http.patch<boolean>(this.user_api_url + "/updateMyProfilePicture/" + userToken, {
       profilePicture: profilePicture
+    }).pipe(catchError(this.errorHandler));
+  }
+
+  updateUserRewardPoints(userToken: string, rewardPoints: number): Observable<boolean> {
+    return this.http.put<boolean>(this.user_api_url + "/updateRewardPoints/" + userToken, {
+      rewardPoints: rewardPoints
     }).pipe(catchError(this.errorHandler));
   }
 

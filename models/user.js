@@ -42,6 +42,11 @@ const userSchema = new mongoose.Schema({
         type:Object,
         required:false,
         default:{"lng":0, "lat":0}
+    },
+    rewardPoints:{
+        type:Number,
+        required:false,
+        default:0
     }
 }, { versionKey: false })
 

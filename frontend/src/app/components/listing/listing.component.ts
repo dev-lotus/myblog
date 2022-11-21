@@ -94,7 +94,8 @@ export class ListingComponent implements OnInit {
         "lng": 88.48699665399437,
         "lat": 23.412221981538707
 
-      }
+      },
+      rewardPoints:0
     }
   ];
   userBorrow: User[] = [
@@ -112,7 +113,8 @@ export class ListingComponent implements OnInit {
         "lng": 88.48699665399437,
         "lat": 23.412221981538707
 
-      }
+      },
+      rewardPoints:0
     }
   ];
   userWanted: User[] = [
@@ -130,7 +132,8 @@ export class ListingComponent implements OnInit {
         "lng": 88.48699665399437,
         "lat": 23.412221981538707
 
-      }
+      },
+      rewardPoints:0
     }
   ];
   userData: any[] = [];

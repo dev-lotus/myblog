@@ -2,6 +2,7 @@ import { NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+
 import { NgToastService } from 'ng-angular-popup';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { FreeListing } from 'src/app/interface/freeListing';
@@ -25,7 +26,7 @@ export class RequestComponent implements OnInit {
     {
       _id: "",
       listId: "",
-      listType:"",
+      listType: "",
       listedUserToken: "",
       requesterUserToken: "",
       request_message: "",
@@ -50,7 +51,8 @@ export class RequestComponent implements OnInit {
         "lng": 88.48699665399437,
         "lat": 23.412221981538707
 
-      }
+      },
+      rewardPoints: 0
     }
   ];
 
@@ -60,7 +62,7 @@ export class RequestComponent implements OnInit {
     {
       "_id": "",
       "listId": "",
-      "listType":"",
+      "listType": "",
       "listedUserToken": "",
       "requesterUserToken": "",
       "request_message": "",
@@ -85,7 +87,8 @@ export class RequestComponent implements OnInit {
         "lng": 88.48699665399437,
         "lat": 23.412221981538707
 
-      }
+      },
+      rewardPoints: 0
     }
   ];
 
@@ -123,9 +126,8 @@ export class RequestComponent implements OnInit {
           this.request = res;
           console.log(this.request);
 
-          for (var i = 0; i < this.request.length; i++) { 
-            if(this.request[i].listType == 'listing')
-            {
+          for (var i = 0; i < this.request.length; i++) {
+            if (this.request[i].listType == 'listing') {
               this._freeList.getFreeListingDataById(this.request[i].listId, this.request[i].listedUserToken).subscribe(
                 res => {
                   setTimeout(() => {
@@ -135,9 +137,9 @@ export class RequestComponent implements OnInit {
                   this.freeListing = res;
                   this.freeListingData.push(this.freeListing);
                   this.haversineDistanceResult.push(this.calcCrow(this.currentUserLat, this.currentUserLng, this.freeListing[0].location.lat, this.freeListing[0].location.lng).toFixed(1));
-  
+
                   console.log(this.freeListing);
-  
+
                 }, err => {
                   setTimeout(() => {
                     /** spinner ends after 5 seconds */
@@ -147,10 +149,9 @@ export class RequestComponent implements OnInit {
                   this.errMsg = err;
                   console.log(this.errMsg)
                 }, () => console.log("Get ALL FREE LIST Method excuted successfully"));
-  
+
             }
-            else if(this.request[i].listType == 'borrow')
-            {
+            else if (this.request[i].listType == 'borrow') {
               this._freeBorrow.getFreeBorrowListingDataById(this.request[i].listId, this.request[i].listedUserToken).subscribe(
                 res => {
                   setTimeout(() => {
@@ -160,9 +161,9 @@ export class RequestComponent implements OnInit {
                   this.freeListing = res;
                   this.freeListingData.push(this.freeListing);
                   this.haversineDistanceResult.push(this.calcCrow(this.currentUserLat, this.currentUserLng, this.freeListing[0].location.lat, this.freeListing[0].location.lng).toFixed(1));
-  
+
                   console.log(this.freeListing);
-  
+
                 }, err => {
                   setTimeout(() => {
                     /** spinner ends after 5 seconds */
@@ -172,10 +173,9 @@ export class RequestComponent implements OnInit {
                   this.errMsg = err;
                   console.log(this.errMsg)
                 }, () => console.log("Get ALL FREE LIST Method excuted successfully"));
-  
+
             }
-            else if(this.request[i].listType == 'wanted')
-            {
+            else if (this.request[i].listType == 'wanted') {
               this._freeWanted.getFreeWantedListingDataById(this.request[i].listId, this.request[i].listedUserToken).subscribe(
                 res => {
                   setTimeout(() => {
@@ -185,9 +185,9 @@ export class RequestComponent implements OnInit {
                   this.freeListing = res;
                   this.freeListingData.push(this.freeListing);
                   this.haversineDistanceResult.push(this.calcCrow(this.currentUserLat, this.currentUserLng, this.freeListing[0].location.lat, this.freeListing[0].location.lng).toFixed(1));
-  
+
                   console.log(this.freeListing);
-  
+
                 }, err => {
                   setTimeout(() => {
                     /** spinner ends after 5 seconds */
@@ -197,9 +197,9 @@ export class RequestComponent implements OnInit {
                   this.errMsg = err;
                   console.log(this.errMsg)
                 }, () => console.log("Get ALL FREE LIST Method excuted successfully"));
-  
+
             }
-            
+
           }
 
           for (var i = 0; i < this.request.length; i++) {
@@ -258,14 +258,13 @@ export class RequestComponent implements OnInit {
         }, 1000);
         console.log("req res " + res);
         console.log(this.requestReceivedRequest);
-        if (res[0]._id !='') {
+        if (res[0]._id != '') {
           this.requestReceivedRequest = res;
           console.log(this.requestReceivedRequest);
 
-         
+
           for (var i = 0; i < this.requestReceivedRequest.length; i++) {
-            if(this.requestReceivedRequest[i].listType == 'listing' )
-            {
+            if (this.requestReceivedRequest[i].listType == 'listing') {
               this._freeList.getFreeListingDataById(this.requestReceivedRequest[i].listId, this.requestReceivedRequest[i].listedUserToken).subscribe(
                 res => {
                   setTimeout(() => {
@@ -276,10 +275,10 @@ export class RequestComponent implements OnInit {
                   console.log("res " + res);
                   this.receivedRequesfreeListingData.push(this.freeListingReceivedRequest);
                   this.haversineDistanceResultReceivedRequest.push(this.calcCrow(this.currentUserLat, this.currentUserLng, this.freeListingReceivedRequest[0].location.lat, this.freeListingReceivedRequest[0].location.lng).toFixed(1));
-  
+
                   console.log(this.freeListingReceivedRequest);
                   console.log(this.receivedRequesfreeListingData);
-  
+
                 }, err => {
                   setTimeout(() => {
                     /** spinner ends after 5 seconds */
@@ -289,10 +288,9 @@ export class RequestComponent implements OnInit {
                   this.errMsg = err;
                   console.log(this.errMsg)
                 }, () => console.log("Get ALL FREE LIST Method excuted successfully"));
-  
+
             }
-            else if(this.requestReceivedRequest[i].listType == 'borrow' )
-            {
+            else if (this.requestReceivedRequest[i].listType == 'borrow') {
               this._freeBorrow.getFreeBorrowListingDataById(this.requestReceivedRequest[i].listId, this.requestReceivedRequest[i].listedUserToken).subscribe(
                 res => {
                   setTimeout(() => {
@@ -303,10 +301,10 @@ export class RequestComponent implements OnInit {
                   console.log("res " + res);
                   this.receivedRequesfreeListingData.push(this.freeListingReceivedRequest);
                   this.haversineDistanceResultReceivedRequest.push(this.calcCrow(this.currentUserLat, this.currentUserLng, this.freeListingReceivedRequest[0].location.lat, this.freeListingReceivedRequest[0].location.lng).toFixed(1));
-  
+
                   console.log(this.freeListingReceivedRequest);
                   console.log(this.receivedRequesfreeListingData);
-  
+
                 }, err => {
                   setTimeout(() => {
                     /** spinner ends after 5 seconds */
@@ -316,10 +314,9 @@ export class RequestComponent implements OnInit {
                   this.errMsg = err;
                   console.log(this.errMsg)
                 }, () => console.log("Get ALL FREE LIST Method excuted successfully"));
-  
+
             }
-            else if(this.requestReceivedRequest[i].listType == 'wanted' )
-            {
+            else if (this.requestReceivedRequest[i].listType == 'wanted') {
               this._freeWanted.getFreeWantedListingDataById(this.requestReceivedRequest[i].listId, this.requestReceivedRequest[i].listedUserToken).subscribe(
                 res => {
                   setTimeout(() => {
@@ -330,10 +327,10 @@ export class RequestComponent implements OnInit {
                   console.log("res " + res);
                   this.receivedRequesfreeListingData.push(this.freeListingReceivedRequest);
                   this.haversineDistanceResultReceivedRequest.push(this.calcCrow(this.currentUserLat, this.currentUserLng, this.freeListingReceivedRequest[0].location.lat, this.freeListingReceivedRequest[0].location.lng).toFixed(1));
-  
+
                   console.log(this.freeListingReceivedRequest);
                   console.log(this.receivedRequesfreeListingData);
-  
+
                 }, err => {
                   setTimeout(() => {
                     /** spinner ends after 5 seconds */
@@ -343,9 +340,9 @@ export class RequestComponent implements OnInit {
                   this.errMsg = err;
                   console.log(this.errMsg)
                 }, () => console.log("Get ALL FREE LIST Method excuted successfully"));
-  
+
             }
-           
+
           }
 
 
@@ -406,11 +403,11 @@ export class RequestComponent implements OnInit {
 
           }
         }
-        else{
-          this.requestReceivedRequest.splice(0,res.length);
-       this.freeListingReceivedRequest.splice(0,res.length);
-       this.receivedRequesfreeListingData.splice(0,res.length);
-       this.userReceivedRequest.splice(0,res.length);
+        else {
+          this.requestReceivedRequest.splice(0, res.length);
+          this.freeListingReceivedRequest.splice(0, res.length);
+          this.receivedRequesfreeListingData.splice(0, res.length);
+          this.userReceivedRequest.splice(0, res.length);
         }
 
       }, err => {
@@ -495,9 +492,117 @@ export class RequestComponent implements OnInit {
     )
   }
 
-  acceptanceUpdate(request_id: any,listId:any, acceptance_status:string, listType:string) {
+  acceptanceUpdate(request_id: any, listId: any, acceptance_status: string, listType: string, listed_UserToken: string, requester_UserToken: string) {
     this.spinner.show();
     // var acceptance_status = "accepted";
+    if (acceptance_status == "delivered" && listType == "listing") {
+      this._userService.updateUserRewardPoints(listed_UserToken, 50).subscribe(
+        res => {
+          setTimeout(() => {
+            this.spinner.hide();
+          }, 1000);
+          this.status = res;
+        },
+        err => {
+
+        }
+      );
+      this._userService.updateUserRewardPoints(requester_UserToken, 30).subscribe(
+        res => {
+          setTimeout(() => {
+            this.spinner.hide();
+          }, 1000);
+          this.status = res;
+          if (this.status == true) {
+            this._toast.success({ detail: "CONGRATS", summary: 'Karma Points added', position: 'br' });
+          }
+          else {
+            this._toast.warning({ detail: "FAILED", summary: 'Unable to add karma points', position: 'br' });
+          }
+        },
+        err => {
+          setTimeout(() => {
+                  /** spinner ends after 5 seconds */
+                  this.spinner.hide();
+                }, 1000);
+                this.errMsg = err;
+                this._toast.warning({ detail: "FAILED", summary: 'Please try after sometime', position: 'br' });
+        
+        }
+      );
+    }
+    else if (acceptance_status == "delivered" && listType == "borrow") {
+      this._userService.updateUserRewardPoints(listed_UserToken, 50).subscribe(
+        res => {
+          setTimeout(() => {
+            this.spinner.hide();
+          }, 1000);
+          this.status = res;
+        },
+        err => {
+          this._toast.warning({ detail: "FAILED", summary: 'Unable to add karma points', position: 'br' });
+        }
+      );
+      this._userService.updateUserRewardPoints(requester_UserToken, 30).subscribe(
+        res => {
+          setTimeout(() => {
+            this.spinner.hide();
+          }, 1000);
+          this.status = res;
+          if (this.status == true) {
+            this._toast.success({ detail: "CONGRATS", summary: 'Karma Points added', position: 'br' });
+          }
+          else {
+            this._toast.warning({ detail: "FAILED", summary: 'Unable to add karma points', position: 'br' });
+          }
+        },
+        err => {
+          setTimeout(() => {
+                  /** spinner ends after 5 seconds */
+                  this.spinner.hide();
+                }, 1000);
+                this.errMsg = err;
+                this._toast.warning({ detail: "FAILED", summary: 'Please try after sometime', position: 'br' });
+        
+        }
+      );
+    }
+    else if (acceptance_status == "delivered" && listType == "wanted") {
+      this._userService.updateUserRewardPoints(listed_UserToken, 50).subscribe(
+        res => {
+          setTimeout(() => {
+            this.spinner.hide();
+          }, 1000);
+          this.status = res;
+        },
+        err => {
+          this._toast.warning({ detail: "FAILED", summary: 'Unable to add karma points', position: 'br' });
+        }
+      );
+      this._userService.updateUserRewardPoints(requester_UserToken, 30).subscribe(
+        res => {
+          setTimeout(() => {
+            this.spinner.hide();
+          }, 1000);
+          this.status = res;
+          if (this.status == true) {
+            this._toast.success({ detail: "CONGRATS", summary: 'Karma Points added', position: 'br' });
+          }
+          else {
+            this._toast.warning({ detail: "FAILED", summary: 'Unable to add karma points', position: 'br' });
+          }
+        },
+        err => {
+          setTimeout(() => {
+                  /** spinner ends after 5 seconds */
+                  this.spinner.hide();
+                }, 1000);
+                this.errMsg = err;
+                this._toast.warning({ detail: "FAILED", summary: 'Please try after sometime', position: 'br' });
+        
+        }
+      );
+    }
     this._request.updateAcceptanceStatus(String(request_id),String(listId), acceptance_status, listType).subscribe(
       res => {
         setTimeout(() => {
@@ -534,11 +639,10 @@ export class RequestComponent implements OnInit {
       () => console.log("ACCEPTANCE STATUS FUNCTION  successfully")
     )
   }
- 
-  onHoldStatus(listId: any, onHoldStatus:boolean, listType:string) {
+
+  onHoldStatus(listId: any, onHoldStatus: boolean, listType: string) {
     this.spinner.show();
-    if(listType == 'listing')
-    {
+    if (listType == 'listing') {
       this._freeList.updateOnHoldStatus(String(listId), onHoldStatus).subscribe(
         res => {
           setTimeout(() => {
@@ -559,9 +663,9 @@ export class RequestComponent implements OnInit {
           }
           else {
             this._toast.warning({ detail: "FAILED", summary: 'Unable to update the status', position: 'br' });
-  
+
           }
-  
+
         },
         err => {
           setTimeout(() => {
@@ -570,13 +674,12 @@ export class RequestComponent implements OnInit {
           }, 1000);
           this.errMsg = err;
           this._toast.warning({ detail: "FAILED", summary: 'Please try after sometime', position: 'br' });
-  
+
         },
         () => console.log("ON HOLD STATUS FUNCTION  successfully")
       )
     }
-    else if(listType == 'borrow')
-    {
+    else if (listType == 'borrow') {
       this._freeBorrow.updateOnHoldStatus(String(listId), onHoldStatus).subscribe(
         res => {
           setTimeout(() => {
@@ -597,9 +700,9 @@ export class RequestComponent implements OnInit {
           }
           else {
             this._toast.warning({ detail: "FAILED", summary: 'Unable to update the status', position: 'br' });
-  
+
           }
-  
+
         },
         err => {
           setTimeout(() => {
@@ -608,13 +711,12 @@ export class RequestComponent implements OnInit {
           }, 1000);
           this.errMsg = err;
           this._toast.warning({ detail: "FAILED", summary: 'Please try after sometime', position: 'br' });
-  
+
         },
         () => console.log("ON HOLD STATUS FUNCTION  successfully")
       )
     }
-    else if(listType == 'wanted')
-    {
+    else if (listType == 'wanted') {
       this._freeWanted.updateOnHoldStatus(String(listId), onHoldStatus).subscribe(
         res => {
           setTimeout(() => {
@@ -635,9 +737,9 @@ export class RequestComponent implements OnInit {
           }
           else {
             this._toast.warning({ detail: "FAILED", summary: 'Unable to update the status', position: 'br' });
-  
+
           }
-  
+
         },
         err => {
           setTimeout(() => {
@@ -646,11 +748,11 @@ export class RequestComponent implements OnInit {
           }, 1000);
           this.errMsg = err;
           this._toast.warning({ detail: "FAILED", summary: 'Please try after sometime', position: 'br' });
-  
+
         },
         () => console.log("ON HOLD STATUS FUNCTION  successfully")
       )
     }
-    
+
   }
 }

@@ -27,8 +27,9 @@ export class SettingsComponent implements OnInit {
       myLocation: {
         "lng": 88.48699665399437,
         "lat": 23.412221981538707
-  
-  }
+       
+  },
+  rewardPoints:0
     }
   ];
 

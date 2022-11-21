@@ -88,6 +88,25 @@ router.put('/updateUserData/:id', async(req, res)=>{
        
 });
 
+//  UPDATE REWARD POINTS
+router.put('/updateRewardPoints/:id', async(req, res)=>{
+    try{
+        const user = await User.findById(req.params.id);
+        user.rewardPoints +=req.body.rewardPoints;   
+       
+        const u1 = await user.save();
+        
+        res.status(200).json(true);
+    
+    }catch (err) {
+        res.status(502).send('Error ' + err);
+    }
+       
+});
+
+
+
+
 //  GET USER LOCATION
 router.get('/getMyLocation/:id', async(req, res)=>{
     try{
@@ -121,6 +140,18 @@ router.get('/getUserDataById/:id', async (req, res) => {
     }
 })
 
+// HIGHEST REWARD POINT
+
+router.get("/getHighestRewardPointMember", async(req,res)=>{
+    try{
+        const user = await User.find({}).sort({rewardPoints:-1}).limit(1);
+        res.json(user);
+
+    }catch(err)
+    {
+        res.status(502).send('Error ' + err);
+    }
+})
 
 // GET USER BY ID
 router.get('/:id', async (req, res) => {

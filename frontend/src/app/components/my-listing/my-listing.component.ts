@@ -94,7 +94,8 @@ export class MyListingComponent implements OnInit {
         "lng": 88.48699665399437,
         "lat": 23.412221981538707
 
-      }
+      },
+      rewardPoints:0
     }
   ];
   errMsg: any;

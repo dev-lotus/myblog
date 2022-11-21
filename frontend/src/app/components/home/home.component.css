@@ -3,3 +3,13 @@
     background-size: cover;
     background-repeat: no-repeat;
     }
+
+    .karmaWinner {
+        position: relative;
+    }
+    
+    
+    .karmaWinner #img1{
+        position: absolute;
+        top: 3px;
+    }

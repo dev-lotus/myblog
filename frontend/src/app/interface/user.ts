@@ -8,7 +8,8 @@ export interface User {
     aboutYou: string,
     likes: any[],
     dislikes: any[],
-    myLocation: MyLocation
+    myLocation: MyLocation,
+    rewardPoints: number
   }
   
   export interface MyLocation {

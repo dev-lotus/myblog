@@ -203,7 +203,7 @@
 
                         <div *ngIf="this.requestReceivedRequest[ind].acceptance_status == 'pending'">
                           <button type="button" class="btn btn-success" style="margin-right: 4px;"
-                            (click)="acceptanceUpdate(this.requestReceivedRequest[ind]._id,this.receivedRequesfreeListingData[ind][0]._id,'accepted', this.requestReceivedRequest[ind].listType)"><i
+                            (click)="acceptanceUpdate(this.requestReceivedRequest[ind]._id,this.receivedRequesfreeListingData[ind][0]._id,'accepted', this.requestReceivedRequest[ind].listType,this.requestReceivedRequest[ind].listedUserToken, this.requestReceivedRequest[ind].requesterUserToken)"><i
                               class="fa fa-check-circle" aria-hidden="true"></i></button>
                           <button type="button" class="btn btn-danger" style="margin-right: 4px;" data-bs-toggle="modal"
                             data-bs-target="#exampleModal" data-bs-whatever="@mdo"><i class="fa fa-window-close"
@@ -327,12 +327,12 @@
                       </ng-template>
                       <button class="btn btn-success" type="button"
                         [disabled]="requestReceivedRequest[ind].acceptance_status == 'delivered'"
-                        (click)="acceptanceUpdate(this.requestReceivedRequest[ind]._id,this.receivedRequesfreeListingData[ind][0]._id,'delivered', this.requestReceivedRequest[ind].listType)">Delivered</button>
+                        (click)="acceptanceUpdate(this.requestReceivedRequest[ind]._id,this.receivedRequesfreeListingData[ind][0]._id,'delivered', this.requestReceivedRequest[ind].listType, this.requestReceivedRequest[ind].listedUserToken, this.requestReceivedRequest[ind].requesterUserToken)">Delivered</button>
                     </div>
                     <div *ngIf="requestReceivedRequest[ind].acceptance_status == 'delivered'">
                       <button class="btn btn-success" type="button"
                       [disabled]="requestReceivedRequest[ind].acceptance_status == 'delivered'"
-                      (click)="acceptanceUpdate(this.requestReceivedRequest[ind]._id,this.receivedRequesfreeListingData[ind][0]._id,'delivered', this.requestReceivedRequest[ind].listType)">Delivered</button>
+                      (click)="acceptanceUpdate(this.requestReceivedRequest[ind]._id,this.receivedRequesfreeListingData[ind][0]._id,'delivered', this.requestReceivedRequest[ind].listType,this.requestReceivedRequest[ind].listedUserToken, this.requestReceivedRequest[ind].requesterUserToken)">Delivered</button>
                 
                     </div>
                   </div>
