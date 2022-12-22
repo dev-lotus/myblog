@@ -8,7 +8,9 @@ import { User } from 'src/app/interface/user';
 })
 export class UserServiceService {
 
-  private user_api_url: string = 'http://localhost:9000/user';
+  // private user_api_url: string = 'http://localhost:9000/user';
+  
+  private user_api_url: string = 'https://cerulean-piranha-tie.cyclic.app/user';
   constructor(private http: HttpClient) { }
 
   registerUser(firstName: string, lastName: string, emailAddress: string): Observable<any> {

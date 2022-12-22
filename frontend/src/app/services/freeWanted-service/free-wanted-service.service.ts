@@ -8,7 +8,9 @@ import { FreeWanted } from 'src/app/interface/freeWanted';
 })
 export class FreeWantedServiceService {
 
-  private freeWanted_api_url: string = "http://localhost:9000/user/listing/freeWanted";
+  // private freeWanted_api_url: string = "http://localhost:9000/user/listing/freeWanted";
+
+  private freeWanted_api_url: string = 'https://cerulean-piranha-tie.cyclic.app/user/listing/freeWanted';
   constructor(private http:HttpClient) { }
 
   
