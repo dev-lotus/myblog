@@ -8,8 +8,8 @@ import { FreeListing } from 'src/app/interface/freeListing';
   providedIn: 'root'
 })
 export class FreeListServiceService {
-  // private freeList_api_url: string = 'http://localhost:9000/user/listing';
-  private freeList_api_url: string = 'https://cerulean-piranha-tie.cyclic.app/user/listing';
+  private freeList_api_url: string = 'http://localhost:9000/user/listing';
+  // private freeList_api_url: string = 'https://cerulean-piranha-tie.cyclic.app/user/listing';
  
   constructor(private http: HttpClient) { }
 

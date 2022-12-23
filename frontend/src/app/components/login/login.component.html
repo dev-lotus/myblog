@@ -13,9 +13,10 @@
 
                     </div>
                     <div class="mt-4">
-                        <asl-google-signin-button *ngIf="!user" type='standard' size='medium' width="350"
-                            theme="filled_blue" class="mx-auto col-3"></asl-google-signin-button>
-
+                           <div *ngIf="user == null" >
+                                <button class="btn login-with-google-btn" (click)="signInWithGoogle()">Sign in with Google</button>
+                            </div>
+                           
                         <div *ngIf="user">
                             <button type="button" disabled="true" class="btn btn-success fs-5">Logging you in..</button>
                         </div>

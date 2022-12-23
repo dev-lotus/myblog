@@ -7,8 +7,8 @@ import { FreeBorrow } from 'src/app/interface/freeBorrow';
   providedIn: 'root'
 })
 export class FreeBorrowServieService {
-  // private freeBorrow_api_url: string = "http://localhost:9000/user/listing/freeBorrow";
-  private freeBorrow_api_url: string = "https://cerulean-piranha-tie.cyclic.app/user/listing/freeBorrow";
+  private freeBorrow_api_url: string = "http://localhost:9000/user/listing/freeBorrow";
+  // private freeBorrow_api_url: string = "https://cerulean-piranha-tie.cyclic.app/user/listing/freeBorrow";
 
   constructor(private http: HttpClient) { }
 

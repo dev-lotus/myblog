@@ -5,10 +5,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
-import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
-import {
-  GoogleLoginProvider
-} from '@abacritt/angularx-social-login';
+// import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+// import {
+//   GoogleLoginProvider
+// } from '@abacritt/angularx-social-login';
 import { HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ListingComponent } from './components/listing/listing.component';
@@ -35,8 +35,9 @@ import { EditFreeWantedComponent } from './components/edit-free-wanted/edit-free
 import { DatePipe } from '@angular/common';
 import { KarmaPointsComponent } from './components/karma-points/karma-points.component';
 
+import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from 'angularx-social-login';
 
-const CLIENT_ID = "39639459278-dgjd1pif6o14m1c1le0hsi3244ml1bjr.apps.googleusercontent.com";
+const CLIENT_ID ="1077908882481-2c2hgj56b5m9rkfoirtd56c0ln05ct48.apps.googleusercontent.com";
 @NgModule({
   declarations: [
     AppComponent,

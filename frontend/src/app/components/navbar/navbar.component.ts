@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { SocialAuthService } from 'angularx-social-login';
 
 @Component({
   selector: 'app-navbar',
@@ -10,7 +11,7 @@ export class NavbarComponent implements OnInit {
 
   currentUser: string = "";
   profilePicture: string = "";
-  constructor(private router: Router) { }
+  constructor(private router: Router,private authService: SocialAuthService) { }
 
   ngOnInit(): void {
     this.currentUser = String(localStorage.getItem("firstName")) ;
@@ -19,7 +20,7 @@ export class NavbarComponent implements OnInit {
 
   logoutUser()
   {
-  
+    this.authService.signOut(true);
     localStorage.clear();
     setTimeout(() => {
      

@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const cors = require('cors'); 
 const bodyParser = require('body-parser')
 const url = 'mongodb+srv://lotus:LGXXK274C2Nxq2OA@cluster0.lodfglu.mongodb.net/test'
+// const url = 'mongodb://localhost:27017/'
 
 // Initliaze express server 
 const app = express();app.use(cors());
@@ -17,11 +18,11 @@ con.on('open', () => {
     console.log('connected');
 })
 
-app.use('/', (req,res)=>{
-    res.json({
-     "status": "Live working fine !"
-    });
- });
+// app.use('/', (req,res)=>{
+//     res.json({
+//      "status": "Live working fine !"
+//     });
+//  });
 
 // Router 
 const userRouter = require('./routes/user');

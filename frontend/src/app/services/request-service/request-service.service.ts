@@ -7,8 +7,8 @@ import { Request } from 'src/app/interface/request';
   providedIn: 'root'
 })
 export class RequestServiceService {
-  // private request_api_url: string = 'http://localhost:9000/user/request';
-  private request_api_url: string = 'https://cerulean-piranha-tie.cyclic.app/user/request';
+  private request_api_url: string = 'http://localhost:9000/user/request';
+  // private request_api_url: string = 'https://cerulean-piranha-tie.cyclic.app/user/request';
   
 
   constructor(private http: HttpClient) { }
