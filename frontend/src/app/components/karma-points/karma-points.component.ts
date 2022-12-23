@@ -10,12 +10,11 @@ import { UserServiceService } from 'src/app/services/user-service/user-service.s
   styleUrls: ['./karma-points.component.css']
 })
 export class KarmaPointsComponent implements OnInit {
-  
   karmaPoints: number = 0;
-  level1Trophy: string = "https://img.icons8.com/nolan/512/FF8177/B12A5B/trophy.png";
-  level2Trophy: string = "https://img.icons8.com/nolan/512/ECC84E/45C595/trophy.png";
-  level3Trophy: string = "https://img.icons8.com/nolan/512/2AF598/009EFD/trophy.png";
-  level4Trophy: string = "https://img.icons8.com/nolan/512/D9E021/FB872B/trophy.png";
+  level1Trophy: string = "../../../assets/images/rewards/gettingStarted.png";
+  level2Trophy: string = "../../../assets/images/rewards/level1.png";
+  level3Trophy: string = "../../../assets/images/rewards/level2.png";
+  level4Trophy: string = "../../../assets/images/rewards/level3.png";
   currentTrophy: string = "";
   userToken!: string;
   status: any;
