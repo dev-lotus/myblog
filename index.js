@@ -2,7 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors'); 
 const bodyParser = require('body-parser')
-const url = 'mongodb+srv://lotus:LGXXK274C2Nxq2OA@cluster0.lodfglu.mongodb.net/test'
+const url = 'mongodb+srv://lotusbiswas:lotusbiswas@cluster0.1zfsoap.mongodb.net/test'
 // const url = 'mongodb://localhost:27017/'
 
 // Initliaze express server 
