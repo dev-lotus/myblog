@@ -2,8 +2,9 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors'); 
 const bodyParser = require('body-parser')
-const url = 'mongodb+srv://lotusbiswas:lotusbiswas@cluster0.1zfsoap.mongodb.net/test'
 // const url = 'mongodb://localhost:27017/'
+
+const port  = process.env.PORT || 9000;
 
 // Initliaze express server 
 const app = express();app.use(cors());
@@ -11,10 +12,14 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use(bodyParser.json())
 
-mongoose.connect(url, { useNewUrlParser: true })
-const con = mongoose.connection
+const url = 'mongodb+srv://lotusbiswas:lotusbiswas@cluster0.1zfsoap.mongodb.net/shareandcare'
 
-con.on('open', () => {
+mongoose.set('strictQuery', false);
+mongoose.connect(url, {useNewUrlParser: true})
+
+const con  = mongoose.connection
+
+con.on('open', ()=>{
     console.log('connected');
 })
 
@@ -38,6 +43,9 @@ app.use('/user/listing/freeBorrow', freeBorrowListing);
 app.use('/user/listing/freeWanted', freeWantedListing);
 
 
-app.listen(9000, () => {
-    console.log('Server is listening on port 9000')
+app.get('/',(req,res)=>{
+    res.send({status:"running"});
+})
+app.listen(port,()=>{
+    console.log( `App listing at ${port}`);
 })
