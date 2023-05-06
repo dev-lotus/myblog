@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use(bodyParser.json())
 
-const url = 'mongodb+srv://lotusbiswas:lotusbiswas@cluster0.1zfsoap.mongodb.net/shareandcare'
+const url = 'mongodb+srv://lotusbiswas:lotusbiswas@cluster0.1zfsoap.mongodb.net/test'
 
 mongoose.set('strictQuery', false);
 mongoose.connect(url, {useNewUrlParser: true})
