@@ -21,7 +21,9 @@
             "assets": [
               "src/favicon.ico",
               "src/assets"
-            ],
+            ],"allowedCommonJsDependencies": [
+              "mapbox-gl"
+          ],
             "styles": [
               "./node_modules/ngx-spinner/animations/ball-scale-multiple.css",
               "src/styles.css"   
