@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as mapboxgl from 'mapbox-gl';
 import { UserServiceService } from 'src/app/services/user-service/user-service.service';
-import { environment } from 'src/environments/environment';
 import { NgToastService } from 'ng-angular-popup';
 import { NgxSpinner, NgxSpinnerService } from 'ngx-spinner';
 
@@ -33,7 +32,7 @@ export class MyLocationComponent implements OnInit {
 
 
   constructor(private spinner: NgxSpinnerService,private _toast: NgToastService, private _userService: UserServiceService, private router: Router) {
-    (mapboxgl as any).accessToken = environment.mapbox.accessToken;
+    (mapboxgl as any).accessToken = "pk.eyJ1IjoibG90dXNiaXN3YXMiLCJhIjoiY2t5ZTd4ZnFjMDUycjJucG1vamhuMmFxbSJ9.iot_0EeUP_G4rtV33DV_QA";
     this.userToken = String(localStorage.getItem("userId"));
     this.latitude = Number(localStorage.getItem("myLocationLat"));
     this.longitude = Number(localStorage.getItem("myLocationLng"));

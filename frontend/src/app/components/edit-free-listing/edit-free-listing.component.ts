@@ -2,7 +2,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import * as mapboxgl from 'mapbox-gl';
-import { environment } from 'src/environments/environment';
 import { ImgbbUploadService } from 'src/app/services/imgbb-upload/imgbb-upload.service';
 import { NgToastService } from 'ng-angular-popup';
 import { NgxSpinner, NgxSpinnerService } from 'ngx-spinner';
@@ -79,7 +78,7 @@ export class EditFreeListingComponent implements OnInit {
   onClickLat !: number;
 
   constructor( private route: ActivatedRoute, private spinner: NgxSpinnerService, private _toast: NgToastService, private readonly ImgbbService: ImgbbUploadService, private _router: Router, private _freeList: FreeListServiceService) {
-    (mapboxgl as any).accessToken = environment.mapbox.accessToken;
+    (mapboxgl as any).accessToken = "pk.eyJ1IjoibG90dXNiaXN3YXMiLCJhIjoiY2t5ZTd4ZnFjMDUycjJucG1vamhuMmFxbSJ9.iot_0EeUP_G4rtV33DV_QA";
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     

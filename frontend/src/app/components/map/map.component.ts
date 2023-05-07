@@ -12,7 +12,6 @@ import { FreeBorrowServieService } from 'src/app/services/freeBorrow-servie/free
 import { FreeListServiceService } from 'src/app/services/freeList-service/free-list-service.service';
 import { FreeWantedServiceService } from 'src/app/services/freeWanted-service/free-wanted-service.service';
 import { UserServiceService } from 'src/app/services/user-service/user-service.service';
-import { environment } from 'src/environments/environment';
 import { DatePipe } from '@angular/common';
 
 @Component({
@@ -171,7 +170,7 @@ export class MapComponent implements OnInit {
   freeWantedMapDataObject: any[] = [];
 
   constructor(private datePipe: DatePipe, private spinner: NgxSpinnerService, private _toast: NgToastService, private _router: Router, private _userService: UserServiceService, private _freeList: FreeListServiceService, private _freeBorrow: FreeBorrowServieService, private _freeWanted: FreeWantedServiceService) {
-    (mapboxgl as any).accessToken = environment.mapbox.accessToken;
+    (mapboxgl as any).accessToken = "pk.eyJ1IjoibG90dXNiaXN3YXMiLCJhIjoiY2t5ZTd4ZnFjMDUycjJucG1vamhuMmFxbSJ9.iot_0EeUP_G4rtV33DV_QA";
     this.userToken = String(localStorage.getItem("userId"));
     this.currentUserLat = Number(localStorage.getItem("myLocationLat"));
     this.currentUserLng = Number(localStorage.getItem("myLocationLng"));

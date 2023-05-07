@@ -7,7 +7,6 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { FreeWanted } from 'src/app/interface/freeWanted';
 import { FreeWantedServiceService } from 'src/app/services/freeWanted-service/free-wanted-service.service';
 import { ImgbbUploadService } from 'src/app/services/imgbb-upload/imgbb-upload.service';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-edit-free-wanted',
@@ -75,7 +74,7 @@ export class EditFreeWantedComponent implements OnInit {
   onClickLng !: number;
   onClickLat !: number;
   constructor( private route: ActivatedRoute, private spinner: NgxSpinnerService, private _toast: NgToastService, private readonly ImgbbService: ImgbbUploadService, private _router: Router, private _freeWanted: FreeWantedServiceService) {
-    (mapboxgl as any).accessToken = environment.mapbox.accessToken;
+    (mapboxgl as any).accessToken = "pk.eyJ1IjoibG90dXNiaXN3YXMiLCJhIjoiY2t5ZTd4ZnFjMDUycjJucG1vamhuMmFxbSJ9.iot_0EeUP_G4rtV33DV_QA";
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     

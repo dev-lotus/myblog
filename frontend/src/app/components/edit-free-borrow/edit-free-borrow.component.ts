@@ -9,7 +9,6 @@ import { FreeListing } from 'src/app/interface/freeListing';
 import { FreeBorrowServieService } from 'src/app/services/freeBorrow-servie/free-borrow-servie.service';
 import { FreeListServiceService } from 'src/app/services/freeList-service/free-list-service.service';
 import { ImgbbUploadService } from 'src/app/services/imgbb-upload/imgbb-upload.service';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-edit-free-borrow',
@@ -77,7 +76,7 @@ export class EditFreeBorrowComponent implements OnInit {
   onClickLng !: number;
   onClickLat !: number;
   constructor( private route: ActivatedRoute, private spinner: NgxSpinnerService, private _toast: NgToastService, private readonly ImgbbService: ImgbbUploadService, private _router: Router, private _freeBorrow: FreeBorrowServieService) {
-    (mapboxgl as any).accessToken = environment.mapbox.accessToken;
+    (mapboxgl as any).accessToken = "pk.eyJ1IjoibG90dXNiaXN3YXMiLCJhIjoiY2t5ZTd4ZnFjMDUycjJucG1vamhuMmFxbSJ9.iot_0EeUP_G4rtV33DV_QA";
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     

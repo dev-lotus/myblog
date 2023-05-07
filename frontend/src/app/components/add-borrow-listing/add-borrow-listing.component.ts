@@ -7,7 +7,6 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { FreeBorrow } from 'src/app/interface/freeBorrow';
 import { FreeBorrowServieService } from 'src/app/services/freeBorrow-servie/free-borrow-servie.service';
 import { ImgbbUploadService } from 'src/app/services/imgbb-upload/imgbb-upload.service';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-add-borrow-listing',
@@ -69,7 +68,7 @@ export class AddBorrowListingComponent implements OnInit {
   onClickLat !: number;
   
   constructor(private router: Router, private route: ActivatedRoute, private spinner: NgxSpinnerService, private _toast: NgToastService, private readonly ImgbbService: ImgbbUploadService, private _router: Router, private _freeBorrow: FreeBorrowServieService) {
-    (mapboxgl as any).accessToken = environment.mapbox.accessToken;
+    (mapboxgl as any).accessToken = "pk.eyJ1IjoibG90dXNiaXN3YXMiLCJhIjoiY2t5ZTd4ZnFjMDUycjJucG1vamhuMmFxbSJ9.iot_0EeUP_G4rtV33DV_QA";
 
     this.userToken = String(localStorage.getItem("userId"));
     this.latitude = Number(localStorage.getItem("myLocationLat"));

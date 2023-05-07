@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
-import { environment } from 'src/environments/environment';
 
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
@@ -128,7 +127,7 @@ export class ListingDetailsComponent implements OnInit {
   currentUserLng!: number;
 
   constructor(private route: ActivatedRoute, private spinner: NgxSpinnerService, private _toast: NgToastService, private _router: Router, private _userService: UserServiceService, private _freeList: FreeListServiceService,private _requestService: RequestServiceService,private _freeBorrow: FreeBorrowServieService, private _freeWanted: FreeWantedServiceService) {
-    (mapboxgl as any).accessToken = environment.mapbox.accessToken;
+    (mapboxgl as any).accessToken = "pk.eyJ1IjoibG90dXNiaXN3YXMiLCJhIjoiY2t5ZTd4ZnFjMDUycjJucG1vamhuMmFxbSJ9.iot_0EeUP_G4rtV33DV_QA";
     this.userToken = String(localStorage.getItem("userId"));
     const routeParams = this.route.snapshot.paramMap;
     this.freeListId = String(routeParams.get('id'));
